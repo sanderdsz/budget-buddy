@@ -1,0 +1,37 @@
+.main {
+    --header-height: 4rem;
+}
+
+.header {
+    height: var(--header-height);
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__title[data-theme="light"] {
+    color: var(--red-03);
+}
+
+.header__title[data-theme="dark"] {
+    color: var(--red-03);
+}
+
+.header__title + span {
+    color: var(--cyan-03);
+    font-weight: 600;
+}
+
+.section {
+    min-height: calc(100vh - var(--header-height) - 1rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.section > span {
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+}
