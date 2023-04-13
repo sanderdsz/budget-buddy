@@ -1,0 +1,20 @@
+.theme-toggle[data-theme="light"] {
+    --color-theme-toggle: var(--white-01);
+}
+
+.theme-toggle[data-theme="dark"] {
+    --color-theme-toggle: var(--gray-05);
+}
+
+.theme-toggle {
+    width: 2rem;
+    height: 2rem;
+    background: var(--color-theme-toggle);
+    border: 2px solid var(--color-theme-toggle);
+    border-radius: 50%;
+    transition: background 0.25s ease-in-out;
+}
+
+.theme-toggle:hover {
+    background: var(--blue-01);
+}
