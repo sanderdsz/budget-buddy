@@ -1,2 +1,44 @@
 .button {
+    font-size: 1rem;
+    font-weight: 400;
+    border: 0;
+    border-radius: 5px;
+    transition: all .25s ease-in-out;
+}
+
+.button:hover {
+    filter: brightness(95%);
+}
+
+.small {
+    padding: .25rem .25rem;
+    font-size: .85rem;
+}
+
+.medium {
+    padding: .25rem .5rem;
+}
+
+.large {
+    padding: .5rem .75rem;
+    font-size: 1.25rem;
+}
+
+.primary {
+    background: var(--color-button-bg-primary);
+}
+
+.secondary {
+    background: var(--color-button-bg-secondary);
+}
+
+.outline {
+    background: none;
+    color: var(--color-button-font-outline);
+    border: 1px solid var(--color-button-border-outline);
+}
+
+.outline:hover {
+    color: var(--color-button-font-outline-hover);
+    border: 1px solid var(--color-button-border-outline-hover);
 }

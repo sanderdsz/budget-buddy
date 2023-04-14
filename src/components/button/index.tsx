@@ -1,11 +1,12 @@
-import { Rubik } from "@next/font/google";
+import React from "react";
+import { Rubik } from "next/font/google";
 
-interface ButtonProps {
-	color?: "primary" | "secondary" | "success" | "warning" | "danger";
+import styles from "./styles.module.css";
+
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>{
+	color?: "primary" | "secondary" | "outline" | "success" | "warning" | "danger";
 	size?: "small" | "medium" | "large";
 	label: string;
-	variant?: "rounded" | "outline" | "disabled";
-	textColor?: "font-light" | "font-dark";
 }
 
 const rubik = Rubik({ subsets: ["latin"] });
@@ -14,17 +15,14 @@ export const Button = ({
 	color = "primary",
 	size = "medium",
 	label,
-	textColor = "font-dark",
-	variant,
 	...props
 }: ButtonProps) => {
 	return (
 		<button
 			className={`
-				${color} 
-				${size} 
-				${textColor} 
-				${variant} 
+				${styles.button}
+				${styles[`${color}`]}
+				${styles[`${size}`]}
 				${rubik.className}
 			`}
 			{...props}

@@ -45,34 +45,59 @@
     --green-05: #577043;
 }
 
+/* Composed colors based on theme */
 [data-theme="light"] {
     /* background variables */
     --color-bg-primary: var(--white-01);
+    --color-bg-secondary: var(--white-04);
 
     /* font variables */
     --color-font-primary: var(--gray-05);
     --color-font-secondary: var(--blue-05);
+    --color-font-light: var(--white-03);
+    --color-font-dark: var(--gray-05);
 
     /* logo variables */
     --color-logo-primary: var(--blue-04);
     --color-logo-secondary: var(--gray-05);
+
+    /* button variables */
+    --color-button-bg-primary: var(--primary);
+    --color-button-bg-secondary: var(--white-05);
+    /* outline */
+    --color-button-border-outline: var(--gray-05);
+    --color-button-font-outline: var(--gray-05);
+    --color-button-border-outline-hover: var(--primary);
+    --color-button-font-outline-hover: var(--primary);
 }
 
 [data-theme="dark"] {
     /* background variables */
     --color-bg-primary: var(--gray-05);
+    --color-bg-secondary: var(--gray-02);
 
     /* font variables */
     --color-font-primary: var(--white-01);
     --color-font-secondary: var(--primary);
+    --color-font-light: var(--white-03);
+    --color-font-dark: var(--gray-05);
 
     /* logo variables */
     --color-logo-primary: var(--yellow-01);
     --color-logo-secondary: var(--white-02);
+
+    /* button variables */
+    --color-button-bg-primary: var(--primary);
+    --color-button-bg-secondary: var(--white-03);
+    /* outline */
+    --color-button-border-outline: var(--gray-02);
+    --color-button-font-outline: var(--white-03);
+    --color-button-border-outline-hover: var(--primary);
+    --color-button-font-outline-hover: var(--primary);
 }
 
 body {
     background: var(--color-bg-primary);
-    transition: all 0.25s ease-in-out;
+    transition: all 0.5s ease-in-out;
     color: var(--color-font-primary);
 }
