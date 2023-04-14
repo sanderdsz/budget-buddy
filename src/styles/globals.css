@@ -43,25 +43,27 @@
     --green-03: #7D9768;
     --green-04: #6A8455;
     --green-05: #577043;
+
+    --mobile-botton-navigation-height: 3rem;
 }
 
 /* Composed colors based on theme */
 [data-theme="light"] {
-    /* background variables */
+    /* backgrounds */
     --color-bg-primary: var(--white-01);
     --color-bg-secondary: var(--white-04);
 
-    /* font variables */
+    /* fonts */
     --color-font-primary: var(--gray-05);
     --color-font-secondary: var(--blue-05);
     --color-font-light: var(--white-03);
     --color-font-dark: var(--gray-05);
 
-    /* logo variables */
+    /* logos */
     --color-logo-primary: var(--blue-04);
     --color-logo-secondary: var(--gray-05);
 
-    /* button variables */
+    /* buttons */
     --color-button-bg-primary: var(--primary);
     --color-button-bg-secondary: var(--white-05);
     /* outline */
@@ -69,24 +71,29 @@
     --color-button-font-outline: var(--gray-05);
     --color-button-border-outline-hover: var(--primary);
     --color-button-font-outline-hover: var(--primary);
+
+    /* botton navigation */
+    --color-botton-nav-font-primary: var(--gray-05);
+    --color-botton-nav-font-primary-hover: var(--primary);
+    --color-botton-nav-font-primary-active: var(--blue-05);
 }
 
 [data-theme="dark"] {
-    /* background variables */
+    /* backgrounds */
     --color-bg-primary: var(--gray-05);
     --color-bg-secondary: var(--gray-02);
 
-    /* font variables */
+    /* fonts */
     --color-font-primary: var(--white-01);
     --color-font-secondary: var(--primary);
     --color-font-light: var(--white-03);
     --color-font-dark: var(--gray-05);
 
-    /* logo variables */
+    /* logos */
     --color-logo-primary: var(--yellow-01);
     --color-logo-secondary: var(--white-02);
 
-    /* button variables */
+    /* buttons */
     --color-button-bg-primary: var(--primary);
     --color-button-bg-secondary: var(--white-03);
     /* outline */
@@ -94,6 +101,11 @@
     --color-button-font-outline: var(--white-03);
     --color-button-border-outline-hover: var(--primary);
     --color-button-font-outline-hover: var(--primary);
+
+    /* botton navigation */
+    --color-botton-nav-font-primary: var(--white-05);
+    --color-botton-nav-font-primary-hover: var(--primary);
+    --color-botton-nav-font-primary-active: var(--yellow-01);
 }
 
 body {

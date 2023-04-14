@@ -1,0 +1,29 @@
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 1rem 0;
+}
+
+.nav__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: none;
+    border: 0;
+    font-size: .8rem;
+    color: var(--color-botton-nav-font-primary);
+}
+
+.nav__button:hover {
+    color: var(--color-botton-nav-font-primary-hover);
+}
+
+.nav__button--active {
+    color: var(--color-botton-nav-font-primary-active);
+}

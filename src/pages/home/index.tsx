@@ -1,10 +1,13 @@
-import { Button } from "@/components/button";
+import { BottonNavigation } from "@/components/bottonNavigation";
 
 export default function Home() {
 	return (
 		<>
-			<section>
+			<main>
 				<h1>hello world</h1>
+			</main>
+			<section>
+				<BottonNavigation />
 			</section>
 		</>
 	);

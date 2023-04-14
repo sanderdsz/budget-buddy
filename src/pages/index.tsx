@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 import { Rubik, Karla } from "next/font/google";
 import { ThemeToggle } from "@/components/themeToggle";
 import { Button } from "@/components/button";

@@ -3,8 +3,14 @@ import { Rubik } from "next/font/google";
 
 import styles from "./styles.module.css";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>{
-	color?: "primary" | "secondary" | "outline" | "success" | "warning" | "danger";
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+	color?:
+		| "primary"
+		| "secondary"
+		| "outline"
+		| "success"
+		| "warning"
+		| "danger";
 	size?: "small" | "medium" | "large";
 	label: string;
 }
