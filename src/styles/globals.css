@@ -1,5 +1,5 @@
 :root {
-    /* variables */
+    /* raw colors variables */
     --primary: #88c0d0;
 
     --white-01: #eceff4;
@@ -45,15 +45,34 @@
     --green-05: #577043;
 }
 
-body[data-theme="light"] {
+[data-theme="light"] {
+    /* background variables */
     --color-bg-primary: var(--white-01);
+
+    /* font variables */
+    --color-font-primary: var(--gray-05);
+    --color-font-secondary: var(--blue-05);
+
+    /* logo variables */
+    --color-logo-primary: var(--blue-04);
+    --color-logo-secondary: var(--gray-05);
 }
 
-body[data-theme="dark"] {
+[data-theme="dark"] {
+    /* background variables */
     --color-bg-primary: var(--gray-05);
+
+    /* font variables */
+    --color-font-primary: var(--white-01);
+    --color-font-secondary: var(--primary);
+
+    /* logo variables */
+    --color-logo-primary: var(--yellow-01);
+    --color-logo-secondary: var(--white-02);
 }
 
 body {
     background: var(--color-bg-primary);
-    transition: background 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+    color: var(--color-font-primary);
 }

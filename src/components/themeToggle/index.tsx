@@ -4,8 +4,6 @@ import styles from "./styles.module.css";
 import { useTheme } from "@/contexts/themeContext";
 
 export const ThemeToggle = () => {
-	//const [activeTheme, setActiveTheme] = useState("light");
-
 	const { activeTheme, setActiveTheme } = useTheme();
 
 	const inactiveTheme = activeTheme === "light" ? "dark" : "light";

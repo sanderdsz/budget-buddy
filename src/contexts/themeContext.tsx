@@ -21,11 +21,11 @@ const ThemeContext = createContext({} as ThemeContextData);
 export const ThemeProvider = ({ children }: ThemeContextProps) => {
 	const [activeTheme, setActiveTheme] = useState("light");
 
+	/* Verify system wide user's color preference */
 	useEffect(() => {
 		const themeMediaQuery = window.matchMedia(
 			"(prefers-color-scheme: dark)"
 		).matches;
-		console.log("context");
 		if (themeMediaQuery) {
 			setActiveTheme("dark");
 		} else {

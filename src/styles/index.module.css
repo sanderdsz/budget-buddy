@@ -10,17 +10,16 @@
     align-items: center;
 }
 
-.header__title[data-theme="light"] {
-    color: var(--red-03);
-}
-
-.header__title[data-theme="dark"] {
-    color: var(--red-03);
+.header__title {
+    color: var(--color-logo-primary);
+    font-weight: 600;
+    font-size: 1.25rem;
 }
 
 .header__title + span {
-    color: var(--cyan-03);
-    font-weight: 600;
+    color: var(--color-logo-secondary);
+    font-weight: 400;
+    font-size: 1.25rem;
 }
 
 .section {
