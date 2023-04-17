@@ -5,6 +5,9 @@ import { ThemeToggle } from "@/components/themeToggle";
 import { Button } from "@/components/button";
 
 import styles from "../styles/index.module.css";
+import { useAuth } from "@/contexts/authContext";
+import { Input } from "@/components/input";
+import { useState } from "react";
 
 const rubik = Rubik({
 	subsets: ["latin"],
@@ -15,6 +18,14 @@ const karla = Karla({ subsets: ["latin"] });
 
 export default function Index() {
 	const router = useRouter();
+	const auth = useAuth();
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+
+	const loginRedirection = () => {
+		auth.signIn({ email, password }).then((response) => console.log(response));
+	};
+
 	return (
 		<>
 			<Head>
@@ -29,18 +40,38 @@ export default function Index() {
 					<ThemeToggle />
 				</header>
 				<section className={styles.section}>
-					<span className={karla.className}>Choose your user</span>
-					<div className={styles.users}>
-						<Button
-							label="Sabrina"
-							color="primary"
-							onClick={() => router.push("/home")}
-						/>
-						<Button
-							label="Sander"
-							color="outline"
-							onClick={() => router.push("/home")}
-						/>
+					<div className={styles[`sign-in`]}>
+						<h2 className={rubik.className}>Welcome back!</h2>
+						<h3 className={karla.className}>Sign in to continue.</h3>
+						<span className={karla.className}>
+							Please enter your e-mail below.
+						</span>
+						<div className={styles.form}>
+							<div className={styles.form__input}>
+								<div>
+									<Input
+										placeholder="e-mail"
+										value={email}
+										onChange={(e) => setEmail(e.target.value)}
+									/>
+								</div>
+								<div>
+									<Input
+										placeholder="password"
+										value={password}
+										onChange={(e) => setPassword(e.target.value)}
+									/>
+								</div>
+							</div>
+							<div className={styles.form__buttons}>
+								<Button
+									label="sign in"
+									color="primary"
+									onClick={() => loginRedirection()}
+								/>
+								<Button label="sign up" color="outline" onClick={() => null} />
+							</div>
+						</div>
 					</div>
 				</section>
 			</main>

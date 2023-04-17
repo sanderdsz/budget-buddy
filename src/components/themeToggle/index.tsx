@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import { Moon, Sun } from "@phosphor-icons/react";
+import { useTheme } from "@/contexts/themeContext";
 
 import styles from "./styles.module.css";
-import { useTheme } from "@/contexts/themeContext";
 
 export const ThemeToggle = () => {
 	const { activeTheme, setActiveTheme } = useTheme();
@@ -18,7 +19,11 @@ export const ThemeToggle = () => {
 			className={styles["theme-toggle"]}
 			onClick={() => setActiveTheme(inactiveTheme)}
 		>
-			{activeTheme === "light" ? <span>🌙</span> : <span>☀️</span>}
+			{activeTheme === "light" ? (
+				<Moon width={30} height={30} />
+			) : (
+				<Sun width={30} height={30} />
+			)}
 		</button>
 	);
 };
