@@ -6,6 +6,7 @@ import styles from "./styles.module.css";
 
 const rubik = Rubik({
 	subsets: ["latin"],
+	weight: ["300"],
 });
 export const BottonNavigation = () => {
 	const router = useRouter();
