@@ -1,4 +1,6 @@
 :root {
+
+
     /* raw colors variables */
     --primary: #88c0d0;
 
@@ -72,10 +74,20 @@
     --color-button-border-outline-hover: var(--primary);
     --color-button-font-outline-hover: var(--primary);
 
-    /* botton navigation */
+    /* bottom navigation */
     --color-botton-nav-font-primary: var(--gray-05);
     --color-botton-nav-font-primary-hover: var(--primary);
     --color-botton-nav-font-primary-active: var(--blue-05);
+
+    /* inputs */
+    --color-input-bg-primary: var(--white-01);
+    --color-input-border-primary: var(--blue-01);
+    --color-input-border-focus-primary: var(--blue-05);
+    --color-input-font-primary: var(--gray-05);
+    --color-input-placeholder-primary: var(--white-05);
+
+    /* header */
+    --color-header-icons-primary: var(--gray-05);
 }
 
 [data-theme="dark"] {
@@ -86,6 +98,7 @@
     /* fonts */
     --color-font-primary: var(--white-01);
     --color-font-secondary: var(--primary);
+    --color-font-tertiary: var(--yellow-01);
     --color-font-light: var(--white-03);
     --color-font-dark: var(--gray-05);
 
@@ -102,14 +115,28 @@
     --color-button-border-outline-hover: var(--primary);
     --color-button-font-outline-hover: var(--primary);
 
-    /* botton navigation */
+    /* bottom navigation */
     --color-botton-nav-font-primary: var(--white-05);
     --color-botton-nav-font-primary-hover: var(--primary);
     --color-botton-nav-font-primary-active: var(--yellow-01);
+
+    /* inputs */
+    --color-input-bg-primary: var(--gray-04);
+    --color-input-border-primary: var(--gray-03);
+    --color-input-border-focus-primary: var(--blue-03);
+    --color-input-font-primary: var(--white-02);
+    --color-input-placeholder-primary: var(--gray-02);
+
+    /* header */
+    --color-header-icons-primary: var(--white-02);
 }
 
 body {
     background: var(--color-bg-primary);
     transition: all 0.5s ease-in-out;
     color: var(--color-font-primary);
+}
+
+*, ::after, ::before {
+    box-sizing: border-box;
 }
