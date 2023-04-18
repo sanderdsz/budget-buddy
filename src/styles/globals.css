@@ -73,6 +73,7 @@
     --color-button-font-outline-hover: var(--primary);
 
     /* bottom navigation */
+    --color-botton-nav-bg-primary: var(--white-01);
     --color-botton-nav-font-primary: var(--gray-05);
     --color-botton-nav-font-primary-hover: var(--primary);
     --color-botton-nav-font-primary-active: var(--blue-05);
@@ -118,6 +119,7 @@
     --color-button-font-outline-hover: var(--primary);
 
     /* bottom navigation */
+    --color-botton-nav-bg-primary: var(--gray-05);
     --color-botton-nav-font-primary: var(--white-05);
     --color-botton-nav-font-primary-hover: var(--primary);
     --color-botton-nav-font-primary-active: var(--yellow-01);
@@ -135,6 +137,7 @@
     /* PAGES */
     /* home */
     --color-home-bg-primary: var(--gray-02);
+    --color-home-monthly-title-primary: var(--yellow-01);
 }
 
 body {

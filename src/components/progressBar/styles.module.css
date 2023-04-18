@@ -1,0 +1,196 @@
+.progress {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 1.25rem;
+    border: none;
+    background-color: #d8dee9;
+    border-radius: 10px;
+    /*
+     the background-image appears only in
+     the indeterminate state, being overridden
+     when there's a value in the progress
+     */
+    background-image: url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSdsaWdodGdyYXknIGhlaWdodD0nMjAnIHdpZHRoPSczNScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48cGF0aCBkPSdNMCAyMCBMMTcgMCBIMzUgTDE3IDIwIFonLz48L3N2Zz4=");
+    background-image: linear-gradient(-45deg, transparent 33%, rgba(0, 0, 0, 0.1) 33%, rgba(0, 0, 0, 0.1) 66%, transparent 66%);
+    background-size: 35px 1.25rem;
+    animation-name: animate-indeterminate;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    margin-bottom: 3px;
+    /*
+     for old browsers that does not
+     support the progress element at all
+     */
+}
+.progress:before {
+    content: '';
+    line-height: 1.25rem;
+    color: #232730;
+    text-align: center;
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 1.25rem;
+    border: none;
+    background-color: #d8dee9;
+    border-radius: 10px;
+    /*
+     the background-image appears only in
+     the indeterminate state, being overridden
+     when there's a value in the progress
+     */
+    background-image: url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSdsaWdodGdyYXknIGhlaWdodD0nMjAnIHdpZHRoPSczNScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48cGF0aCBkPSdNMCAyMCBMMTcgMCBIMzUgTDE3IDIwIFonLz48L3N2Zz4=");
+    background-image: linear-gradient(-45deg, transparent 33%, rgba(0, 0, 0, 0.1) 33%, rgba(0, 0, 0, 0.1) 66%, transparent 66%);
+    background-size: 35px 1.25rem;
+    animation-name: animate-indeterminate;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+.progress::-webkit-progress-bar, .progress::before {
+    /*
+     Webkit supports ::before on the
+     progress, we need to remove it
+     */
+    display: none;
+}
+.progress::-ms-fill {
+    animation-name: none;
+}
+.progress::-webkit-progress-bar, .progress::after {
+    /*
+     this creates an animated overlay on webkit
+     with progress:after styles here applied to
+     ::-webkit-progress-bar will be reset later
+     */
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 1.25rem;
+    border: none;
+    background-color: #d8dee9;
+    border-radius: 10px;
+    /*
+     the background-image appears only in
+     the indeterminate state, being overridden
+     when there's a value in the progress
+     */
+    background-image: url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSdsaWdodGdyYXknIGhlaWdodD0nMjAnIHdpZHRoPSczNScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48cGF0aCBkPSdNMCAyMCBMMTcgMCBIMzUgTDE3IDIwIFonLz48L3N2Zz4=");
+    background-image: linear-gradient(-45deg, transparent 33%, rgba(0, 0, 0, 0.1) 33%, rgba(0, 0, 0, 0.1) 66%, transparent 66%);
+    background-size: 35px 1.25rem;
+    animation-name: animate-indeterminate;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    content: '';
+    position: absolute;
+    top: 0px;
+    background-color: transparent;
+    box-shadow: none;
+}
+.progress::-webkit-progress-bar {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 1.25rem;
+    border: none;
+    background-color: #d8dee9;
+    border-radius: 10px;
+    /*
+     the background-image appears only in
+     the indeterminate state, being overridden
+     when there's a value in the progress
+     */
+    background-image: url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSdsaWdodGdyYXknIGhlaWdodD0nMjAnIHdpZHRoPSczNScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48cGF0aCBkPSdNMCAyMCBMMTcgMCBIMzUgTDE3IDIwIFonLz48L3N2Zz4=");
+    background-image: linear-gradient(-45deg, transparent 33%, rgba(0, 0, 0, 0.1) 33%, rgba(0, 0, 0, 0.1) 66%, transparent 66%);
+    background-size: 35px 1.25rem;
+    animation-name: animate-indeterminate;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    background-image: none;
+}
+.progress::-moz-progress-bar {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 1.25rem;
+    border: none;
+    background-color: #d8dee9;
+    border-radius: 10px;
+    /*
+     the background-image appears only in
+     the indeterminate state, being overridden
+     when there's a value in the progress
+     */
+    background-image: url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSdsaWdodGdyYXknIGhlaWdodD0nMjAnIHdpZHRoPSczNScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48cGF0aCBkPSdNMCAyMCBMMTcgMCBIMzUgTDE3IDIwIFonLz48L3N2Zz4=");
+    background-image: linear-gradient(-45deg, transparent 33%, rgba(0, 0, 0, 0.1) 33%, rgba(0, 0, 0, 0.1) 66%, transparent 66%);
+    background-size: 35px 1.25rem;
+    animation-name: animate-indeterminate;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+.progress[value] {
+    background-image: none;
+    color: #7291B7;
+}
+.progress[value]:before {
+    content: attr(value) ' / ' attr(max);
+}
+.progress[value]::-webkit-progress-value {
+    background-color: #7291B7;
+}
+.progress[value]::-moz-progress-bar {
+    background-color: #7291B7;
+}
+.progress[value]::-ms-fill {
+    border: none;
+    border-radius: 10px;
+}
+.progress[value]::-webkit-progress-bar, .progress[value]::after {
+    background-image: none;
+}
+.progress[value]::-webkit-progress-value {
+    border-radius: 10px;
+}
+.progress[value]::-moz-progress-bar {
+    background-image: none;
+}
+.progress[value].progress-success {
+    color: #6A8455;
+}
+.progress[value].progress-success::-webkit-progress-value {
+    background-color: #6A8455;
+}
+.progress[value].progress-success::-moz-progress-bar {
+    background-color: #6A8455;
+}
+.progress[value].progress-warning {
+    color: #EBCB8B;
+}
+.progress[value].progress-warning::-webkit-progress-value {
+    background-color: #EBCB8B;
+}
+.progress[value].progress-warning::-moz-progress-bar {
+    background-color: #EBCB8B;
+}
+.progress[value].progress-danger {
+    color: #B65354;
+}
+.progress[value].progress-danger::-webkit-progress-value {
+    background-color: #B65354;
+}
+.progress[value].progress-danger::-moz-progress-bar {
+    background-color: #B65354;
+}
+@keyframes animate-indeterminate {
+    from {
+        background-position-x: 0px;
+    }
+    to {
+        background-position-x: 35px;
+    }
+}

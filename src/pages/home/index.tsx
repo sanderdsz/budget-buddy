@@ -1,16 +1,38 @@
-import { LineChart, Line, ResponsiveContainer, Tooltip, XAxis } from "recharts";
+import {
+	Cell,
+	LineChart,
+	Line,
+	ResponsiveContainer,
+	Tooltip,
+	XAxis,
+	Pie,
+	PieChart,
+} from "recharts";
 import { MobileLayout } from "@/layouts/mobile";
 import { Karla } from "next/font/google";
+import { useTheme } from "@/contexts/themeContext";
+import { iconsFormatter } from "@/utils/iconsFormatter";
+import {colorsFormatter} from "@/utils/colorsFormatter";
 
 import styles from "./styles.module.css";
-import { useTheme } from "@/contexts/themeContext";
+import {ProgressBar} from "@/components/progressBar";
+
+type LabelProps = {
+	cx: number;
+	cy: number;
+	midAngle: number;
+	innerRadius: number;
+	outerRadius: number;
+	percent: number;
+	index: number;
+}
 
 const karla = Karla({
 	subsets: ["latin"],
 	weight: ["200", "400", "600"],
 });
 
-const data = [
+const data01 = [
 	{
 		name: "0W",
 		uv: 4000,
@@ -48,6 +70,62 @@ const data = [
 		amt: 2181,
 	},
 ];
+const data02 = [
+	{ type: "grocery", value: 2400 },
+	{ type: "snacks", value: 4567 },
+	{ type: "shopping", value: 1398 },
+	{ type: "housing", value: 9800 },
+	{ type: "car", value: 3908 },
+	{ type: "pharmacy", value: 4800 },
+];
+const expenses = [
+	{ type: "grocery", color: "#7D9768" },
+	{ type: "snacks", color: "#EBCB8B" },
+	{ type: "shopping", color: "#c8ccd2" },
+	{ type: "housing", color: "#88c0d0" },
+	{ type: "car", color: "#A32727" },
+	{ type: "pharmacy", color: "#5E81AC" },
+];
+const COLORS = [
+	"#7D9768",
+	"#A32727",
+	"#5E81AC",
+	"#88c0d0",
+	"#c8ccd2",
+	"#EBCB8B",
+];
+const RADIAN = Math.PI / 180;
+const renderCustomizedLabel = ({
+	cx,
+	cy,
+	innerRadius,
+	outerRadius,
+	percent,
+	midAngle,
+	index
+}: LabelProps) => {
+	const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+	const x = cx + radius * Math.cos(-midAngle * RADIAN);
+	const y = cy + radius * Math.sin(-midAngle * RADIAN);
+	return (
+		<text
+			x={x}
+			y={y}
+			fill="white"
+			textAnchor={x > cx ? "start" : "end"}
+			dominantBaseline="central"
+		>
+			{`${(percent * 100).toFixed(0)}%`}
+		</text>
+	);
+};
+const monthFormatter = new Intl.DateTimeFormat("en-US", { month: "long" }).format(
+	new Date()
+);
+const currencyFormatter = new Intl.NumberFormat("pt-BR", {
+	style: "currency",
+	currency: "BRL",
+});
 
 export default function Home() {
 	const theme = useTheme();
@@ -69,7 +147,7 @@ export default function Home() {
 						</div>
 						<div className={styles[`home-chart__graph`]}>
 							<ResponsiveContainer width="100%" height="100%">
-								<LineChart width={300} height={100} data={data}>
+								<LineChart width={300} height={100} data={data01}>
 									<Tooltip />
 									{theme.activeTheme === "light" ? (
 										<>
@@ -104,6 +182,74 @@ export default function Home() {
 									)}
 								</LineChart>
 							</ResponsiveContainer>
+						</div>
+					</div>
+					<div className={styles[`home-monthly`]}>
+						<div className={styles[`home-monthly__title-container`]}>
+							<div className={styles[`home-monthly__title`]}>
+								<span className={styles[`home-monthly__title--first`]}>
+									{monthFormatter}
+								</span>{" "}
+								<span className={styles[`home-monthly__title--second`]}>
+									Spending
+								</span>
+							</div>
+							<span className={styles[`home-monthly__balance`]}>
+								You have spent R$ 1.000,00 so far.
+							</span>
+						</div>
+						<div className={styles[`home-monthly__graph-container`]}>
+							<div className={styles[`home-monthly__graph`]}>
+								<ResponsiveContainer width="100%" height="100%">
+									<PieChart width={100} height={200}>
+										<Pie
+											dataKey="value"
+											isAnimationActive={false}
+											data={data02}
+											cx="50%"
+											cy="50%"
+											outerRadius={70}
+											fill="#8884d8"
+											label={renderCustomizedLabel}
+											labelLine={false}
+										>
+											{data02.map((entry, index) => (
+												<Cell
+													name={entry.type}
+													key={`cell-${index}`}
+													fill={colorsFormatter(entry.type)}
+												/>
+											))}
+										</Pie>
+										<Tooltip />
+									</PieChart>
+								</ResponsiveContainer>
+							</div>
+							<div>
+								{data02.map((entry, index) => (
+									<div
+										key={index}
+										className={styles[`home-monthly__graph-description`]}
+									>
+										{iconsFormatter(entry.type)}
+										<span
+											className={styles[`home-monthly__graph-description--icons`]}
+											style={{
+												color: colorsFormatter(entry.type)
+											}}
+										>
+											{currencyFormatter.format(entry.value)}
+										</span>
+									</div>
+								))}
+							</div>
+						</div>
+						<div className={styles[`home-monthly__target`]}>
+							<div className={styles[`home-monthly__target-container`]}>
+								<span className={styles[`home-monthly__target-current`]}>R$ 1.000,00</span>
+								<span className={styles[`home-monthly__target-maximum`]}>Target R$ 3.000,00</span>
+							</div>
+							<ProgressBar value={80} />
 						</div>
 					</div>
 				</section>

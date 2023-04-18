@@ -1,5 +1,10 @@
 .home {
-    height: calc(100vh - 5rem - 6.125rem);
+    height: 100%;
+    /*
+     * TODO: trick to activate scroll if there's any info
+     *  between last card and bottom nav, refactor it.
+     */
+    padding-bottom: 4rem;
 }
 
 .home-chart {
@@ -38,5 +43,61 @@
 }
 
 .home-monthly {
+    margin: 1rem 2rem;
+}
 
+.home-monthly__title-container {
+    margin: 0 0 1rem 0;
+}
+
+.home-monthly__title {
+    padding: 0 0 1rem 0;
+}
+
+.home-monthly__title--first {
+    color: var(--color-home-monthly-title-primary);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.home-monthly__title--second {
+    font-size: 1.5rem;
+    font-weight: 200;
+}
+
+.home-monthly__graph-container {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+}
+
+.home-monthly__graph {
+    width: 10rem;
+    height: 10rem;
+}
+
+.home-monthly__graph-description {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: 0.25rem;
+}
+
+.home-monthly__graph-description--icons {
+    padding-left: .5rem;
+}
+
+.home-monthly__target {
+    font-weight: 600;
+}
+
+.home-monthly__target-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+}
+
+.home-monthly__target-maximum {
+    font-weight: 300;
 }
