@@ -24,7 +24,7 @@ export const Header = () => {
 			style={
 				router.asPath === "/home" && theme.activeTheme === "light"
 					? { backgroundColor: "#eceff4" }
-					: { backgroundColor: "#2e3440" }
+					: { backgroundColor: "#232730" }
 			}
 		>
 			<div className={styles.header__user}>

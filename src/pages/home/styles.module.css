@@ -1,10 +1,6 @@
 .home {
     height: 100%;
-    /*
-     * TODO: trick to activate scroll if there's any info
-     *  between last card and bottom nav, refactor it.
-     */
-    padding-bottom: 4rem;
+
 }
 
 .home-chart {
@@ -39,11 +35,13 @@
 }
 
 .home-chart__graph {
+    padding: 0 2rem;
     height: 15rem;
 }
 
 .home-monthly {
-    margin: 1rem 2rem;
+    padding: 1rem 2rem;
+    background: var(--color-home-bg-secondary);
 }
 
 .home-monthly__title-container {
@@ -100,4 +98,5 @@
 
 .home-monthly__target-maximum {
     font-weight: 300;
+    color: var(--color-home-monthly-title-secondary);
 }

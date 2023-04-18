@@ -12,10 +12,10 @@ import { MobileLayout } from "@/layouts/mobile";
 import { Karla } from "next/font/google";
 import { useTheme } from "@/contexts/themeContext";
 import { iconsFormatter } from "@/utils/iconsFormatter";
-import {colorsFormatter} from "@/utils/colorsFormatter";
+import { colorsFormatter } from "@/utils/colorsFormatter";
+import { ProgressBar } from "@/components/progressBar";
 
 import styles from "./styles.module.css";
-import {ProgressBar} from "@/components/progressBar";
 
 type LabelProps = {
 	cx: number;
@@ -25,7 +25,7 @@ type LabelProps = {
 	outerRadius: number;
 	percent: number;
 	index: number;
-}
+};
 
 const karla = Karla({
 	subsets: ["latin"],
@@ -34,40 +34,20 @@ const karla = Karla({
 
 const data01 = [
 	{
-		name: "0W",
-		uv: 4000,
-		pv: 2400,
-		amt: 2400,
+		week: "1",
+		amount: 2210,
 	},
 	{
-		name: "1W",
-		uv: 3000,
-		pv: 1398,
-		amt: 2210,
+		week: "2",
+		amount: 6800,
 	},
 	{
-		name: "2W",
-		uv: 2000,
-		pv: 9800,
-		amt: 2290,
+		week: "3",
+		amount: 4320,
 	},
 	{
-		name: "3W",
-		uv: 2780,
-		pv: 3908,
-		amt: 2000,
-	},
-	{
-		name: "4W",
-		uv: 1890,
-		pv: 4800,
-		amt: 2181,
-	},
-	{
-		name: "",
-		uv: 1890,
-		pv: 4800,
-		amt: 2181,
+		week: "4",
+		amount: 0,
 	},
 ];
 const data02 = [
@@ -102,7 +82,7 @@ const renderCustomizedLabel = ({
 	outerRadius,
 	percent,
 	midAngle,
-	index
+	index,
 }: LabelProps) => {
 	const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
 	const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -119,9 +99,9 @@ const renderCustomizedLabel = ({
 		</text>
 	);
 };
-const monthFormatter = new Intl.DateTimeFormat("en-US", { month: "long" }).format(
-	new Date()
-);
+const monthFormatter = new Intl.DateTimeFormat("en-US", {
+	month: "long",
+}).format(new Date());
 const currencyFormatter = new Intl.NumberFormat("pt-BR", {
 	style: "currency",
 	currency: "BRL",
@@ -130,130 +110,135 @@ const currencyFormatter = new Intl.NumberFormat("pt-BR", {
 export default function Home() {
 	const theme = useTheme();
 	return (
-		<>
-			<MobileLayout>
-				<section className={`${styles.home} ${karla.className}`}>
-					<div className={styles[`home-chart`]}>
-						<div className={styles[`home-chart__container`]}>
-							<div className={styles[`home-chart__title`]}>
-								<span className={styles[`home-chart__title--first`]}>
-									Available
-								</span>{" "}
-								<span className={styles[`home-chart__title--second`]}>
-									Balance
-								</span>
-							</div>
-							<span className={styles[`home-chart__balance`]}>R$ 1.200,00</span>
-						</div>
-						<div className={styles[`home-chart__graph`]}>
-							<ResponsiveContainer width="100%" height="100%">
-								<LineChart width={300} height={100} data={data01}>
-									<Tooltip />
-									{theme.activeTheme === "light" ? (
-										<>
-											<Line
-												type="monotone"
-												dataKey="pv"
-												stroke="#4c566a"
-												strokeWidth={2}
-											/>
-											<XAxis
-												dataKey="name"
-												stroke="#4c566a"
-												axisLine={false}
-												tickLine={false}
-											/>
-										</>
-									) : (
-										<>
-											<Line
-												type="monotone"
-												dataKey="pv"
-												stroke="#c8ccd2"
-												strokeWidth={2}
-											/>
-											<XAxis
-												dataKey="name"
-												stroke="#c8ccd2"
-												axisLine={false}
-												tickLine={false}
-											/>
-										</>
-									)}
-								</LineChart>
-							</ResponsiveContainer>
-						</div>
-					</div>
-					<div className={styles[`home-monthly`]}>
-						<div className={styles[`home-monthly__title-container`]}>
-							<div className={styles[`home-monthly__title`]}>
-								<span className={styles[`home-monthly__title--first`]}>
-									{monthFormatter}
-								</span>{" "}
-								<span className={styles[`home-monthly__title--second`]}>
-									Spending
-								</span>
-							</div>
-							<span className={styles[`home-monthly__balance`]}>
-								You have spent R$ 1.000,00 so far.
+		<MobileLayout>
+			<section className={`${styles.home} ${karla.className}`}>
+				<div className={styles[`home-chart`]}>
+					<div className={styles[`home-chart__container`]}>
+						<div className={styles[`home-chart__title`]}>
+							<span className={styles[`home-chart__title--first`]}>
+								Available
+							</span>{" "}
+							<span className={styles[`home-chart__title--second`]}>
+								Balance
 							</span>
 						</div>
-						<div className={styles[`home-monthly__graph-container`]}>
-							<div className={styles[`home-monthly__graph`]}>
-								<ResponsiveContainer width="100%" height="100%">
-									<PieChart width={100} height={200}>
-										<Pie
-											dataKey="value"
-											isAnimationActive={false}
-											data={data02}
-											cx="50%"
-											cy="50%"
-											outerRadius={70}
-											fill="#8884d8"
-											label={renderCustomizedLabel}
-											labelLine={false}
-										>
-											{data02.map((entry, index) => (
-												<Cell
-													name={entry.type}
-													key={`cell-${index}`}
-													fill={colorsFormatter(entry.type)}
-												/>
-											))}
-										</Pie>
-										<Tooltip />
-									</PieChart>
-								</ResponsiveContainer>
-							</div>
-							<div>
-								{data02.map((entry, index) => (
-									<div
-										key={index}
-										className={styles[`home-monthly__graph-description`]}
-									>
-										{iconsFormatter(entry.type)}
-										<span
-											className={styles[`home-monthly__graph-description--icons`]}
-											style={{
-												color: colorsFormatter(entry.type)
-											}}
-										>
-											{currencyFormatter.format(entry.value)}
-										</span>
-									</div>
-								))}
-							</div>
+						<span className={styles[`home-chart__balance`]}>R$ 1.200,00</span>
+					</div>
+					<div className={styles[`home-chart__graph`]}>
+						<ResponsiveContainer width="100%" height="100%">
+							<LineChart width={300} height={100} data={data01}>
+								<Tooltip
+									contentStyle={{ color: "#232730" }}
+									itemStyle={{ color: "#232730" }}
+								/>
+								{theme.activeTheme === "light" ? (
+									<>
+										<Line
+											type="monotone"
+											dataKey="amount"
+											stroke="#4c566a"
+											strokeWidth={2}
+										/>
+										<XAxis
+											dataKey="week"
+											stroke="#4c566a"
+											axisLine={false}
+											tickLine={false}
+										/>
+									</>
+								) : (
+									<>
+										<Line
+											type="monotone"
+											dataKey="amount"
+											stroke="#c8ccd2"
+											strokeWidth={2}
+										/>
+										<XAxis
+											dataKey="week"
+											stroke="#c8ccd2"
+											axisLine={false}
+											tickLine={false}
+										/>
+									</>
+								)}
+							</LineChart>
+						</ResponsiveContainer>
+					</div>
+				</div>
+				<div className={styles[`home-monthly`]}>
+					<div className={styles[`home-monthly__title-container`]}>
+						<div className={styles[`home-monthly__title`]}>
+							<span className={styles[`home-monthly__title--first`]}>
+								{monthFormatter}
+							</span>{" "}
+							<span className={styles[`home-monthly__title--second`]}>
+								Spending
+							</span>
 						</div>
-						<div className={styles[`home-monthly__target`]}>
-							<div className={styles[`home-monthly__target-container`]}>
-								<span className={styles[`home-monthly__target-current`]}>R$ 1.000,00</span>
-								<span className={styles[`home-monthly__target-maximum`]}>Target R$ 3.000,00</span>
-							</div>
-							<ProgressBar value={80} />
+						<span className={styles[`home-monthly__balance`]}>
+							You have spent R$ 1.000,00 so far.
+						</span>
+					</div>
+					<div className={styles[`home-monthly__graph-container`]}>
+						<div className={styles[`home-monthly__graph`]}>
+							<ResponsiveContainer width="100%" height="100%">
+								<PieChart width={100} height={200}>
+									<Pie
+										dataKey="value"
+										isAnimationActive={false}
+										data={data02}
+										cx="50%"
+										cy="50%"
+										outerRadius={70}
+										fill="#8884d8"
+										label={renderCustomizedLabel}
+										labelLine={false}
+									>
+										{data02.map((entry, index) => (
+											<Cell
+												name={entry.type}
+												key={`cell-${index}`}
+												fill={colorsFormatter(entry.type)}
+											/>
+										))}
+									</Pie>
+									<Tooltip />
+								</PieChart>
+							</ResponsiveContainer>
+						</div>
+						<div>
+							{data02.map((entry, index) => (
+								<div
+									key={index}
+									className={styles[`home-monthly__graph-description`]}
+								>
+									{iconsFormatter(entry.type)}
+									<span
+										className={styles[`home-monthly__graph-description--icons`]}
+										style={{
+											color: colorsFormatter(entry.type),
+										}}
+									>
+										{currencyFormatter.format(entry.value)}
+									</span>
+								</div>
+							))}
 						</div>
 					</div>
-				</section>
-			</MobileLayout>
-		</>
+					<div className={styles[`home-monthly__target`]}>
+						<div className={styles[`home-monthly__target-container`]}>
+							<span className={styles[`home-monthly__target-current`]}>
+								R$ 1.000,00
+							</span>
+							<span className={styles[`home-monthly__target-maximum`]}>
+								Target R$ 3.000,00
+							</span>
+						</div>
+						<ProgressBar value={80} />
+					</div>
+				</div>
+			</section>
+		</MobileLayout>
 	);
 }

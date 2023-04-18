@@ -1,9 +1,12 @@
 .header {
+    z-index: 1;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 2rem;
+    padding: 1rem 2rem;
+    position: fixed;
+    top: 0;
 }
 
 .header__user {
