@@ -1,0 +1,37 @@
+.header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem;
+}
+
+.header__user {
+    display: flex;
+}
+
+.header__title {
+    margin-left: 1rem;
+}
+
+.header__title > span {
+    font-size: .75rem;
+    font-weight: 300;
+}
+
+.header__title > h3 {
+    margin-top: .5rem;
+    margin-bottom: 0;
+}
+
+.header__menu {
+    display: flex;
+    align-items: center;
+}
+
+.header__menu > button {
+    color: var(--color-header-icons-primary);
+    background: none;
+    border: 0;
+}
+

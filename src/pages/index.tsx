@@ -3,11 +3,11 @@ import { useRouter } from "next/router";
 import { Rubik, Karla } from "next/font/google";
 import { ThemeToggle } from "@/components/themeToggle";
 import { Button } from "@/components/button";
-
-import styles from "../styles/index.module.css";
 import { useAuth } from "@/contexts/authContext";
 import { Input } from "@/components/input";
 import { useState } from "react";
+
+import styles from "../styles/index.module.css";
 
 const rubik = Rubik({
 	subsets: ["latin"],

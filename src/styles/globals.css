@@ -1,6 +1,4 @@
 :root {
-
-
     /* raw colors variables */
     --primary: #88c0d0;
 
@@ -88,6 +86,10 @@
 
     /* header */
     --color-header-icons-primary: var(--gray-05);
+
+    /* PAGES */
+    /* home */
+    --color-home-bg-primary: var(--white-01);
 }
 
 [data-theme="dark"] {
@@ -129,9 +131,14 @@
 
     /* header */
     --color-header-icons-primary: var(--white-02);
+
+    /* PAGES */
+    /* home */
+    --color-home-bg-primary: var(--gray-02);
 }
 
 body {
+    margin: 0;
     background: var(--color-bg-primary);
     transition: all 0.5s ease-in-out;
     color: var(--color-font-primary);

@@ -1,0 +1,42 @@
+.home {
+    height: calc(100vh - 5rem - 6.125rem);
+}
+
+.home-chart {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 1rem;
+    background: var(--color-home-bg-primary);
+}
+
+.home-chart__container {
+    margin: 0 2rem 2rem 2rem;
+}
+
+.home-chart__title {
+    margin: 0 0 1rem 0;
+}
+
+.home-chart__title--first {
+    font-weight: 200;
+    font-size: 1.5rem;
+}
+
+.home-chart__title--second {
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.home-chart__balance {
+    font-size: 2.25rem;
+    font-weight: 600;
+    color: var(--green-01);
+}
+
+.home-chart__graph {
+    height: 15rem;
+}
+
+.home-monthly {
+
+}
