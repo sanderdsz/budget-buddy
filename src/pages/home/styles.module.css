@@ -35,8 +35,14 @@
 }
 
 .home-chart__graph {
-    padding: 0 2rem;
+    padding: 0 2rem 1rem 2rem;
     height: 15rem;
+}
+
+.home-chart__graph-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .home-monthly {

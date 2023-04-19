@@ -16,6 +16,7 @@ import { colorsFormatter } from "@/utils/colorsFormatter";
 import { ProgressBar } from "@/components/progressBar";
 
 import styles from "./styles.module.css";
+import {Button} from "@/components/button";
 
 type LabelProps = {
 	cx: number;
@@ -125,6 +126,10 @@ export default function Home() {
 						<span className={styles[`home-chart__balance`]}>R$ 1.200,00</span>
 					</div>
 					<div className={styles[`home-chart__graph`]}>
+						<div className={styles[`home-chart__graph-buttons`]}>
+							<Button label={"Week"} />
+							<Button label={"Month"} color={"secondary"} />
+						</div>
 						<ResponsiveContainer width="100%" height="100%">
 							<LineChart width={300} height={100} data={data01}>
 								<Tooltip

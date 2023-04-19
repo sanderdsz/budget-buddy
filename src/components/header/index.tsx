@@ -23,7 +23,7 @@ export const Header = () => {
 			className={`${styles.header} ${rubik.className}`}
 			style={
 				router.asPath === "/home" && theme.activeTheme === "light"
-					? { backgroundColor: "#eceff4" }
+					? { backgroundColor: "#dadee3" }
 					: { backgroundColor: "#232730" }
 			}
 		>

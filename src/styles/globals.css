@@ -90,7 +90,7 @@
 
     /* PAGES */
     /* home */
-    --color-home-bg-primary: var(--white-01);
+    --color-home-bg-primary: var(--white-02);
 }
 
 [data-theme="dark"] {

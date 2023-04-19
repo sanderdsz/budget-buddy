@@ -7,6 +7,7 @@
 }
 
 .theme-toggle {
+    height: 40px;
     background: var(--color-theme-toggle);
     border: 2px solid var(--color-theme-toggle);
     border-radius: 50%;
