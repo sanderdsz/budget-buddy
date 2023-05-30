@@ -11,18 +11,18 @@ const rubik = Rubik({
 import styles from "./styles.module.css";
 import { ThemeToggle } from "@/components/themeToggle";
 import { useTheme } from "@/contexts/themeContext";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 
 export const Header = () => {
 	const auth = useAuth();
 	const theme = useTheme();
-	const router = useRouter();
+	const pathname = usePathname();
 
 	return (
 		<header
 			className={`${styles.header} ${rubik.className}`}
 			style={
-				router.asPath === "/home" && theme.activeTheme === "light"
+				pathname === "/home" && theme.activeTheme === "light"
 					? { backgroundColor: "#dadee3" }
 					: { backgroundColor: "#232730" }
 			}

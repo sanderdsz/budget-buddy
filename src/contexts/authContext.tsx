@@ -1,5 +1,7 @@
+'use client'
+
 import { createContext, ReactNode, useContext, useState } from "react";
-import Router from "next/router";
+import { useRouter } from "next/navigation";
 
 type User = {
 	email: string;
@@ -28,13 +30,14 @@ const AuthContext = createContext({} as AuthContextData);
  */
 export const AuthProvider = ({ children }: AuthProviderProps) => {
 	const [user, setUser] = useState<User>();
+	const router = useRouter();
 
 	const signIn = async ({ email, password }: SignInProps) => {
 		try {
 			console.log(email);
 			console.log(password);
 			setUser({ email });
-			await Router.push("home");
+			await router.push("home");
 		} catch (err) {
 			console.log(err);
 		}

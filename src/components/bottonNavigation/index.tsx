@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import { useRouter, usePathname } from "next/navigation";
 import { Rubik } from "next/font/google";
 import { ChartLine, CreditCard, House, User } from "@phosphor-icons/react";
 
@@ -10,13 +10,14 @@ const rubik = Rubik({
 });
 export const BottonNavigation = () => {
 	const router = useRouter();
+	const pathname = usePathname();
 	return (
 		<div className={`${styles.nav}`}>
 			<button
 				className={`
         ${styles.nav__button} 
         ${rubik.className}
-        ${router.asPath === "/home" ? styles["nav__button--active"] : ""}
+        ${pathname === "/home" ? styles["nav__button--active"] : ""}
       `}
 				onClick={() => router.push("/home")}
 			>
@@ -27,7 +28,7 @@ export const BottonNavigation = () => {
 				className={`
         ${styles.nav__button} 
         ${rubik.className}
-        ${router.asPath === "/bank" ? styles["nav__button--active"] : ""}
+        ${pathname === "/bank" ? styles["nav__button--active"] : ""}
       `}
 				onClick={() => router.push("/bank")}
 			>
@@ -38,7 +39,7 @@ export const BottonNavigation = () => {
 				className={`
         ${styles.nav__button} 
         ${rubik.className}
-        ${router.asPath === "/expenses" ? styles["nav__button--active"] : ""}
+        ${pathname === "/expenses" ? styles["nav__button--active"] : ""}
       `}
 				onClick={() => router.push("/expenses")}
 			>
@@ -49,7 +50,7 @@ export const BottonNavigation = () => {
 				className={`
         ${styles.nav__button} 
         ${rubik.className}
-        ${router.asPath === "/profile" ? styles["nav__button--active"] : ""}
+        ${pathname === "/profile" ? styles["nav__button--active"] : ""}
       `}
 				onClick={() => router.push("/profile")}
 			>
