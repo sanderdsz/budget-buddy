@@ -2,25 +2,33 @@
 
 import { createContext, ReactNode, useContext, useState } from "react";
 import { useRouter } from "next/navigation";
+import { api } from "../services/api"
 
 type User = {
 	email: string;
 	name?: string;
 };
 
+type SignInProps = {
+	email: string;
+	password: string;
+};
+
+type SignInParams = {
+	data: object,
+	message: string,
+	status: number
+}
+
 type AuthProviderProps = {
 	children: ReactNode;
 };
 
 type AuthContextData = {
-	signIn: (credentials: SignInProps) => Promise<void>;
+	signIn: (credentials: SignInProps) => Promise<SignInParams>;
 	user?: User;
 };
 
-type SignInProps = {
-	email: string;
-	password: string;
-};
 
 const AuthContext = createContext({} as AuthContextData);
 
@@ -37,9 +45,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 			console.log(email);
 			console.log(password);
 			setUser({ email });
-			await router.push("home");
+			const response = await api.post("/auth/login", {email, password})
+			//await router.push("home");
+			return response
 		} catch (err) {
-			console.log(err);
+			// @ts-ignore
+			return err.response.data;
 		}
 	};
 

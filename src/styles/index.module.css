@@ -60,7 +60,7 @@
 .form__input {
     display: flex;
     flex-direction: column;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .form__input > div:first-child {
@@ -72,3 +72,25 @@
     display: flex;
     justify-content: space-between;
 }
+
+.form__message-container {
+    margin-top: .5rem;
+    height: 1.5rem;
+}
+
+.form__message {
+    color: var(--red-03);
+    font-size: 0.85rem;
+}
+
+.form__message--deactivated {
+    opacity: 0;
+    transition: opacity 0.75s;
+}
+
+.form__message--activated {
+    opacity: 1;
+    transition: opacity 0.75s;
+}
+
+

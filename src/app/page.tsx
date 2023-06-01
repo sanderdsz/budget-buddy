@@ -1,7 +1,6 @@
 'use client'
 
 import Head from "next/head";
-import { useRouter } from "next/navigation";
 import { Rubik, Karla } from "next/font/google";
 import { ThemeToggle } from "@/components/themeToggle";
 import { Button } from "@/components/button";
@@ -19,13 +18,26 @@ const rubik = Rubik({
 const karla = Karla({ subsets: ["latin"] });
 
 export default function Index() {
-  const router = useRouter();
   const auth = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [classname, setClassname] = useState("");
 
   const loginRedirection = () => {
-    auth.signIn({ email, password }).then((response) => console.log(response));
+    auth.signIn({ email, password }).then(
+      (response) => {
+        if (response.status !== 200) {
+          setMessage(response.message);
+          setClassname(`form__message--activated`);
+          console.log(classname)
+        } else {
+          setMessage(" ");
+          setClassname(`form__message--deactivated`);
+          console.log(classname)
+        }
+      }
+    );
   };
 
   return (
@@ -63,6 +75,15 @@ export default function Index() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
+                </div>
+                <div className={`${styles[`form__message-container`]}`}>
+                  <span className={`
+                    ${styles[classname]}
+                    ${styles[`form__message`]}
+                    ${rubik.className}
+                  `}>
+                    { message }
+                  </span>
                 </div>
               </div>
               <div className={styles.form__buttons}>

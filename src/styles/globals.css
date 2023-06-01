@@ -156,3 +156,11 @@ body {
 *, ::after, ::before {
     box-sizing: border-box;
 }
+
+.openIt {
+    animation: fade-in 1s forwards;
+}
+
+.closeIt {
+    animation: fade-out 1s forwards;
+}
