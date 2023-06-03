@@ -1,12 +1,12 @@
 'use client'
 
 import Head from "next/head";
+import { useState } from "react";
 import { Rubik, Karla } from "next/font/google";
 import { ThemeToggle } from "@/components/themeToggle";
 import { Button } from "@/components/button";
 import { useAuth } from "@/contexts/authContext";
 import { Input } from "@/components/input";
-import { useState } from "react";
 
 import styles from "../styles/index.module.css";
 
@@ -14,7 +14,6 @@ const rubik = Rubik({
   subsets: ["latin"],
   weight: ["400", "600"],
 });
-
 const karla = Karla({ subsets: ["latin"] });
 
 export default function Index() {
@@ -30,11 +29,9 @@ export default function Index() {
         if (response.status !== 200) {
           setMessage(response.message);
           setClassname(`form__message--activated`);
-          console.log(classname)
         } else {
           setMessage(" ");
           setClassname(`form__message--deactivated`);
-          console.log(classname)
         }
       }
     );

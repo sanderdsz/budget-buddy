@@ -2,6 +2,7 @@
 
 import { createContext, ReactNode, useContext, useState } from "react";
 import { useRouter } from "next/navigation";
+import Cookies from 'js-cookie';
 import { api } from "../services/api"
 
 type User = {
@@ -42,11 +43,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
 	const signIn = async ({ email, password }: SignInProps) => {
 		try {
-			console.log(email);
-			console.log(password);
 			setUser({ email });
 			const response = await api.post("/auth/login", {email, password})
-			//await router.push("home");
+			const { accessToken } = response.data
+			Cookies.set("budgetbuddy.accessToken", accessToken)
+			Cookies.set("budgetbuddy.email", email)
+			await router.push("home");
 			return response
 		} catch (err) {
 			// @ts-ignore
