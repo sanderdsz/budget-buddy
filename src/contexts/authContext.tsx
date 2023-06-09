@@ -1,11 +1,12 @@
-'use client'
+"use client";
 
 import { createContext, ReactNode, useContext, useState } from "react";
 import { useRouter } from "next/navigation";
-import Cookies from 'js-cookie';
-import { api } from "../services/api"
+import Cookies from "js-cookie";
+import { api } from "../services/api";
 
 type User = {
+	id: number;
 	email: string;
 	name?: string;
 };
@@ -16,10 +17,10 @@ type SignInProps = {
 };
 
 type SignInParams = {
-	data: object,
-	message: string,
-	status: number
-}
+	data: object;
+	message: string;
+	status: number;
+};
 
 type AuthProviderProps = {
 	children: ReactNode;
@@ -29,7 +30,6 @@ type AuthContextData = {
 	signIn: (credentials: SignInProps) => Promise<SignInParams>;
 	user?: User;
 };
-
 
 const AuthContext = createContext({} as AuthContextData);
 
@@ -43,14 +43,28 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
 	const signIn = async ({ email, password }: SignInProps) => {
 		try {
-			setUser({ email });
-			const response = await api.post("/auth/login", {email, password})
-			const { accessToken } = response.data
-			Cookies.set("budgetbuddy.accessToken", accessToken)
-			Cookies.set("budgetbuddy.email", email)
+			const response = await api.post("/auth/login", { email, password });
+			console.log(response)
+			const { accessToken } = response.data;
+			console.log(accessToken)
+			Cookies.set("budgetbuddy.accessToken", accessToken);
+			Cookies.set("budgetbuddy.email", email);
+			const config = {
+				headers: {
+					"Authorization": `Basic ${accessToken}`,
+					"Access-Control-Allow-Origin": "*"
+				}
+			}
+			const userResponse = await api.get(`/incomes/user?email=${email}`, config)
+			setUser({
+				id: userResponse.data.id,
+				email,
+				name: userResponse.data.name
+			})
 			await router.push("home");
-			return response
+			return userResponse;
 		} catch (err) {
+			console.log(err)
 			// @ts-ignore
 			return err.response.data;
 		}

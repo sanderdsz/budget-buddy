@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
 	Cell,
@@ -10,15 +10,18 @@ import {
 	Pie,
 	PieChart,
 } from "recharts";
+import {useEffect, useState} from "react";
 import { MobileLayout } from "@/layouts/mobile";
 import { Karla } from "next/font/google";
 import { useTheme } from "@/contexts/themeContext";
 import { iconsFormatter } from "@/utils/iconsFormatter";
 import { colorsFormatter } from "@/utils/colorsFormatter";
 import { ProgressBar } from "@/components/progressBar";
+import { Button } from "@/components/button";
+import { api } from "@/services/api";
 
 import styles from "./styles.module.css";
-import {Button} from "@/components/button";
+import {useAuth} from "@/contexts/authContext";
 
 type LabelProps = {
 	cx: number;
@@ -111,6 +114,16 @@ const currencyFormatter = new Intl.NumberFormat("pt-BR", {
 });
 
 export default function Home() {
+	const auth = useAuth();
+	const [isLoading, setIsLoading] = useState(false);
+
+	useEffect(() => {
+		if (!auth.user?.name) {
+			setIsLoading(true);
+			console.log('null')
+		}
+	}, [])
+
 	const theme = useTheme();
 	return (
 		<MobileLayout>

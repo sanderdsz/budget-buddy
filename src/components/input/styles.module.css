@@ -16,3 +16,8 @@
 .input:focus {
     border: 2px solid var(--color-input-border-focus-primary);
 }
+
+.input:disabled {
+    cursor: not-allowed;
+    color: var(--color-input-placeholder-primary);
+}

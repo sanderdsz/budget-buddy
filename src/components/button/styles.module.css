@@ -10,6 +10,10 @@
     filter: brightness(95%);
 }
 
+.button:disabled {
+    cursor: not-allowed;
+}
+
 .small {
     padding: .25rem .25rem;
     font-size: .85rem;
