@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 					"Access-Control-Allow-Origin": "*"
 				}
 			}
-			const userResponse = await api.get(`/incomes/user?email=${email}`, config)
+			const userResponse = await api.get(`/users/email/${email}`, config)
 			setUser({
 				id: userResponse.data.id,
 				email,
