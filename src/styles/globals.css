@@ -92,6 +92,10 @@
     /* header */
     --color-header-icons-primary: var(--gray-05);
 
+    /* loader & spinner */
+    --color-loader-bg-primary: var(--white-02);
+    --color-spinner-primary: var(--blue-05);
+
     /* PAGES */
     /* home */
     --color-home-bg-primary: var(--white-02);
@@ -138,6 +142,10 @@
     /* header */
     --color-header-icons-primary: var(--white-02);
 
+    /* loader & spinner */
+    --color-loader-bg-primary: var(--gray-01);
+    --color-spinner-primary: var(--yellow-01);
+
     /* PAGES */
     /* home */
     --color-home-bg-primary: var(--gray-01);
@@ -155,12 +163,4 @@ body {
 
 *, ::after, ::before {
     box-sizing: border-box;
-}
-
-.openIt {
-    animation: fade-in 1s forwards;
-}
-
-.closeIt {
-    animation: fade-out 1s forwards;
 }

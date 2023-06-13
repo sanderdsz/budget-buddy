@@ -9,6 +9,7 @@ import { useAuth } from "@/contexts/authContext";
 import { Input } from "@/components/input";
 
 import styles from "../styles/index.module.css";
+import Loading from "@/components/loadingSpinner";
 
 const rubik = Rubik({
 	subsets: ["latin"],

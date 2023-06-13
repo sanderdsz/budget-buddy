@@ -44,27 +44,27 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 	const signIn = async ({ email, password }: SignInProps) => {
 		try {
 			const response = await api.post("/auth/login", { email, password });
-			console.log(response)
+			console.log(response);
 			const { accessToken } = response.data;
-			console.log(accessToken)
+			console.log(accessToken);
 			Cookies.set("budgetbuddy.accessToken", accessToken);
 			Cookies.set("budgetbuddy.email", email);
 			const config = {
 				headers: {
-					"Authorization": `Basic ${accessToken}`,
-					"Access-Control-Allow-Origin": "*"
-				}
-			}
-			const userResponse = await api.get(`/users/email/${email}`, config)
+					Authorization: `Basic ${accessToken}`,
+					"Access-Control-Allow-Origin": "*",
+				},
+			};
+			const userResponse = await api.get(`/users/email/${email}`, config);
 			setUser({
 				id: userResponse.data.id,
 				email,
-				name: userResponse.data.name
-			})
+				name: userResponse.data.name,
+			});
 			await router.push("home");
 			return userResponse;
 		} catch (err) {
-			console.log(err)
+			console.log(err);
 			// @ts-ignore
 			return err.response.data;
 		}

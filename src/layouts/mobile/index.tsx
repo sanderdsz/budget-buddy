@@ -1,6 +1,8 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { Header } from "@/components/header";
 import { BottonNavigation } from "@/components/bottonNavigation";
+import { LoadingProvider, useLoading } from "@/contexts/loadingContext";
+import Loading from "@/components/loadingSpinner";
 
 interface MobileLayoutProps {
 	children: ReactNode;
