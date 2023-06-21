@@ -21,9 +21,10 @@ import { colorsFormatter } from "@/utils/colorsFormatter";
 import { ProgressBar } from "@/components/progressBar";
 import { Button } from "@/components/button";
 import { api } from "@/services/api";
+import LoadingSpinner from "@/components/loadingSpinner";
+import Cookies from "js-cookie";
 
 import styles from "./styles.module.css";
-import LoadingSpinner from "@/components/loadingSpinner";
 
 type LabelProps = {
 	cx: number;
@@ -118,14 +119,36 @@ const currencyFormatter = new Intl.NumberFormat("pt-BR", {
 export default function Home() {
 	const auth = useAuth();
 	const router = useRouter();
-	const [isLoading, setIsLoading] = useState(false);
 	const theme = useTheme();
+	const [isLoading, setIsLoading] = useState(false);
+	const [balance, setBalance] = useState("");
+	const [expenses, setExpenses] = useState();
 
 	useEffect(() => {
 		if (!auth.user) {
-			router.push("/");
+			//router.push("/");
 		}
-	}, [])
+		const accessToken = Cookies.get("budgetbuddy.accessToken");
+		const config = {
+			headers: {
+				Authorization: `Bearer ${accessToken}`,
+			},
+		};
+		const fetchBalance = async () => {
+			const balanceResponse = await api.get(`/balances`, config);
+			const formattedBalance = new Intl.NumberFormat('pt-BR', {
+				style: 'currency',
+				currency: 'BRL',
+			}).format(balanceResponse.data.value);
+			setBalance(formattedBalance);
+		};
+		fetchBalance();
+		const fetchExpenses = async () => {
+			const expensesResponse = await api.get(`/expenses`, config);
+			setExpenses(expensesResponse.data)
+		};
+		fetchExpenses();
+	}, []);
 
 	return (
 		<MobileLayout>
@@ -143,7 +166,7 @@ export default function Home() {
 									Balance
 								</span>
 							</div>
-							<span className={styles[`home-chart__balance`]}>R$ 1.200,00</span>
+							<span className={styles[`home-chart__balance`]}>{ balance }</span>
 						</div>
 						<div className={styles[`home-chart__graph`]}>
 							<div className={styles[`home-chart__graph-buttons`]}>

@@ -44,18 +44,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 	const signIn = async ({ email, password }: SignInProps) => {
 		try {
 			const response = await api.post("/auth/login", { email, password });
-			console.log(response);
 			const { accessToken } = response.data;
-			console.log(accessToken);
 			Cookies.set("budgetbuddy.accessToken", accessToken);
 			Cookies.set("budgetbuddy.email", email);
 			const config = {
 				headers: {
-					Authorization: `Basic ${accessToken}`,
-					"Access-Control-Allow-Origin": "*",
+					Authorization: `Bearer ${accessToken}`,
 				},
 			};
-			const userResponse = await api.get(`/users/email/${email}`, config);
+			const userResponse = await api.get(`/users`, config);
 			setUser({
 				id: userResponse.data.id,
 				email,
