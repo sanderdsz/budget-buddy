@@ -8,7 +8,8 @@ import { api } from "../services/api";
 type User = {
 	id: number;
 	email: string;
-	name?: string;
+	firstName?: string;
+	lastName?: string;
 };
 
 type SignInProps = {
@@ -56,7 +57,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 			setUser({
 				id: userResponse.data.id,
 				email,
-				name: userResponse.data.name,
+				firstName: userResponse.data.firstName,
+				lastName: userResponse.data.lastName,
 			});
 			await router.push("home");
 			return userResponse;

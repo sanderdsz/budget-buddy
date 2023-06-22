@@ -36,7 +36,7 @@ export const Header = () => {
 				/>
 				<div className={styles.header__title}>
 					<span>Welcome Back</span>
-					<h3>{auth.user?.name}</h3>
+					<h3>{auth.user?.firstName}</h3>
 				</div>
 			</div>
 			<div className={styles.header__menu}>
