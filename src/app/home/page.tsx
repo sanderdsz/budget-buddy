@@ -26,6 +26,32 @@ import Cookies from "js-cookie";
 
 import styles from "./styles.module.css";
 
+type BalanceProps = {
+	balance: number;
+	expenses: number;
+	incomes: number;
+}
+
+type WeeklyBalanceProps = {
+	weekBalance: BalanceProps;
+	week: number;
+	startDate: string;
+	endDate: string;
+}
+
+type ExpenseProps = {
+	value: number;
+	expenseType: string;
+	date: string;
+}
+
+type MonthlyExpenseProps = {
+	expenses: ExpenseProps[];
+	expenseType: string;
+	totalValue: number;
+	percentage: number;
+}
+
 type LabelProps = {
 	cx: number;
 	cy: number;
@@ -41,49 +67,6 @@ const karla = Karla({
 	weight: ["200", "400", "600"],
 });
 
-const data01 = [
-	{
-		week: "1",
-		amount: 2210,
-	},
-	{
-		week: "2",
-		amount: 6800,
-	},
-	{
-		week: "3",
-		amount: 4320,
-	},
-	{
-		week: "4",
-		amount: 0,
-	},
-];
-const data02 = [
-	{ type: "grocery", value: 2400 },
-	{ type: "snacks", value: 4567 },
-	{ type: "shopping", value: 1398 },
-	{ type: "housing", value: 9800 },
-	{ type: "car", value: 3908 },
-	{ type: "pharmacy", value: 4800 },
-];
-const expenses = [
-	{ type: "grocery", color: "#7D9768" },
-	{ type: "snacks", color: "#EBCB8B" },
-	{ type: "shopping", color: "#c8ccd2" },
-	{ type: "housing", color: "#88c0d0" },
-	{ type: "car", color: "#A32727" },
-	{ type: "pharmacy", color: "#5E81AC" },
-];
-const COLORS = [
-	"#7D9768",
-	"#A32727",
-	"#5E81AC",
-	"#88c0d0",
-	"#c8ccd2",
-	"#EBCB8B",
-];
-const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({
 	cx,
 	cy,
@@ -93,6 +76,7 @@ const renderCustomizedLabel = ({
 	midAngle,
 	index,
 }: LabelProps) => {
+	const RADIAN = Math.PI / 180;
 	const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
 	const x = cx + radius * Math.cos(-midAngle * RADIAN);
 	const y = cy + radius * Math.sin(-midAngle * RADIAN);
@@ -108,9 +92,23 @@ const renderCustomizedLabel = ({
 		</text>
 	);
 };
+
+const CustomTooltip = ({ active, payload, label }: any) => {
+	if (active && payload && payload.length) {
+		return (
+			<div>
+				<p style={{ margin: 0 }}>{`Week ${label}`}</p>
+				<p style={{ margin: 0 }}>{`Balance: ${currencyFormatter.format(payload[0].value)}`}</p>
+			</div>
+		);
+	}
+	return null;
+};
+
 const monthFormatter = new Intl.DateTimeFormat("en-US", {
 	month: "long",
 }).format(new Date());
+
 const currencyFormatter = new Intl.NumberFormat("pt-BR", {
 	style: "currency",
 	currency: "BRL",
@@ -122,33 +120,60 @@ export default function Home() {
 	const theme = useTheme();
 	const [isLoading, setIsLoading] = useState(false);
 	const [balance, setBalance] = useState("");
-	const [expenses, setExpenses] = useState();
+	const [expense, setExpense] = useState("");
+	const [weeklyBalance, setWeeklyBalance] = useState<WeeklyBalanceProps[]>();
+	const [monthlyExpenses, setMonthlyExpenses] = useState<MonthlyExpenseProps[] | undefined>();
+	const currentDate = new Date();
+	const accessToken = Cookies.get("budgetbuddy.accessToken");
+	const config = {
+		headers: {
+			Authorization: `Bearer ${accessToken}`,
+		},
+	};
 
 	useEffect(() => {
+		setIsLoading(true);
 		if (!auth.user) {
 			//router.push("/");
 		}
-		const accessToken = Cookies.get("budgetbuddy.accessToken");
-		const config = {
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
-		};
-		const fetchBalance = async () => {
-			const balanceResponse = await api.get(`/balances`, config);
-			const formattedBalance = new Intl.NumberFormat('pt-BR', {
-				style: 'currency',
-				currency: 'BRL',
-			}).format(balanceResponse.data.value);
-			setBalance(formattedBalance);
-		};
 		fetchBalance();
-		const fetchExpenses = async () => {
-			const expensesResponse = await api.get(`/expenses`, config);
-			setExpenses(expensesResponse.data)
-		};
-		fetchExpenses();
+		fetchWeeklyBalances();
+		fetchMonthlyExpenses().then(() => {
+			setIsLoading(false);
+		});
 	}, []);
+
+	const fetchBalance = async () => {
+		try {
+			const response = await api.get(
+				`/balances?year=${currentDate.getFullYear()}&month=${currentDate.getMonth()}`, config
+			);
+			setBalance(currencyFormatter.format(response.data.balance));
+			setExpense(currencyFormatter.format(response.data.expenses));
+		} catch (e) {
+			console.log(e)
+		}
+	}
+
+	const fetchWeeklyBalances = async () => {
+		try {
+			const response = await api.get<WeeklyBalanceProps[]>(
+				`/balances/weekly`, config
+			);
+			setWeeklyBalance(response.data);
+		} catch (e) {
+			console.log(e)
+		}
+	}
+
+	const fetchMonthlyExpenses = async () => {
+		try {
+			const response = await api.get<MonthlyExpenseProps[]>(`/expenses/monthly`, config);
+			setMonthlyExpenses(response.data)
+		} catch (e) {
+			console.log(e)
+		}
+	}
 
 	return (
 		<MobileLayout>
@@ -174,16 +199,15 @@ export default function Home() {
 								<Button label={"Month"} color={"secondary"} />
 							</div>
 							<ResponsiveContainer width="100%" height="100%">
-								<LineChart width={300} height={100} data={data01}>
+								<LineChart width={300} height={100} data={weeklyBalance}>
 									<Tooltip
-										contentStyle={{ color: "#232730" }}
-										itemStyle={{ color: "#232730" }}
+										content={<CustomTooltip />}
 									/>
 									{theme.activeTheme === "light" ? (
 										<>
 											<Line
 												type="monotone"
-												dataKey="amount"
+												dataKey="weekBalance.balance"
 												stroke="#4c566a"
 												strokeWidth={2}
 											/>
@@ -198,7 +222,7 @@ export default function Home() {
 										<>
 											<Line
 												type="monotone"
-												dataKey="amount"
+												dataKey="weekBalance.balance"
 												stroke="#c8ccd2"
 												strokeWidth={2}
 											/>
@@ -225,7 +249,7 @@ export default function Home() {
 								</span>
 							</div>
 							<span className={styles[`home-monthly__balance`]}>
-								You have spent R$ 1.000,00 so far.
+								You have spent { expense } so far.
 							</span>
 						</div>
 						<div className={styles[`home-monthly__graph-container`]}>
@@ -233,9 +257,9 @@ export default function Home() {
 								<ResponsiveContainer width="100%" height="100%">
 									<PieChart width={100} height={200}>
 										<Pie
-											dataKey="value"
+											dataKey="totalValue"
 											isAnimationActive={false}
-											data={data02}
+											data={monthlyExpenses}
 											cx="50%"
 											cy="50%"
 											outerRadius={70}
@@ -243,11 +267,11 @@ export default function Home() {
 											label={renderCustomizedLabel}
 											labelLine={false}
 										>
-											{data02.map((entry, index) => (
+											{monthlyExpenses && monthlyExpenses.map((expense, index) => (
 												<Cell
-													name={entry.type}
+													name={expense.expenseType}
 													key={`cell-${index}`}
-													fill={colorsFormatter(entry.type)}
+													fill={colorsFormatter(expense.expenseType)}
 												/>
 											))}
 										</Pie>
@@ -256,21 +280,21 @@ export default function Home() {
 								</ResponsiveContainer>
 							</div>
 							<div>
-								{data02.map((entry, index) => (
+								{monthlyExpenses && monthlyExpenses.map((expense, index) => (
 									<div
 										key={index}
 										className={styles[`home-monthly__graph-description`]}
 									>
-										{iconsFormatter(entry.type)}
+										{iconsFormatter(expense.expenseType)}
 										<span
 											className={
 												styles[`home-monthly__graph-description--icons`]
 											}
 											style={{
-												color: colorsFormatter(entry.type),
+												color: colorsFormatter(expense.expenseType),
 											}}
 										>
-											{currencyFormatter.format(entry.value)}
+											{currencyFormatter.format(expense.totalValue)}
 										</span>
 									</div>
 								))}
@@ -279,7 +303,7 @@ export default function Home() {
 						<div className={styles[`home-monthly__target`]}>
 							<div className={styles[`home-monthly__target-container`]}>
 								<span className={styles[`home-monthly__target-current`]}>
-									R$ 1.000,00
+									{ expense }
 								</span>
 								<span className={styles[`home-monthly__target-maximum`]}>
 									Target R$ 3.000,00

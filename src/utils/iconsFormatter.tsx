@@ -9,17 +9,17 @@ import {
 
 export const iconsFormatter = (icon: string) => {
 	switch (icon) {
-		case "grocery":
+		case "GROCERY":
 			return <Basket color={"#7D9768"} height={25} width={25} />;
-		case "snacks":
+		case "MEALS":
 			return <Hamburger color={"#EBCB8B"} height={25} width={25} />;
-		case "shopping":
+		case "SHOPPING":
 			return <ShoppingBag color={"#c8ccd2"} height={25} width={25} />;
-		case "housing":
+		case "HOUSING":
 			return <Buildings color={"#88c0d0"} height={25} width={25} />;
-		case "car":
+		case "CAR":
 			return <Car color={"#BF616A"} height={25} width={25} />;
-		case "pharmacy":
+		case "PHARMACY":
 			return <Pill color={"#5E81AC"} height={25} width={25} />;
 	}
 };

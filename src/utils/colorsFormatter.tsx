@@ -1,16 +1,16 @@
 export const colorsFormatter = (icon: string) => {
 	switch (icon) {
-		case "grocery":
+		case "GROCERY":
 			return "#7D9768";
-		case "snacks":
+		case "MEALS":
 			return "#EBCB8B";
-		case "shopping":
+		case "SHOPPING":
 			return "#c8ccd2";
-		case "housing":
+		case "HOUSING":
 			return "#88c0d0";
-		case "car":
+		case "CAR":
 			return "#BF616A";
-		case "pharmacy":
+		case "PHARMACY":
 			return "#5E81AC";
 	}
 };
