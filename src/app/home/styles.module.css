@@ -79,7 +79,13 @@
     height: 10rem;
 }
 
-.home-monthly__graph-description {
+.home-monthly__graph-description--text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.home-monthly__graph-description--text {
     display: flex;
     flex-direction: row;
     align-items: center;

@@ -146,7 +146,7 @@ export default function Home() {
 	const fetchBalance = async () => {
 		try {
 			const response = await api.get(
-				`/balances?year=${currentDate.getFullYear()}&month=${currentDate.getMonth()}`, config
+				`/balances?year=${currentDate.getFullYear()}&month=${currentDate.getMonth() + 1}`, config
 			);
 			setBalance(currencyFormatter.format(response.data.balance));
 			setExpense(currencyFormatter.format(response.data.expenses));
@@ -279,11 +279,11 @@ export default function Home() {
 									</PieChart>
 								</ResponsiveContainer>
 							</div>
-							<div>
+							<div className={styles[`home-monthly__graph-description`]}>
 								{monthlyExpenses && monthlyExpenses.map((expense, index) => (
 									<div
 										key={index}
-										className={styles[`home-monthly__graph-description`]}
+										className={styles[`home-monthly__graph-description--text`]}
 									>
 										{iconsFormatter(expense.expenseType)}
 										<span
