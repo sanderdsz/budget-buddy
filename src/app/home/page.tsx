@@ -10,9 +10,7 @@ import {
 	Pie,
 	PieChart,
 } from "recharts";
-import {useEffect, useState} from "react";
-import { useAuth } from "@/contexts/authContext";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { MobileLayout } from "@/layouts/mobile";
 import { Karla } from "next/font/google";
 import { useTheme } from "@/contexts/themeContext";
@@ -25,32 +23,33 @@ import LoadingSpinner from "@/components/loadingSpinner";
 import Cookies from "js-cookie";
 
 import styles from "./styles.module.css";
+import Skeleton from "react-loading-skeleton";
 
 type BalanceProps = {
 	balance: number;
 	expenses: number;
 	incomes: number;
-}
+};
 
 type WeeklyBalanceProps = {
 	weekBalance: BalanceProps;
 	week: number;
 	startDate: string;
 	endDate: string;
-}
+};
 
 type ExpenseProps = {
 	value: number;
 	expenseType: string;
 	date: string;
-}
+};
 
 type MonthlyExpenseProps = {
 	expenses: ExpenseProps[];
 	expenseType: string;
 	totalValue: number;
 	percentage: number;
-}
+};
 
 type LabelProps = {
 	cx: number;
@@ -98,7 +97,9 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 		return (
 			<div>
 				<p style={{ margin: 0 }}>{`Week ${label}`}</p>
-				<p style={{ margin: 0 }}>{`Balance: ${currencyFormatter.format(payload[0].value)}`}</p>
+				<p style={{ margin: 0 }}>{`Balance: ${currencyFormatter.format(
+					payload[0].value
+				)}`}</p>
 			</div>
 		);
 	}
@@ -115,14 +116,14 @@ const currencyFormatter = new Intl.NumberFormat("pt-BR", {
 });
 
 export default function Home() {
-	const auth = useAuth();
-	const router = useRouter();
 	const theme = useTheme();
 	const [isLoading, setIsLoading] = useState(false);
 	const [balance, setBalance] = useState("");
 	const [expense, setExpense] = useState("");
 	const [weeklyBalance, setWeeklyBalance] = useState<WeeklyBalanceProps[]>();
-	const [monthlyExpenses, setMonthlyExpenses] = useState<MonthlyExpenseProps[] | undefined>();
+	const [monthlyExpenses, setMonthlyExpenses] = useState<
+		MonthlyExpenseProps[] | undefined
+	>();
 	const currentDate = new Date();
 	const accessToken = Cookies.get("budgetbuddy.accessToken");
 	const config = {
@@ -133,9 +134,6 @@ export default function Home() {
 
 	useEffect(() => {
 		setIsLoading(true);
-		if (!auth.user) {
-			//router.push("/");
-		}
 		fetchBalance();
 		fetchWeeklyBalances();
 		fetchMonthlyExpenses().then(() => {
@@ -146,34 +144,41 @@ export default function Home() {
 	const fetchBalance = async () => {
 		try {
 			const response = await api.get(
-				`/balances?year=${currentDate.getFullYear()}&month=${currentDate.getMonth() + 1}`, config
+				`/balances?year=${currentDate.getFullYear()}&month=${
+					currentDate.getMonth() + 1
+				}`,
+				config
 			);
 			setBalance(currencyFormatter.format(response.data.balance));
 			setExpense(currencyFormatter.format(response.data.expenses));
 		} catch (e) {
-			console.log(e)
+			console.log(e);
 		}
-	}
+	};
 
 	const fetchWeeklyBalances = async () => {
 		try {
 			const response = await api.get<WeeklyBalanceProps[]>(
-				`/balances/weekly`, config
+				`/balances/weekly`,
+				config
 			);
 			setWeeklyBalance(response.data);
 		} catch (e) {
-			console.log(e)
+			console.log(e);
 		}
-	}
+	};
 
 	const fetchMonthlyExpenses = async () => {
 		try {
-			const response = await api.get<MonthlyExpenseProps[]>(`/expenses/monthly`, config);
-			setMonthlyExpenses(response.data)
+			const response = await api.get<MonthlyExpenseProps[]>(
+				`/expenses/monthly`,
+				config
+			);
+			setMonthlyExpenses(response.data);
 		} catch (e) {
-			console.log(e)
+			console.log(e);
 		}
-	}
+	};
 
 	return (
 		<MobileLayout>
@@ -191,7 +196,27 @@ export default function Home() {
 									Balance
 								</span>
 							</div>
-							<span className={styles[`home-chart__balance`]}>{ balance }</span>
+							<span className={styles[`home-chart__balance`]}>
+								{
+									balance ? (
+										<>{ balance }</>
+									) : (
+										<Skeleton
+											width={"60%"}
+											baseColor={
+												theme.activeTheme === "dark"
+													? "var(--gray-02)"
+													: "var(--white-05)"
+											}
+											highlightColor={
+												theme.activeTheme === "dark"
+													? "var(--gray-03)"
+													: "var(--white-03)"
+											}
+										/>
+									)
+								}
+							</span>
 						</div>
 						<div className={styles[`home-chart__graph`]}>
 							<div className={styles[`home-chart__graph-buttons`]}>
@@ -200,9 +225,7 @@ export default function Home() {
 							</div>
 							<ResponsiveContainer width="100%" height="100%">
 								<LineChart width={300} height={100} data={weeklyBalance}>
-									<Tooltip
-										content={<CustomTooltip />}
-									/>
+									<Tooltip content={<CustomTooltip />} />
 									{theme.activeTheme === "light" ? (
 										<>
 											<Line
@@ -249,7 +272,25 @@ export default function Home() {
 								</span>
 							</div>
 							<span className={styles[`home-monthly__balance`]}>
-								You have spent { expense } so far.
+								{
+									expense ? (
+										<>You have spent { expense } so far.</>
+									) : (
+                    <Skeleton
+											width={"75%"}
+                      baseColor={
+                        theme.activeTheme === "dark"
+                          ? "var(--gray-02)"
+                          : "var(--white-05)"
+                      }
+                      highlightColor={
+                        theme.activeTheme === "dark"
+                          ? "var(--gray-03)"
+                          : "var(--white-03)"
+                      }
+                    />
+									)
+								}
 							</span>
 						</div>
 						<div className={styles[`home-monthly__graph-container`]}>
@@ -267,43 +308,65 @@ export default function Home() {
 											label={renderCustomizedLabel}
 											labelLine={false}
 										>
-											{monthlyExpenses && monthlyExpenses.map((expense, index) => (
-												<Cell
-													name={expense.expenseType}
-													key={`cell-${index}`}
-													fill={colorsFormatter(expense.expenseType)}
-												/>
-											))}
+											{monthlyExpenses &&
+												monthlyExpenses.map((expense, index) => (
+													<Cell
+														name={expense.expenseType}
+														key={`cell-${index}`}
+														fill={colorsFormatter(expense.expenseType)}
+													/>
+												))}
 										</Pie>
 										<Tooltip />
 									</PieChart>
 								</ResponsiveContainer>
 							</div>
 							<div className={styles[`home-monthly__graph-description`]}>
-								{monthlyExpenses && monthlyExpenses.map((expense, index) => (
-									<div
-										key={index}
-										className={styles[`home-monthly__graph-description--text`]}
-									>
-										{iconsFormatter(expense.expenseType)}
-										<span
+								{monthlyExpenses &&
+									monthlyExpenses.map((expense, index) => (
+										<div
+											key={index}
 											className={
-												styles[`home-monthly__graph-description--icons`]
+												styles[`home-monthly__graph-description--text`]
 											}
-											style={{
-												color: colorsFormatter(expense.expenseType),
-											}}
 										>
-											{currencyFormatter.format(expense.totalValue)}
-										</span>
-									</div>
-								))}
+											{iconsFormatter(expense.expenseType)}
+											<span
+												className={
+													styles[`home-monthly__graph-description--icons`]
+												}
+												style={{
+													color: colorsFormatter(expense.expenseType),
+												}}
+											>
+												{currencyFormatter.format(expense.totalValue)}
+											</span>
+										</div>
+									))}
 							</div>
 						</div>
 						<div className={styles[`home-monthly__target`]}>
 							<div className={styles[`home-monthly__target-container`]}>
 								<span className={styles[`home-monthly__target-current`]}>
-									{ expense }
+									{
+										expense ? (
+											<>{ expense }</>
+										) : (
+											<Skeleton
+												width={"75px"}
+												baseColor={
+													theme.activeTheme === "dark"
+														? "var(--gray-02)"
+														: "var(--white-05)"
+												}
+												highlightColor={
+													theme.activeTheme === "dark"
+														? "var(--gray-03)"
+														: "var(--white-03)"
+												}
+											/>
+										)
+									}
 								</span>
 								<span className={styles[`home-monthly__target-maximum`]}>
 									Target R$ 3.000,00

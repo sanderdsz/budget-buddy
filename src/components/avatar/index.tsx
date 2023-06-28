@@ -8,6 +8,8 @@ interface AvatarProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 
 export const Avatar = ({ size, ...props }: AvatarProps) => {
 	return (
-		<img width={size} height={size} className={styles.avatar} {...props} />
+		<div>
+			<img width={size} height={size} className={styles.avatar} {...props} />
+		</div>
 	);
 };

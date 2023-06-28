@@ -1,8 +1,8 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 import { Header } from "@/components/header";
 import { BottonNavigation } from "@/components/bottonNavigation";
-import { LoadingProvider, useLoading } from "@/contexts/loadingContext";
-import Loading from "@/components/loadingSpinner";
+
+import styles from "./styles.module.css";
 
 interface MobileLayoutProps {
 	children: ReactNode;
@@ -17,14 +17,7 @@ export const MobileLayout = ({ children }: MobileLayoutProps) => {
 	return (
 		<>
 			<Header />
-			<main
-				style={{
-					paddingBottom: "4rem",
-					paddingTop: "5rem",
-				}}
-			>
-				{children}
-			</main>
+			<main className={styles.layout}>{children}</main>
 			<BottonNavigation />
 		</>
 	);

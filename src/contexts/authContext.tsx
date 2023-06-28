@@ -23,6 +23,20 @@ type SignInParams = {
 	status: number;
 };
 
+type VerifyTokenParams = {
+	email: string;
+	accessToken: string;
+};
+
+type UserParams = {
+	"id": number;
+	"firstName": string;
+	"lastName": string;
+	"email": string;
+	"userChildren": User[],
+	"userParent": User,
+}
+
 type AuthProviderProps = {
 	children: ReactNode;
 };
@@ -30,6 +44,8 @@ type AuthProviderProps = {
 type AuthContextData = {
 	signIn: (credentials: SignInProps) => Promise<SignInParams>;
 	user?: User;
+	verifyToken: () => Promise<VerifyTokenParams | undefined>;
+	fetchUser: () => Promise<void>;
 };
 
 const AuthContext = createContext({} as AuthContextData);
@@ -69,8 +85,51 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 		}
 	};
 
+	const fetchUser = async () => {
+		const accessToken = Cookies.get("budgetbuddy.accessToken");
+		const config = {
+			headers: {
+				Authorization: `Bearer ${accessToken}`,
+			},
+		};
+		const userResponse = await api.get<UserParams>(`/users/me`, config);
+		setUser({
+			id: userResponse.data.id,
+			email: userResponse.data.email,
+			firstName: userResponse.data.firstName,
+			lastName: userResponse.data.lastName
+		})
+	}
+
+	const verifyToken = async (): Promise<VerifyTokenParams | undefined> => {
+		const accessToken = Cookies.get("budgetbuddy.accessToken");
+		const email = Cookies.get("budgetbuddy.email");
+		if (!accessToken || !email) {
+			router.push("home");
+		}
+		const data = {
+			accessToken: accessToken,
+			email: email,
+		};
+		try {
+			const verifyTokenResponse = await api.post<VerifyTokenParams>(
+				`/auth/verify`,
+				data
+			);
+			if (verifyTokenResponse.status === 403) {
+				router.push("home");
+			}
+			return {
+				accessToken: verifyTokenResponse.data.accessToken,
+				email: verifyTokenResponse.data.email,
+			};
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
 	return (
-		<AuthContext.Provider value={{ user, signIn }}>
+		<AuthContext.Provider value={{ user, signIn, verifyToken, fetchUser }}>
 			{children}
 		</AuthContext.Provider>
 	);
