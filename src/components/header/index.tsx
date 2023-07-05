@@ -53,7 +53,7 @@ export const Header = () => {
 		<header
 			className={`${styles.header} ${rubik.className}`}
 			style={
-				pathname === "/home" && theme.activeTheme === "light"
+				theme.activeTheme === "light"
 					? { backgroundColor: "#dadee3" }
 					: { backgroundColor: "#232730" }
 			}

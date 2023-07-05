@@ -1,0 +1,73 @@
+.expenses-top__container {
+    padding: 1rem 2rem;
+    background: var(--color-expenses-bg-primary);
+}
+
+.expenses-header__title--first {
+    font-size: 1.5rem;
+    font-weight: 200;
+}
+
+.expenses-header__title--second {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.expenses-value__row {
+    display: flex;
+}
+
+.expenses-calendar__container {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.expenses-calendar__label {
+    margin-left: .75rem;
+    font-size: .85rem;
+    color: var(--color-expenses-calendar-label);
+}
+
+.expenses-bottom__container {
+    padding: 2rem 2rem;
+}
+
+.expenses-value__container {
+    display: flex;
+    flex-direction: column;
+}
+
+.expenses-type-selector__container {}
+
+.expenses-type-selector__wrapper {
+    align-items: flex-end;
+    margin-bottom: 0;
+    height: 8rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.expenses__label {
+    margin-top: .5rem;
+    font-size: .85rem;
+    color: var(--color-expenses-label);
+}
+
+.expenses-description__container {
+    margin-top: 2rem;
+    padding-bottom: .5rem;
+}
+
+.expenses-register__container {
+    display: flex;
+    justify-content: end;
+    margin-top: 1rem;
+}
+
+.expenses-register__wrapper {
+    margin-right: 1rem;
+}

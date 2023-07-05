@@ -15,15 +15,15 @@ import { MobileLayout } from "@/layouts/mobile";
 import { Karla } from "next/font/google";
 import { useTheme } from "@/contexts/themeContext";
 import { iconsFormatter } from "@/utils/iconsFormatter";
-import { colorsFormatter } from "@/utils/colorsFormatter";
+import { colorsFormatter } from "@/utils/colorsUtil";
 import { ProgressBar } from "@/components/progressBar";
 import { Button } from "@/components/button";
 import { api } from "@/services/api";
 import LoadingSpinner from "@/components/loadingSpinner";
 import Cookies from "js-cookie";
+import Skeleton from "react-loading-skeleton";
 
 import styles from "./styles.module.css";
-import Skeleton from "react-loading-skeleton";
 
 type BalanceProps = {
 	balance: number;
@@ -197,25 +197,23 @@ export default function Home() {
 								</span>
 							</div>
 							<span className={styles[`home-chart__balance`]}>
-								{
-									balance ? (
-										<>{ balance }</>
-									) : (
-										<Skeleton
-											width={"60%"}
-											baseColor={
-												theme.activeTheme === "dark"
-													? "var(--gray-02)"
-													: "var(--white-05)"
-											}
-											highlightColor={
-												theme.activeTheme === "dark"
-													? "var(--gray-03)"
-													: "var(--white-03)"
-											}
-										/>
-									)
-								}
+								{balance ? (
+									<>{balance}</>
+								) : (
+									<Skeleton
+										width={"60%"}
+										baseColor={
+											theme.activeTheme === "dark"
+												? "var(--gray-02)"
+												: "var(--white-05)"
+										}
+										highlightColor={
+											theme.activeTheme === "dark"
+												? "var(--gray-03)"
+												: "var(--white-03)"
+										}
+									/>
+								)}
 							</span>
 						</div>
 						<div className={styles[`home-chart__graph`]}>
@@ -272,101 +270,109 @@ export default function Home() {
 								</span>
 							</div>
 							<span className={styles[`home-monthly__balance`]}>
-								{
-									expense ? (
-										<>You have spent { expense } so far.</>
-									) : (
-                    <Skeleton
-											width={"75%"}
-                      baseColor={
-                        theme.activeTheme === "dark"
-                          ? "var(--gray-02)"
-                          : "var(--white-05)"
-                      }
-                      highlightColor={
-                        theme.activeTheme === "dark"
-                          ? "var(--gray-03)"
-                          : "var(--white-03)"
-                      }
-                    />
-									)
-								}
+								{expense ? (
+									<>You have spent {expense} so far.</>
+								) : (
+									<Skeleton
+										width={"75%"}
+										baseColor={
+											theme.activeTheme === "dark"
+												? "var(--gray-02)"
+												: "var(--white-05)"
+										}
+										highlightColor={
+											theme.activeTheme === "dark"
+												? "var(--gray-03)"
+												: "var(--white-03)"
+										}
+									/>
+								)}
 							</span>
 						</div>
-						<div className={styles[`home-monthly__graph-container`]}>
-							<div className={styles[`home-monthly__graph`]}>
-								<ResponsiveContainer width="100%" height="100%">
-									<PieChart width={100} height={200}>
-										<Pie
-											dataKey="totalValue"
-											isAnimationActive={false}
-											data={monthlyExpenses}
-											cx="50%"
-											cy="50%"
-											outerRadius={70}
-											fill="#8884d8"
-											label={renderCustomizedLabel}
-											labelLine={false}
-										>
-											{monthlyExpenses &&
-												monthlyExpenses.map((expense, index) => (
-													<Cell
-														name={expense.expenseType}
-														key={`cell-${index}`}
-														fill={colorsFormatter(expense.expenseType)}
-													/>
-												))}
-										</Pie>
-										<Tooltip />
-									</PieChart>
-								</ResponsiveContainer>
+						{monthlyExpenses?.length === 0 ? (
+							<div className={styles[`home-monthly__graph-container`]}>
+								<div
+									className={
+										styles[`home-monthly__graph-container--no-content`]
+									}
+								>
+									There's no spending's this month yet.
+								</div>
 							</div>
-							<div className={styles[`home-monthly__graph-description`]}>
-								{monthlyExpenses &&
-									monthlyExpenses.map((expense, index) => (
-										<div
-											key={index}
-											className={
-												styles[`home-monthly__graph-description--text`]
-											}
-										>
-											{iconsFormatter(expense.expenseType)}
-											<span
-												className={
-													styles[`home-monthly__graph-description--icons`]
-												}
-												style={{
-													color: colorsFormatter(expense.expenseType),
-												}}
+						) : (
+							<div className={styles[`home-monthly__graph-container`]}>
+								<div className={styles[`home-monthly__graph`]}>
+									<ResponsiveContainer width="100%" height="100%">
+										<PieChart width={100} height={200}>
+											<Pie
+												dataKey="totalValue"
+												isAnimationActive={false}
+												data={monthlyExpenses}
+												cx="50%"
+												cy="50%"
+												outerRadius={70}
+												fill="#8884d8"
+												label={renderCustomizedLabel}
+												labelLine={false}
 											>
-												{currencyFormatter.format(expense.totalValue)}
-											</span>
-										</div>
-									))}
+												{monthlyExpenses &&
+													monthlyExpenses.map((expense, index) => (
+														<Cell
+															name={expense.expenseType}
+															key={`cell-${index}`}
+															fill={colorsFormatter(expense.expenseType)}
+														/>
+													))}
+											</Pie>
+											<Tooltip />
+										</PieChart>
+									</ResponsiveContainer>
+								</div>
+								<div className={styles[`home-monthly__graph-description`]}>
+									{monthlyExpenses &&
+										monthlyExpenses.map((expense, index) => (
+											<div
+												key={index}
+												className={
+													styles[`home-monthly__graph-description--text`]
+												}
+											>
+												{iconsFormatter(expense.expenseType)}
+												<span
+													className={
+														styles[`home-monthly__graph-description--icons`]
+													}
+													style={{
+														color: colorsFormatter(expense.expenseType),
+													}}
+												>
+													{currencyFormatter.format(expense.totalValue)}
+												</span>
+											</div>
+										))}
+								</div>
 							</div>
-						</div>
+						)}
 						<div className={styles[`home-monthly__target`]}>
 							<div className={styles[`home-monthly__target-container`]}>
 								<span className={styles[`home-monthly__target-current`]}>
-									{
-										expense ? (
-											<>{ expense }</>
-										) : (
-											<Skeleton
-												width={"75px"}
-												baseColor={
-													theme.activeTheme === "dark"
-														? "var(--gray-02)"
-														: "var(--white-05)"
-												}
-												highlightColor={
-													theme.activeTheme === "dark"
-														? "var(--gray-03)"
-														: "var(--white-03)"
-												}
-											/>
-										)
-									}
+									{expense ? (
+										<>{expense}</>
+									) : (
+										<Skeleton
+											width={"75px"}
+											baseColor={
+												theme.activeTheme === "dark"
+													? "var(--gray-02)"
+													: "var(--white-05)"
+											}
+											highlightColor={
+												theme.activeTheme === "dark"
+													? "var(--gray-03)"
+													: "var(--white-03)"
+											}
+										/>
+									)}
 								</span>
 								<span className={styles[`home-monthly__target-maximum`]}>
 									Target R$ 3.000,00

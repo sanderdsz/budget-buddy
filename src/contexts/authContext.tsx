@@ -29,13 +29,13 @@ type VerifyTokenParams = {
 };
 
 type UserParams = {
-	"id": number;
-	"firstName": string;
-	"lastName": string;
-	"email": string;
-	"userChildren": User[],
-	"userParent": User,
-}
+	id: number;
+	firstName: string;
+	lastName: string;
+	email: string;
+	userChildren: User[];
+	userParent: User;
+};
 
 type AuthProviderProps = {
 	children: ReactNode;
@@ -97,15 +97,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 			id: userResponse.data.id,
 			email: userResponse.data.email,
 			firstName: userResponse.data.firstName,
-			lastName: userResponse.data.lastName
-		})
-	}
+			lastName: userResponse.data.lastName,
+		});
+	};
 
 	const verifyToken = async (): Promise<VerifyTokenParams | undefined> => {
 		const accessToken = Cookies.get("budgetbuddy.accessToken");
 		const email = Cookies.get("budgetbuddy.email");
 		if (!accessToken || !email) {
-			router.push("home");
+			router.push("/");
 		}
 		const data = {
 			accessToken: accessToken,
@@ -116,15 +116,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 				`/auth/verify`,
 				data
 			);
-			if (verifyTokenResponse.status === 403) {
-				router.push("home");
-			}
 			return {
 				accessToken: verifyTokenResponse.data.accessToken,
 				email: verifyTokenResponse.data.email,
 			};
-		} catch (e) {
-			console.log(e);
+		} catch (e: any) {
+			if (e.response.status === 403) {
+				router.push("/");
+			}
 		}
 	};
 

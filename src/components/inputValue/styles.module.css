@@ -1,0 +1,22 @@
+.input-value {
+    color: var(--color-value-input-font-primary);
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--color-value-input-border-value);
+}
+
+.input-value::placeholder {
+    color: var(--color-value-input-font-secondary);
+}
+
+.input-value:focus {
+    outline: none;
+}
+
+.input-value__label {
+    color: var(--color-value-input-font-secondary);
+    font-size: 1rem;
+    font-weight: 400;
+}
+

@@ -74,6 +74,13 @@
     padding-bottom: 1rem;
 }
 
+.home-monthly__graph-container--no-content {
+    padding: 4rem 0;
+    font-size: 1.25rem;
+    font-weight: 200;
+    color: var(--color-home-monthly-title-primary);
+}
+
 .home-monthly__graph {
     width: 10rem;
     height: 10rem;
@@ -82,7 +89,7 @@
 .home-monthly__graph-description--text {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 
 .home-monthly__graph-description--text {
