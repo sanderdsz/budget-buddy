@@ -1,0 +1,53 @@
+.balance-history-chart__container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.balance-history-chart__header {
+    display: flex;
+    align-content: space-between;
+}
+
+.balance-history-chart__title {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.balance-history-chart__title--first {
+    font-size: 1.5rem;
+}
+
+.balance-history-chart__title--second {
+    font-size: 1.5rem;
+    font-weight: 200;
+}
+
+.balance-history-chart__title--subtitle {
+    font-weight: 200;
+    color: var(--color-balance-history-chart-subtitle);
+}
+
+.balance-history-chart__buttons {
+    width: 100%;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.balance-history-chart__chart {
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .balance-history-chart__title--first {
+        font-size: 1.3rem;
+    }
+
+    .balance-history-chart__title--second {
+        font-size: 1.3rem;
+    }
+}

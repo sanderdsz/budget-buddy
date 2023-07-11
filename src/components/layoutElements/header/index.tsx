@@ -1,10 +1,9 @@
 import { Rubik } from "next/font/google";
 import { useAuth } from "@/contexts/authContext";
 import { Bell } from "@phosphor-icons/react";
-import { Avatar } from "@/components/avatar";
-import { ThemeToggle } from "@/components/themeToggle";
+import { Avatar } from "@/components/basicElements/avatar";
+import { ThemeToggle } from "@/components/basicElements/themeToggle";
 import { useTheme } from "@/contexts/themeContext";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { api } from "@/services/api";
 import Cookies from "js-cookie";
@@ -21,7 +20,6 @@ const rubik = Rubik({
 export const Header = () => {
 	const auth = useAuth();
 	const theme = useTheme();
-	const pathname = usePathname();
 	const accessToken = Cookies.get("budgetbuddy.accessToken");
 	const [avatar, setAvatar] = useState("");
 	const config = {

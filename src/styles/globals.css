@@ -80,7 +80,7 @@
     --color-button-font-outline-hover: var(--primary);
 
     /* bottom navigation */
-    --color-botton-nav-bg-primary: var(--white-01);
+    --color-botton-nav-bg-primary: var(--white-02);
     --color-botton-nav-font-primary: var(--gray-05);
     --color-botton-nav-font-primary-hover: var(--primary);
     --color-botton-nav-font-primary-active: var(--blue-05);
@@ -103,6 +103,9 @@
     /* loader & spinner */
     --color-loader-bg-primary: var(--white-02);
     --color-spinner-primary: var(--blue-05);
+
+    /* card */
+    --color-card-border: var(--white-05);
 
     /* PAGES */
     /* home */
@@ -143,7 +146,7 @@
     --color-button-font-outline-hover: var(--primary);
 
     /* bottom navigation */
-    --color-botton-nav-bg-primary: var(--gray-02);
+    --color-botton-nav-bg-primary: var(--gray-01);
     --color-botton-nav-font-primary: var(--white-05);
     --color-botton-nav-font-primary-hover: var(--primary);
     --color-botton-nav-font-primary-active: var(--yellow-01);
@@ -166,6 +169,12 @@
     /* loader & spinner */
     --color-loader-bg-primary: var(--gray-01);
     --color-spinner-primary: var(--yellow-01);
+
+    /* card */
+    --color-card-border: var(--gray-05);
+
+    /* balance-history-chart */
+    --color-balance-history-chart-subtitle: var(--white-05);
 
     /* calendar */
     --color-calendar-font-primary: var(--white-05);

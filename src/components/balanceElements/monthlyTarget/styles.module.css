@@ -1,0 +1,32 @@
+.monthly-target__container {
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.monthly-target__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.monthly-target__title {
+    display: flex;
+    flex-direction: column;
+}
+
+.monthly-target__title--first {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-home-monthly-title-secondary);
+}
+
+.monthly-target__title--second {
+    font-size: 1rem;
+    font-weight: 200;
+}
+
+.monthly-target__amount {
+    font-size: 1.5rem;
+}

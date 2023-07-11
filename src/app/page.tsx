@@ -3,13 +3,13 @@
 import Head from "next/head";
 import { useState } from "react";
 import { Rubik, Karla } from "next/font/google";
-import { ThemeToggle } from "@/components/themeToggle";
-import { Button } from "@/components/button";
+import { ThemeToggle } from "@/components/basicElements/themeToggle";
+import { Button } from "@/components/basicElements/button";
 import { useAuth } from "@/contexts/authContext";
-import { Input } from "@/components/input";
+import { Input } from "@/components/basicElements/input";
 
 import styles from "../styles/index.module.css";
-import Loading from "@/components/loadingSpinner";
+import Loading from "@/components/basicElements/loadingSpinner";
 
 const rubik = Rubik({
 	subsets: ["latin"],

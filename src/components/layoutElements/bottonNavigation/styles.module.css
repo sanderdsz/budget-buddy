@@ -9,6 +9,7 @@
     width: 100%;
     padding: 1rem 0;
     background: var(--color-botton-nav-bg-primary);
+    border-radius: 10px 10px 0 0;
 }
 
 .nav__button {
