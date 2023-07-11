@@ -9,9 +9,9 @@ import dynamic from "next/dynamic";
 import { AvailableBalance } from "@/components/balanceElements/availableBalance";
 import MonthlyExpensesPieChart from "@/components/expensesElements/monthlyExpensesPieChart";
 import { isMobile } from "react-device-detect";
+import { MonthlyTarget } from "@/components/balanceElements/monthlyTarget/monthlyTarget";
 
 import styles from "./styles.module.css";
-import {MonthlyTarget} from "@/components/balanceElements/monthlyTarget/monthlyTarget";
 
 const karla = Karla({
 	subsets: ["latin"],
@@ -35,7 +35,7 @@ export default function Home() {
 	] = useState("");
 
 	useEffect(() => {
-		console.log(isMobile)
+		console.log(isMobile);
 		setavailableContainerResponsive(`home__card-container--md`);
 		setmonthlyExpenseContainerResponsive(
 			isMobile ? `home__card-container--lg` : `home__card-container--md`
@@ -52,7 +52,7 @@ export default function Home() {
 						<div className={`${styles[`home__card-container--first`]}`}>
 							<div
 								className={`${styles[`${availableContainerResponsive}`]}`}
-								style={{paddingRight: ".5rem"}}
+								style={{ paddingRight: ".5rem" }}
 							>
 								<Card>
 									<AvailableBalance />
@@ -60,7 +60,7 @@ export default function Home() {
 							</div>
 							<div
 								className={`${styles[`${availableContainerResponsive}`]}`}
-								style={{paddingLeft: ".5rem"}}
+								style={{ paddingLeft: ".5rem" }}
 							>
 								<Card>
 									<MonthlyTarget />

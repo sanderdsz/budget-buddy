@@ -139,7 +139,11 @@ export default function MonthlyExpensesPieChart() {
 				<span className={styles[`home-monthly__balance`]}>
 					{expense ? (
 						<span className={styles[`home-monthly__subtitle`]}>
-							You have spent <span className={styles[`home-monthly__subtitle--expense`]}>{expense}</span> so far.
+							You have spent{" "}
+							<span className={styles[`home-monthly__subtitle--expense`]}>
+								{expense}
+							</span>{" "}
+							so far.
 						</span>
 					) : (
 						<Skeleton
