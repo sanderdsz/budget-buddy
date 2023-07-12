@@ -35,7 +35,7 @@ export default function Home() {
 	] = useState("");
 
 	useEffect(() => {
-		console.log(isMobile);
+		console.log(isMobile)
 		setavailableContainerResponsive(`home__card-container--md`);
 		setmonthlyExpenseContainerResponsive(
 			isMobile ? `home__card-container--lg` : `home__card-container--md`

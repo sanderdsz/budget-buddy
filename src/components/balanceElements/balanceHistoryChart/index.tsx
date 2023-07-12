@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/basicElements/button";
-import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
+import {Area, AreaChart, Line, LineChart, ResponsiveContainer, Tooltip, XAxis} from "recharts";
 import { useTheme } from "@/contexts/themeContext";
 import { useEffect, useState } from "react";
 import { api } from "@/services/api";
@@ -35,11 +35,12 @@ export default function BalanceHistoryChart() {
 	});
 
 	const CustomTooltip = ({ active, payload, label }: any) => {
+		const fontColor = theme.activeTheme === "light" ? "#5E81AC" : "#EBCB8B"
 		if (active && payload && payload.length) {
 			return (
 				<div>
-					<p style={{ margin: 0 }}>{`Week ${label}`}</p>
-					<p style={{ margin: 0 }}>{`Balance: ${currencyFormatter.format(
+					<p style={{ margin: 0, color: fontColor }}>{`Week ${label}`}</p>
+					<p style={{ margin: 0, color: fontColor }}>{`Balance: ${currencyFormatter.format(
 						payload[0].value
 					)}`}</p>
 				</div>
@@ -73,7 +74,7 @@ export default function BalanceHistoryChart() {
 
 	useEffect(() => {
 		fetchWeeklyBalances();
-		setWidthResponsive(isMobile ? 1.2 : 1.425);
+		setWidthResponsive(isMobile ? 1.2 : 1.65);
 		if (window.innerWidth > 2100) {
 			setWidthResponsive(2);
 		}
@@ -107,19 +108,26 @@ export default function BalanceHistoryChart() {
 				</div>
 			</div>
 			<div className={styles[`balance-history-chart__chart`]}>
-				<LineChart
+				<AreaChart
 					width={width / widthResponsive}
 					height={200}
 					data={weeklyBalance}
 				>
+					<defs>
+						<linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+							<stop offset="5%" stopColor="#5E81AC" stopOpacity={0}/>
+							<stop offset="95%" stopColor="#5E81AC" stopOpacity={1}/>
+						</linearGradient>
+					</defs>
 					<Tooltip content={<CustomTooltip />} />
 					{theme.activeTheme === "light" ? (
 						<>
-							<Line
+							<Area
 								type="monotone"
 								dataKey="weekBalance.balance"
 								stroke="#4c566a"
 								strokeWidth={2}
+								fill="url(#colorUv)"
 							/>
 							<XAxis
 								dataKey="week"
@@ -130,11 +138,12 @@ export default function BalanceHistoryChart() {
 						</>
 					) : (
 						<>
-							<Line
+							<Area
 								type="monotone"
 								dataKey="weekBalance.balance"
 								stroke="#c8ccd2"
 								strokeWidth={2}
+								fill="url(#colorUv)"
 							/>
 							<XAxis
 								dataKey="week"
@@ -144,7 +153,7 @@ export default function BalanceHistoryChart() {
 							/>
 						</>
 					)}
-				</LineChart>
+				</AreaChart>
 			</div>
 		</div>
 	);
