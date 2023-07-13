@@ -4,4 +4,5 @@
     padding: 1rem;
     border: 2px solid var(--color-card-border);
     border-radius: 10px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }

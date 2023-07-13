@@ -27,7 +27,7 @@ export default function BalanceHistoryChart() {
 	const theme = useTheme();
 	const [width, setWidth] = useState(0);
 	const [weeklyBalance, setWeeklyBalance] = useState<WeeklyBalanceProps[]>();
-	const [widthResponsive, setWidthResponsive] = useState(1.1);
+	const [widthResponsive, setWidthResponsive] = useState(1.2);
 
 	const currencyFormatter = new Intl.NumberFormat("pt-BR", {
 		style: "currency",
@@ -73,11 +73,9 @@ export default function BalanceHistoryChart() {
 	};
 
 	useEffect(() => {
+		console.log(window.innerWidth)
 		fetchWeeklyBalances();
-		setWidthResponsive(isMobile ? 1.2 : 1.65);
-		if (window.innerWidth > 2100) {
-			setWidthResponsive(2);
-		}
+		setWidthResponsive(isMobile ? 1.2 : 1.5);
 	}, []);
 
 	useEffect(() => {
@@ -109,7 +107,7 @@ export default function BalanceHistoryChart() {
 			</div>
 			<div className={styles[`balance-history-chart__chart`]}>
 				<AreaChart
-					width={width / widthResponsive}
+					width={window.innerWidth > 800 ? 650 : width / widthResponsive}
 					height={200}
 					data={weeklyBalance}
 				>
@@ -119,7 +117,7 @@ export default function BalanceHistoryChart() {
 							<stop offset="95%" stopColor="#5E81AC" stopOpacity={1}/>
 						</linearGradient>
 					</defs>
-					<Tooltip content={<CustomTooltip />} />
+					<Tooltip wrapperStyle={{ outline: "none" }} content={<CustomTooltip />} />
 					{theme.activeTheme === "light" ? (
 						<>
 							<Area
@@ -134,6 +132,7 @@ export default function BalanceHistoryChart() {
 								stroke="#4c566a"
 								axisLine={false}
 								tickLine={false}
+								hide={true}
 							/>
 						</>
 					) : (
@@ -150,6 +149,7 @@ export default function BalanceHistoryChart() {
 								stroke="#c8ccd2"
 								axisLine={false}
 								tickLine={false}
+								hide={true}
 							/>
 						</>
 					)}

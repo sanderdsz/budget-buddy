@@ -197,6 +197,9 @@
     /* expense type button */
     --color-expense-type-button-bg-unselected: var(--white-05);
 
+    /* badge */
+    --color-badge-primary: var(--gray-02);
+
     /* PAGES */
     /* home */
     --color-home-bg-primary: var(--gray-01);

@@ -67,7 +67,6 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-bottom: 0.25rem;
 }
 
 .home-monthly__graph-description--icons {

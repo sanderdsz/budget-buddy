@@ -1,3 +1,12 @@
+import {
+	Basket,
+	Buildings,
+	Car,
+	Hamburger,
+	Pill,
+	ShoppingBag,
+} from "@phosphor-icons/react";
+
 export const colorsFormatter = (icon: string) => {
 	switch (icon) {
 		case "GROCERY":
@@ -31,5 +40,22 @@ export const colorMapper = (label: string) => {
 			return "#90AB7A";
 		default:
 			return "#c8ccd2";
+	}
+};
+
+export const iconsMapper = (icon: string) => {
+	switch (icon) {
+		case "GROCERY":
+			return <Basket height={25} width={25} />;
+		case "MEALS":
+			return <Hamburger height={25} width={25} />;
+		case "SHOPPING":
+			return <ShoppingBag height={25} width={25} />;
+		case "HOUSING":
+			return <Buildings height={25} width={25} />;
+		case "CAR":
+			return <Car height={25} width={25} />;
+		case "PHARMACY":
+			return <Pill height={25} width={25} />;
 	}
 };

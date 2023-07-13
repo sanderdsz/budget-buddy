@@ -11,7 +11,7 @@ import {
 	PieChart,
 } from "recharts";
 import { useEffect, useState } from "react";
-import { colorsFormatter } from "@/utils/colorsUtil";
+import {colorsFormatter, iconsMapper} from "@/utils/colorsUtil";
 import { api } from "@/services/api";
 import Cookies from "js-cookie";
 import Skeleton from "react-loading-skeleton";
@@ -20,6 +20,7 @@ import { ProgressBar } from "@/components/basicElements/progressBar";
 import { useTheme } from "@/contexts/themeContext";
 
 import styles from "./styles.module.css";
+import {Badge} from "@/components/basicElements/badge";
 
 type ExpenseProps = {
 	value: number;
@@ -200,20 +201,16 @@ export default function MonthlyExpensesPieChart() {
 					<div className={styles[`home-monthly__graph-description`]}>
 						{monthlyExpenses &&
 							monthlyExpenses.map((expense, index) => (
-								<div
-									key={index}
-									className={styles[`home-monthly__graph-description--text`]}
-								>
-									{iconsFormatter(expense.expenseType)}
-									<span
-										className={styles[`home-monthly__graph-description--icons`]}
-										style={{
-											color: colorsFormatter(expense.expenseType),
-										}}
+								<Badge key={index} color={colorsFormatter(expense.expenseType)}>
+									<div
+										className={styles[`home-monthly__graph-description--text`]}
 									>
-										{currencyFormatter.format(expense.totalValue)}
-									</span>
-								</div>
+										{iconsMapper(expense.expenseType)}
+										<span className={styles[`home-monthly__graph-description--icons`]}>
+											{currencyFormatter.format(expense.totalValue)}
+										</span>
+									</div>
+								</Badge>
 							))}
 					</div>
 				</div>

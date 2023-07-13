@@ -1,0 +1,6 @@
+.label {
+    padding: .15rem .35rem;
+    border-radius: 10px;
+    font-weight: 600;
+    color: var(--color-badge-primary);
+}
