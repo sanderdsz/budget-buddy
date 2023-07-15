@@ -8,6 +8,7 @@ import MonthlyExpensesPieChart from "@/components/expensesElements/monthlyExpens
 import {Card} from "@/components/layoutElements/card";
 import { isMobile } from "react-device-detect";
 import {useEffect, useState} from "react";
+import {Table} from "@/components/basicElements/table";
 
 const karla = Karla({
 	subsets: ["latin"],
@@ -44,12 +45,17 @@ export default function Expenses() {
 						</div>
 						<Button height={2} label={"+ expense"} colour={"primary"}/>
 					</div>
-					<div className={styles[`expenses_container`]}>
+					<div className={styles[`expenses_container--first`]}>
 						<div className={styles[`${monthlyExpenseContainerResponsive}`]}>
 							<Card>
 								<MonthlyExpensesPieChart />
 							</Card>
 						</div>
+					</div>
+					<div className={styles[`expenses_container`]}>
+						<Card>
+							<Table />
+						</Card>
 					</div>
 				</div>
 			</section>

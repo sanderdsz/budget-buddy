@@ -27,8 +27,12 @@
     font-weight: 600;
 }
 
+.expenses_container--first {
+    padding: 0.5rem 1rem 0.5rem 1rem;
+}
+
 .expenses_container {
-    padding: 1rem;
+    padding: 0.5rem 1rem 1rem 1rem;
 }
 
 .expenses-card__container--md {
