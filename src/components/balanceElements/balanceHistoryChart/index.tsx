@@ -1,7 +1,15 @@
 "use client";
 
 import { Button } from "@/components/basicElements/button";
-import {Area, AreaChart, Line, LineChart, ResponsiveContainer, Tooltip, XAxis} from "recharts";
+import {
+	Area,
+	AreaChart,
+	Line,
+	LineChart,
+	ResponsiveContainer,
+	Tooltip,
+	XAxis,
+} from "recharts";
 import { useTheme } from "@/contexts/themeContext";
 import { useEffect, useState } from "react";
 import { api } from "@/services/api";
@@ -35,14 +43,14 @@ export default function BalanceHistoryChart() {
 	});
 
 	const CustomTooltip = ({ active, payload, label }: any) => {
-		const fontColor = theme.activeTheme === "light" ? "#5E81AC" : "#EBCB8B"
+		const fontColor = theme.activeTheme === "light" ? "#5E81AC" : "#EBCB8B";
 		if (active && payload && payload.length) {
 			return (
 				<div>
 					<p style={{ margin: 0, color: fontColor }}>{`Week ${label}`}</p>
-					<p style={{ margin: 0, color: fontColor }}>{`Balance: ${currencyFormatter.format(
-						payload[0].value
-					)}`}</p>
+					<p
+						style={{ margin: 0, color: fontColor }}
+					>{`Balance: ${currencyFormatter.format(payload[0].value)}`}</p>
 				</div>
 			);
 		}
@@ -73,7 +81,7 @@ export default function BalanceHistoryChart() {
 	};
 
 	useEffect(() => {
-		console.log(window.innerWidth)
+		console.log(window.innerWidth);
 		fetchWeeklyBalances();
 		setWidthResponsive(isMobile ? 1.2 : 1.5);
 	}, []);
@@ -113,11 +121,14 @@ export default function BalanceHistoryChart() {
 				>
 					<defs>
 						<linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-							<stop offset="5%" stopColor="#5E81AC" stopOpacity={0}/>
-							<stop offset="95%" stopColor="#5E81AC" stopOpacity={1}/>
+							<stop offset="5%" stopColor="#5E81AC" stopOpacity={0} />
+							<stop offset="95%" stopColor="#5E81AC" stopOpacity={1} />
 						</linearGradient>
 					</defs>
-					<Tooltip wrapperStyle={{ outline: "none" }} content={<CustomTooltip />} />
+					<Tooltip
+						wrapperStyle={{ outline: "none" }}
+						content={<CustomTooltip />}
+					/>
 					{theme.activeTheme === "light" ? (
 						<>
 							<Area

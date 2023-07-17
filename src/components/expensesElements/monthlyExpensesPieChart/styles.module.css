@@ -36,7 +36,7 @@
     height: 100%;
     display: flex;
     justify-content: space-between;
-    padding-bottom: 1rem;
+    align-items: center;
 }
 
 .home-monthly__graph-container--no-content {
@@ -48,13 +48,13 @@
 
 .home-monthly__graph {
     width: 10rem;
-    height: 10rem;
 }
 
 .home-monthly__graph-description {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    gap: 5px;
 }
 
 .home-monthly__graph-description--text {

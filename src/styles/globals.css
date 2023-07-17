@@ -72,6 +72,7 @@
     /* buttons */
     --color-button-bg-primary: var(--primary);
     --color-button-bg-secondary: var(--white-05);
+    --color-button-bg-disabled: var(--gray-05);
 
     /* outline */
     --color-button-border-outline: var(--gray-05);
@@ -98,7 +99,7 @@
     --color-value-input-border-value: var(--blue-05);
 
     /* header */
-    --color-header-icons-primary: var(--gray-05);
+    --color-header-icons-primary: var(--gray-01);
 
     /* loader & spinner */
     --color-loader-bg-primary: var(--white-02);
@@ -106,6 +107,38 @@
 
     /* card */
     --color-card-border: var(--white-05);
+
+    /* balance-history-chart */
+    --color-balance-history-chart-subtitle: var(--white-05);
+
+    /* calendar */
+    --color-calendar-font-primary: var(--white-05);
+    --color-calendar-bg-primary: var(--gray-01);
+    --color-calendar-border-primary: var(--blue-05);
+    --color-calendar-weekdays: var(--blue-02);
+    --color-calendar-days-weekday: var(--white-05);
+    --color-calendar-days-weekend: var(--red-03);
+    --color-calendar-days-month: var(--white-05);
+    --color-calendar-days-neighboring-month: var(--gray-05);
+    --color-calendar-button-navigation: var(--blue-03);
+    --color-calendar-button-navigation-hover-focus: var(--gray-02);
+    --color-calendar-title-active: var(--green-03);
+    --color-calendar-title-hover-focus: var(--gray-02);
+    --color-calendar-title-now-bg: var(--blue-05);
+    --color-calendar-title-now-bg-hover-focus: var(--blue-03);
+    --color-calendar-title-now-font: var(--gray-02);
+    --color-calendar-year-view-month-color: var(--white-05);
+
+    /* expense type button */
+    --color-expense-type-button-bg-unselected: var(--white-05);
+
+    /* badge */
+    --color-badge-primary: var(--gray-02);
+
+    /* expense table */
+    --color-head-border-botton: var(--blue-03);
+    --color-body-border-botton: var(--white-05);
+
 
     /* PAGES */
     /* home */
@@ -138,6 +171,7 @@
     /* buttons */
     --color-button-bg-primary: var(--primary);
     --color-button-bg-secondary: var(--white-03);
+    --color-button-bg-disabled: var(--gray-05);
 
     /* outline */
     --color-button-border-outline: var(--gray-02);
@@ -199,6 +233,12 @@
 
     /* badge */
     --color-badge-primary: var(--gray-02);
+
+    /* expense table */
+    --color-head-border-botton: var(--yellow-02);
+    --color-body-border-botton: var(--gray-05);
+
+    /* select */
 
     /* PAGES */
     /* home */
@@ -393,4 +433,22 @@ body {
 
 .react-calendar--selectRange .react-calendar__tile--hover {
     background-color: #e6e6e6;
+}
+
+/* select */
+.react-select-container > .react-select__control {
+    border-color: var(--color-input-border-primary);
+    background-color: var(--color-bg-primary);
+}
+
+.react-select-container >
+.react-select__control >
+.react-select__value-container >
+.react-select__single-value {
+    color: var(--color-font-primary);
+}
+
+.react-select-container >
+.react-select__menu {
+    background-color: var(--color-bg-primary);
 }

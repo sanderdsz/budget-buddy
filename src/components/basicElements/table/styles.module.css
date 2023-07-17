@@ -1,0 +1,37 @@
+.expenses-table {
+    width: 100%;
+    text-align: center;
+    border-spacing: 0;
+}
+
+.expenses-table > thead > tr > th {
+    font-weight: 600;
+    height: 35px;
+    border-bottom: 1px solid var(--color-head-border-botton);
+}
+
+.expenses-table > tbody > tr > td {
+    font-weight: 200;
+    height: 30px;
+    border-bottom: 1px solid var(--color-body-border-botton);
+}
+
+.expenses-table__header {
+    padding-bottom: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.expenses-table__footer {
+    max-width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.expenses-table__footer-buttons {
+    padding-top: 1rem;
+    width: 4rem;
+    display: flex;
+    justify-content: space-between;
+}

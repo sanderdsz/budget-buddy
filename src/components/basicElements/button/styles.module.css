@@ -42,6 +42,10 @@
     background: var(--color-button-bg-secondary);
 }
 
+.disabled {
+    background: var(--color-button-bg-disabled);
+}
+
 .outline {
     background: none;
     color: var(--color-button-font-outline);
