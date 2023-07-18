@@ -175,7 +175,7 @@ export default function MonthlyExpensesPieChart() {
 						className={styles[`home-monthly__graph`]}
 						style={{
 							// @ts-ignore
-							height: monthlyExpenses?.length > 5 ? '14rem' : '12rem'
+							height: monthlyExpenses?.length > 5 ? "14rem" : "12rem",
 						}}
 					>
 						<ResponsiveContainer width="100%" height="100%">

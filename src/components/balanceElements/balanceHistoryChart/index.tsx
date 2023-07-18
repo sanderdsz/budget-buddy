@@ -81,7 +81,6 @@ export default function BalanceHistoryChart() {
 	};
 
 	useEffect(() => {
-		console.log(window.innerWidth);
 		fetchWeeklyBalances();
 		setWidthResponsive(isMobile ? 1.2 : 1.5);
 	}, []);

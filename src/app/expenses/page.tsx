@@ -8,7 +8,7 @@ import MonthlyExpensesPieChart from "@/components/expensesElements/monthlyExpens
 import { Card } from "@/components/layoutElements/card";
 import { isMobile } from "react-device-detect";
 import { useEffect, useState } from "react";
-import { Table } from "@/components/basicElements/table";
+import { ExpensesHistoryTable } from "@/components/expensesElements/expensesHistoryTable";
 
 const karla = Karla({
 	subsets: ["latin"],
@@ -51,7 +51,7 @@ export default function Expenses() {
 					</div>
 					<div className={styles[`expenses_container`]}>
 						<Card>
-							<Table />
+							<ExpensesHistoryTable />
 						</Card>
 					</div>
 				</div>

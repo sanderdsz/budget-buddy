@@ -25,6 +25,7 @@
     "react": "^18.2.0",
     "react-calendar": "^4.3.0",
     "react-currency-input-field": "^3.6.11",
+    "react-date-picker": "^10.2.1",
     "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
     "react-loading-skeleton": "^3.3.1",

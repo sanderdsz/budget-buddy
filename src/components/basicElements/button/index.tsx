@@ -1,9 +1,6 @@
 import React from "react";
 import { Rubik } from "next/font/google";
-import {
-	Pencil,
-	Trash,
-} from "@phosphor-icons/react";
+import { Pencil, Trash } from "@phosphor-icons/react";
 
 import styles from "./styles.module.css";
 
@@ -19,9 +16,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	size?: "small" | "medium" | "large";
 	label?: string;
 	height?: number;
-	icon?:
-		| "pencil"
-		| "trash";
+	icon?: "pencil" | "trash";
 }
 
 const iconsMapper = (icon: string) => {
@@ -32,7 +27,6 @@ const iconsMapper = (icon: string) => {
 			return <Trash height={20} width={20} />;
 	}
 };
-
 
 const rubik = Rubik({ subsets: ["latin"] });
 
@@ -55,7 +49,7 @@ export const Button = ({
 			style={{ height: `${height}rem` }}
 			{...props}
 		>
-			{ icon ? iconsMapper(icon) : null }
+			{icon ? iconsMapper(icon) : null}
 			{label}
 		</button>
 	);

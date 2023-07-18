@@ -1,0 +1,17 @@
+/* select */
+.react-select-container > .react-select__control {
+    border-color: var(--color-input-border-primary);
+    background-color: var(--color-bg-primary);
+}
+
+.react-select-container >
+.react-select__control >
+.react-select__value-container >
+.react-select__single-value {
+    color: var(--color-font-primary);
+}
+
+.react-select-container >
+.react-select__menu {
+    background-color: var(--color-bg-primary);
+}

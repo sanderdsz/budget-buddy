@@ -11,7 +11,7 @@ import { ptBR } from "date-fns/locale";
 import { colorMapper } from "@/utils/colorsUtil";
 import dynamic from "next/dynamic";
 import { useTheme } from "@/contexts/themeContext";
-import {isMobile} from "react-device-detect";
+import { isMobile } from "react-device-detect";
 
 interface ExpenseProps {
 	value: number;
@@ -34,7 +34,12 @@ const Select = dynamic(() => import("react-select"), {
 	ssr: false,
 });
 
-export const Table = () => {
+// @ts-ignore
+const DatePicker = dynamic(() => import("react-date-picker"), {
+	ssr: false,
+});
+
+export const ExpensesHistoryTable = () => {
 	const themeContext = useTheme();
 	const [currentPage, setCurrentPage] = useState(0);
 	const [isNextPageEnable, setIsNextPageEnable] = useState(true);
@@ -44,6 +49,7 @@ export const Table = () => {
 			label: "expense type",
 		});
 	const [expensesPageable, setExpensesPageable] = useState<ExpenseProps[]>([]);
+	const [dateValue, setDateValue] = useState(null);
 
 	const expenseTypeOptions = [
 		{ value: "", label: "expense type" },
@@ -74,6 +80,23 @@ export const Table = () => {
 		setCurrentPage((prevPage) => (prevPage > 0 ? prevPage - 1 : 0));
 	};
 
+	const urlBuilder = () => {
+		if (expenseTypeOption.value && dateValue) {
+			return `/expenses/pageable?page=${currentPage}&size=10&expenseType=${
+				expenseTypeOption.value
+			}&date=${format(dateValue, "yyyy-MM-dd")}`;
+		} else if (expenseTypeOption.value) {
+			return `/expenses/pageable?page=${currentPage}&size=10&expenseType=${expenseTypeOption.value}`;
+		} else if (dateValue) {
+			return `/expenses/pageable?page=${currentPage}&size=10&date=${format(
+				dateValue,
+				"yyyy-MM-dd"
+			)}`;
+		} else {
+			return `/expenses/pageable?page=${currentPage}&size=10`;
+		}
+	};
+
 	const fetchMonthlyExpenses = async () => {
 		const accessToken = Cookies.get("budgetbuddy.accessToken");
 		const config = {
@@ -81,12 +104,8 @@ export const Table = () => {
 				Authorization: `Bearer ${accessToken}`,
 			},
 		};
-		const urlBuilder =
-			expenseTypeOption.value === "" || expenseTypeOption.value === undefined
-				? `/expenses/pageable?page=${currentPage}&size=10`
-				: `/expenses/pageable?page=${currentPage}&size=10&expenseType=${expenseTypeOption.value}`;
 		try {
-			const response = await api.get(urlBuilder, config);
+			const response = await api.get(urlBuilder(), config);
 			setExpensesPageable(response.data);
 			if (response.data.length > 9) {
 				setIsNextPageEnable(true);
@@ -100,42 +119,52 @@ export const Table = () => {
 
 	useEffect(() => {
 		fetchMonthlyExpenses();
-	}, [currentPage, expenseTypeOption]);
+	}, [currentPage, expenseTypeOption, dateValue]);
 
 	return (
 		<div className={`${karla.className}`}>
 			<div className={`${styles[`expenses-table__header`]}`}>
-				<Select
-					options={expenseTypeOptions}
-					value={expenseTypeOption}
-					// @ts-ignore
-					onChange={setExpenseTypeOption}
-					className="react-select-container"
-					classNamePrefix="react-select"
-					theme={(theme) => ({
-						...theme,
-						borderRadius: 5,
-						colors: {
-							...theme.colors,
-							primary25:
-								themeContext.activeTheme === "dark" ? "#4c566a" : "#c8ccd2",
-							primary:
-								themeContext.activeTheme === "dark" ? "#E4BA84" : "#5E81AC",
-						},
-					})}
-					styles={{
-						option: (base) => ({
-							...base,
-							borderRadius: `5px`,
-						}),
-					}}
-				/>
+				<div className={`${styles[`expenses-table__header--title`]}`}>
+					<span>Expense</span> <span>History</span>
+				</div>
+				<div className={`${styles[`expenses-table__header--buttons`]}`}>
+					<DatePicker
+						// @ts-ignore
+						onChange={setDateValue}
+						value={dateValue}
+					/>
+					<Select
+						options={expenseTypeOptions}
+						value={expenseTypeOption}
+						// @ts-ignore
+						onChange={setExpenseTypeOption}
+						className="react-select-container"
+						classNamePrefix="react-select"
+						theme={(theme) => ({
+							...theme,
+							borderRadius: 5,
+							colors: {
+								...theme.colors,
+								primary25:
+									themeContext.activeTheme === "dark" ? "#4c566a" : "#c8ccd2",
+								primary:
+									themeContext.activeTheme === "dark" ? "#E4BA84" : "#5E81AC",
+							},
+						})}
+						styles={{
+							option: (base) => ({
+								...base,
+								borderRadius: `5px`,
+							}),
+						}}
+					/>
+				</div>
 			</div>
 			<table className={`${styles[`expenses-table`]}`}>
 				<thead>
 					<tr>
 						<th>Value</th>
-						<th>Expense Type</th>
+						<th>Type</th>
 						<th>Date</th>
 						<th>Description</th>
 						<th></th>
@@ -149,19 +178,46 @@ export const Table = () => {
 								style={{
 									color: colorMapper(item.expenseType),
 									fontWeight: 600,
+									fontSize: isMobile ? ".85rem" : "1rem",
 								}}
 							>
 								{item.expenseType.toLowerCase()}
 							</td>
-							<td>{dateFormatter(item.date)}</td>
-							<td>{item.description}</td>
-							<td style={{
-								display: 'flex',
-								gap: isMobile ? '2px' : '5px',
-								justifyContent: "flex-end"
-							}}>
-								<Button label={""} colour={"outline"} icon={"pencil"} size={"small"}/>
-								<Button label={""} colour={"outline"} icon={"trash"} size={"small"}/>
+							<td
+								style={{
+									fontSize: isMobile ? ".85rem" : "1rem",
+								}}
+							>
+								{dateFormatter(item.date)}
+							</td>
+							<td
+								style={{
+									fontSize: isMobile ? ".85rem" : "1rem",
+								}}
+							>
+								{item.description}
+							</td>
+							<td>
+								<div
+									style={{
+										display: "flex",
+										gap: isMobile ? "2px" : "5px",
+										justifyContent: "flex-end",
+									}}
+								>
+									<Button
+										label={""}
+										colour={"outline"}
+										icon={"pencil"}
+										size={"small"}
+									/>
+									<Button
+										label={""}
+										colour={"outline"}
+										icon={"trash"}
+										size={"small"}
+									/>
+								</div>
 							</td>
 						</tr>
 					))}
