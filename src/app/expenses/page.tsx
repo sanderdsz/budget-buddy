@@ -36,7 +36,7 @@ export default function Expenses() {
 					<div className={styles[`expenses-header_container`]}>
 						<div>
 							<span className={styles[`expenses-header__title--first`]}>
-								New
+								Your
 							</span>{" "}
 							<span className={styles[`expenses-header__title--second`]}>
 								Expenses

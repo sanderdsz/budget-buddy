@@ -59,6 +59,12 @@
 }
 
 @media (max-width: 768px) {
+    .expenses-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
     .expenses-table__header--title > span:first-child {
         display: none;
     }
