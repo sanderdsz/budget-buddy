@@ -9,7 +9,6 @@ import { useAuth } from "@/contexts/authContext";
 import { Input } from "@/components/basicElements/input";
 
 import styles from "../styles/index.module.css";
-import Loading from "@/components/basicElements/loadingSpinner";
 
 const rubik = Rubik({
 	subsets: ["latin"],
@@ -91,15 +90,17 @@ export default function Index() {
 							<div className={styles.form__buttons}>
 								<Button
 									label="sign in"
-									color="primary"
+									colour="primary"
 									onClick={() => loginRedirection()}
 									disabled={isLoading}
+									height={2}
 								/>
 								<Button
 									label="sign up"
-									color="outline"
+									colour="outline"
 									onClick={() => null}
-									disabled={isLoading}
+									disabled={true}
+									height={2}
 								/>
 							</div>
 						</div>

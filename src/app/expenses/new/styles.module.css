@@ -1,6 +1,5 @@
 .expenses-top__container {
-    padding: 1rem 2rem;
-    background: var(--color-expenses-bg-primary);
+    padding: 1rem 1rem .5rem 1rem;
 }
 
 .expenses-header__title--first {
@@ -18,7 +17,7 @@
 }
 
 .expenses-calendar__container {
-    margin-top: 2rem;
+    margin-top: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -26,13 +25,13 @@
 }
 
 .expenses-calendar__label {
-    margin-left: .75rem;
+    margin-left: .25rem;
     font-size: .85rem;
     color: var(--color-expenses-calendar-label);
 }
 
 .expenses-bottom__container {
-    padding: 2rem 2rem;
+    padding: .5rem 1rem 1rem 1rem;
 }
 
 .expenses-value__container {
@@ -58,7 +57,7 @@
 }
 
 .expenses-description__container {
-    margin-top: 2rem;
+    margin-top: 1rem;
     padding-bottom: .5rem;
 }
 

@@ -13,6 +13,9 @@ import Cookies from "js-cookie";
 import { Input } from "@/components/basicElements/input";
 
 import styles from "./styles.module.css";
+import {Layout} from "@/layouts";
+import {Card} from "@/components/layoutElements/card";
+import {useRouter} from "next/navigation";
 
 const karla = Karla({
 	subsets: ["latin"],
@@ -34,6 +37,7 @@ const expensesTypes = [
 ];
 
 export default function Expenses() {
+	const router = useRouter();
 	const [dateValue, setDateValue] = useState(new Date());
 	const [expenseType, setExpenseType] = useState("");
 	const [expenseValue, setExpenseValue] = useState<number | string | undefined>(
@@ -67,7 +71,8 @@ export default function Expenses() {
 				Authorization: `Bearer ${accessToken}`,
 			},
 		};
-		await api.post("/expenses", expenseData, config);
+		await api.post("/expenses", expenseData, config)
+			.then(() => router.push("/expenses"));
 	};
 
 	const colorMapper = (selected: string) => {
@@ -90,72 +95,81 @@ export default function Expenses() {
 	};
 
 	return (
-		<section className={`${karla.className}`}>
-			<div className={styles[`expenses-top__container`]}>
-				<span className={styles[`expenses-header__title--first`]}>New</span>{" "}
-				<span className={styles[`expenses-header__title--second`]}>
-					Expenses
-				</span>
-				<div className={styles[`expenses-calendar__container`]}>
-					<div>
-						<Calendar
-							locale={"en-US"}
-							className={[`${rubik.className}`]}
-							// @ts-ignore
-							onChange={setDateValue}
-							value={dateValue}
-						/>
+		<Layout>
+			<section className={`${karla.className}`}>
+				<div className={styles[`expenses-top__container`]}>
+					<Card>
+					<span className={styles[`expenses-header__title--first`]}>
+						New
+					</span>{" "}
+						<span className={styles[`expenses-header__title--second`]}>
+						Expense
+					</span>
+						<div className={styles[`expenses-calendar__container`]}>
+							<Calendar
+								locale={"en-US"}
+								className={[`${rubik.className}`]}
+								// @ts-ignore
+								onChange={setDateValue}
+								value={dateValue}
+							/>
+						</div>
 						<span className={styles[`expenses-calendar__label`]}>
 							select date
 						</span>
-					</div>
+					</Card>
 				</div>
-			</div>
-			<div className={styles[`expenses-bottom__container`]}>
-				<div className={styles[`expenses-value__container`]}>
-					<InputValue onValueChange={(value) => handleExpenseValue(value)} />
-					<div className={styles[`expenses__label`]}>
-						<span>set value</span>
-					</div>
-				</div>
-				<div className={styles[`expenses-type-selector__container`]}>
-					<div className={styles[`expenses-type-selector__wrapper`]}>
-						{expensesTypes.map((expense, index) => (
-							<div
-								key={index}
-								className={styles[`expenses-type-selector__button`]}
-							>
-								<ExpenseTypeButton
-									selected={expenseType === expense}
-									onClick={() => setExpenseType(expense)}
-									width={110}
-									height={20}
-									label={expense}
+				<div className={styles[`expenses-bottom__container`]}>
+					<Card>
+						<div className={styles[`expenses-value__container`]}>
+							<InputValue onValueChange={(value) => handleExpenseValue(value)} />
+							<div className={styles[`expenses__label`]}>
+								<span>set value</span>
+							</div>
+						</div>
+						<div className={styles[`expenses-type-selector__container`]}>
+							<div className={styles[`expenses-type-selector__wrapper`]}>
+								{expensesTypes.map((expense, index) => (
+									<div
+										key={index}
+										className={styles[`expenses-type-selector__button`]}
+									>
+										<ExpenseTypeButton
+											selected={expenseType === expense}
+											onClick={() => setExpenseType(expense)}
+											width={110}
+											height={20}
+											label={expense}
+										/>
+									</div>
+								))}
+							</div>
+							<div className={styles[`expenses__label`]}>
+								<span>select type</span>
+							</div>
+						</div>
+						<div>
+							<div className={styles[`expenses-description__container`]}>
+								<Input onChange={(e) => setExpenseDescription(e.target.value)} />
+							</div>
+							<span className={styles[`expenses__label`]}>set description</span>
+						</div>
+						<div className={styles[`expenses-register__container`]}>
+							<div className={styles[`expenses-register__wrapper`]}>
+								<Button
+									onClick={handleExpenseRequest}
+									label={"Cancel"}
+									colour={"secondary"}
 								/>
 							</div>
-						))}
-					</div>
-					<div className={styles[`expenses__label`]}>
-						<span>select type</span>
-					</div>
+							<Button
+								onClick={handleExpenseRequest}
+								label={"Register"}
+							/>
+						</div>
+					</Card>
 				</div>
-				<div>
-					<div className={styles[`expenses-description__container`]}>
-						<Input onChange={(e) => setExpenseDescription(e.target.value)} />
-					</div>
-					<span className={styles[`expenses__label`]}>set description</span>
-				</div>
-				<div className={styles[`expenses-register__container`]}>
-					<div className={styles[`expenses-register__wrapper`]}>
-						<Button
-							onClick={handleExpenseRequest}
-							label={"Cancel"}
-							color={"secondary"}
-						/>
-					</div>
-					<Button onClick={handleExpenseRequest} label={"Register"} />
-				</div>
-			</div>
-		</section>
+			</section>
+		</Layout>
 	);
 }

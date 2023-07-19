@@ -9,6 +9,7 @@ import { Card } from "@/components/layoutElements/card";
 import { isMobile } from "react-device-detect";
 import { useEffect, useState } from "react";
 import { ExpensesHistoryTable } from "@/components/expensesElements/expensesHistoryTable";
+import {useRouter} from "next/navigation";
 
 const karla = Karla({
 	subsets: ["latin"],
@@ -16,6 +17,7 @@ const karla = Karla({
 });
 
 export default function Expenses() {
+	const router = useRouter();
 	const [
 		monthlyExpenseContainerResponsive,
 		setMonthlyExpenseContainerResponsive,
@@ -40,7 +42,12 @@ export default function Expenses() {
 								Expenses
 							</span>
 						</div>
-						<Button height={2} label={"+ expense"} colour={"primary"} />
+						<Button
+							height={2}
+							label={"+ expense"}
+							colour={"primary"}
+							onClick={() => router.push("/expenses/new")}
+						/>
 					</div>
 					<div className={styles[`expenses_container--first`]}>
 						<div className={styles[`${monthlyExpenseContainerResponsive}`]}>
