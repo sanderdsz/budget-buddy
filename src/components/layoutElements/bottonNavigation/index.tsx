@@ -28,7 +28,7 @@ export const BottonNavigation = () => {
 				className={`
         ${styles.nav__button} 
         ${rubik.className}
-        ${pathname === "/bank" ? styles["nav__button--active"] : ""}
+        ${pathname.includes("bank") ? styles["nav__button--active"] : ""}
       `}
 				onClick={() => router.push("/bank")}
 			>
@@ -39,7 +39,7 @@ export const BottonNavigation = () => {
 				className={`
         ${styles.nav__button} 
         ${rubik.className}
-        ${pathname === "/expenses" ? styles["nav__button--active"] : ""}
+        ${pathname.includes("expenses") ? styles["nav__button--active"] : ""}
       `}
 				onClick={() => router.push("/expenses")}
 			>

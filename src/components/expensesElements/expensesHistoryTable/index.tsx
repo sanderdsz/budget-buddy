@@ -12,8 +12,11 @@ import { colorMapper } from "@/utils/colorsUtil";
 import dynamic from "next/dynamic";
 import { useTheme } from "@/contexts/themeContext";
 import { isMobile } from "react-device-detect";
+import { useRouter } from "next/navigation";
+import LoadingSpinner from "@/components/basicElements/loadingSpinner";
 
 interface ExpenseProps {
+	id: number;
 	value: number;
 	expenseType: string;
 	date: string;
@@ -40,7 +43,9 @@ const DatePicker = dynamic(() => import("react-date-picker"), {
 });
 
 export const ExpensesHistoryTable = () => {
+	const router = useRouter();
 	const themeContext = useTheme();
+	const [isLoading, setIsLoading] = useState(true);
 	const [currentPage, setCurrentPage] = useState(0);
 	const [isNextPageEnable, setIsNextPageEnable] = useState(true);
 	const [expenseTypeOption, setExpenseTypeOption] =
@@ -50,6 +55,12 @@ export const ExpensesHistoryTable = () => {
 		});
 	const [expensesPageable, setExpensesPageable] = useState<ExpenseProps[]>([]);
 	const [dateValue, setDateValue] = useState(null);
+	const accessToken = Cookies.get("budgetbuddy.accessToken");
+	const config = {
+		headers: {
+			Authorization: `Bearer ${accessToken}`,
+		},
+	};
 
 	const expenseTypeOptions = [
 		{ value: "", label: "expense type" },
@@ -98,12 +109,7 @@ export const ExpensesHistoryTable = () => {
 	};
 
 	const fetchMonthlyExpenses = async () => {
-		const accessToken = Cookies.get("budgetbuddy.accessToken");
-		const config = {
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
-		};
+		setIsLoading(true);
 		try {
 			const response = await api.get(urlBuilder(), config);
 			setExpensesPageable(response.data);
@@ -112,6 +118,18 @@ export const ExpensesHistoryTable = () => {
 			} else {
 				setIsNextPageEnable(false);
 			}
+			setIsLoading(false);
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
+	const handleDeleteExpense = async (id: number) => {
+		setIsLoading(true);
+		try {
+			const response = await api.delete(`/expenses/${id}`, config).then(() => {
+				fetchMonthlyExpenses();
+			});
 		} catch (e) {
 			console.log(e);
 		}
@@ -122,118 +140,130 @@ export const ExpensesHistoryTable = () => {
 	}, [currentPage, expenseTypeOption, dateValue]);
 
 	return (
-		<div className={`${karla.className}`}>
-			<div className={`${styles[`expenses-table__header`]}`}>
-				<div className={`${styles[`expenses-table__header--title`]}`}>
-					<span>Expense</span> <span>History</span>
-				</div>
-				<div className={`${styles[`expenses-table__header--buttons`]}`}>
-					<DatePicker
-						// @ts-ignore
-						onChange={setDateValue}
-						value={dateValue}
-					/>
-					<Select
-						options={expenseTypeOptions}
-						value={expenseTypeOption}
-						// @ts-ignore
-						onChange={setExpenseTypeOption}
-						className="react-select-container"
-						classNamePrefix="react-select"
-						theme={(theme) => ({
-							...theme,
-							borderRadius: 5,
-							colors: {
-								...theme.colors,
-								primary25:
-									themeContext.activeTheme === "dark" ? "#4c566a" : "#c8ccd2",
-								primary:
-									themeContext.activeTheme === "dark" ? "#E4BA84" : "#5E81AC",
-							},
-						})}
-						styles={{
-							option: (base) => ({
-								...base,
-								borderRadius: `5px`,
-							}),
-						}}
-					/>
-				</div>
-			</div>
-			<table className={`${styles[`expenses-table`]}`}>
-				<thead>
-					<tr>
-						<th>Value</th>
-						<th>Type</th>
-						<th>Date</th>
-						<th>Description</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					{expensesPageable.map((item, index) => (
-						<tr key={index}>
-							<td>{currencyFormatter.format(item.value)}</td>
-							<td
-								style={{
-									color: colorMapper(item.expenseType),
-									fontWeight: 600,
-									fontSize: isMobile ? ".85rem" : "1rem",
+		<>
+			{isLoading ? (
+				<LoadingSpinner />
+			) : (
+				<div className={`${karla.className}`}>
+					<div className={`${styles[`expenses-table__header`]}`}>
+						<div className={`${styles[`expenses-table__header--title`]}`}>
+							<span>Expense</span> <span>History</span>
+						</div>
+						<div className={`${styles[`expenses-table__header--buttons`]}`}>
+							<DatePicker
+								// @ts-ignore
+								onChange={setDateValue}
+								value={dateValue}
+							/>
+							<Select
+								options={expenseTypeOptions}
+								value={expenseTypeOption}
+								// @ts-ignore
+								onChange={setExpenseTypeOption}
+								className="react-select-container"
+								classNamePrefix="react-select"
+								theme={(theme) => ({
+									...theme,
+									borderRadius: 5,
+									colors: {
+										...theme.colors,
+										primary25:
+											themeContext.activeTheme === "dark"
+												? "#4c566a"
+												: "#c8ccd2",
+										primary:
+											themeContext.activeTheme === "dark"
+												? "#E4BA84"
+												: "#5E81AC",
+									},
+								})}
+								styles={{
+									option: (base) => ({
+										...base,
+										borderRadius: `5px`,
+									}),
 								}}
-							>
-								{item.expenseType.toLowerCase()}
-							</td>
-							<td
-								style={{
-									fontSize: isMobile ? ".85rem" : "1rem",
-								}}
-							>
-								{dateFormatter(item.date)}
-							</td>
-							<td
-								style={{
-									fontSize: isMobile ? ".85rem" : "1rem",
-								}}
-							>
-								{item.description}
-							</td>
-							<td>
-								<div
-									style={{
-										display: "flex",
-										gap: isMobile ? "2px" : "5px",
-										justifyContent: "flex-end",
-									}}
-								>
-									<Button
-										label={""}
-										colour={"outline"}
-										icon={"pencil"}
-										size={"small"}
-									/>
-									<Button
-										label={""}
-										colour={"outline"}
-										icon={"trash"}
-										size={"small"}
-									/>
-								</div>
-							</td>
-						</tr>
-					))}
-				</tbody>
-			</table>
-			<div className={styles[`expenses-table__footer`]}>
-				<div className={styles[`expenses-table__footer-buttons`]}>
-					<Button label={"<"} onClick={previousPage} />
-					<Button
-						label={">"}
-						onClick={nextPage}
-						colour={isNextPageEnable ? "primary" : "disabled"}
-						disabled={!isNextPageEnable}
-					/>
+							/>
+						</div>
+					</div>
+					<table className={`${styles[`expenses-table`]}`}>
+						<thead>
+							<tr>
+								<th>Value</th>
+								<th>Type</th>
+								<th>Date</th>
+								<th>Description</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							{expensesPageable.map((item, index) => (
+								<tr key={index}>
+									<td>{currencyFormatter.format(item.value)}</td>
+									<td
+										style={{
+											color: colorMapper(item.expenseType),
+											fontWeight: 600,
+											fontSize: isMobile ? ".85rem" : "1rem",
+										}}
+									>
+										{item.expenseType.toLowerCase()}
+									</td>
+									<td
+										style={{
+											fontSize: isMobile ? ".85rem" : "1rem",
+										}}
+									>
+										{dateFormatter(item.date)}
+									</td>
+									<td
+										style={{
+											fontSize: isMobile ? ".85rem" : "1rem",
+										}}
+									>
+										{item.description}
+									</td>
+									<td>
+										<div
+											style={{
+												display: "flex",
+												gap: isMobile ? "2px" : "5px",
+												justifyContent: "flex-end",
+											}}
+										>
+											<Button
+												label={""}
+												colour={"outline"}
+												icon={"pencil"}
+												size={"small"}
+												onClick={() => router.push(`/expenses/${item.id}`)}
+											/>
+											<Button
+												label={""}
+												colour={"outline"}
+												icon={"trash"}
+												size={"small"}
+												onClick={() => handleDeleteExpense(item.id)}
+											/>
+										</div>
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+					<div className={styles[`expenses-table__footer`]}>
+						<div className={styles[`expenses-table__footer-buttons`]}>
+							<Button label={"<"} onClick={previousPage} />
+							<Button
+								label={">"}
+								onClick={nextPage}
+								colour={isNextPageEnable ? "primary" : "disabled"}
+								disabled={!isNextPageEnable}
+							/>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
+			)}
+		</>
 	);
 };

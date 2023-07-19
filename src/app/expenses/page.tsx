@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./styles.module.css";
-import { Karla, Rubik } from "next/font/google";
+import { Karla } from "next/font/google";
 import { Layout } from "@/layouts";
 import { Button } from "@/components/basicElements/button";
 import MonthlyExpensesPieChart from "@/components/expensesElements/monthlyExpensesPieChart";
@@ -9,7 +9,7 @@ import { Card } from "@/components/layoutElements/card";
 import { isMobile } from "react-device-detect";
 import { useEffect, useState } from "react";
 import { ExpensesHistoryTable } from "@/components/expensesElements/expensesHistoryTable";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const karla = Karla({
 	subsets: ["latin"],

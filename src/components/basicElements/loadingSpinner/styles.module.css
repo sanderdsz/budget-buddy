@@ -1,12 +1,11 @@
 .loader-container {
     width: 100%;
-    height: 85vh;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: fixed;
-    background: var(--color-loader-bg-primary);
     z-index: 1;
+    background: transparent;
 }
 
 .spinner {

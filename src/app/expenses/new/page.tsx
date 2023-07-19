@@ -1,5 +1,6 @@
 "use client";
 
+import styles from "./styles.module.css";
 import { Karla, Rubik } from "next/font/google";
 import { InputValue } from "@/components/basicElements/inputValue";
 import Calendar from "react-calendar";
@@ -11,11 +12,9 @@ import { format } from "date-fns";
 import { api } from "@/services/api";
 import Cookies from "js-cookie";
 import { Input } from "@/components/basicElements/input";
-
-import styles from "./styles.module.css";
-import {Layout} from "@/layouts";
-import {Card} from "@/components/layoutElements/card";
-import {useRouter} from "next/navigation";
+import { Layout } from "@/layouts";
+import { Card } from "@/components/layoutElements/card";
+import { useRouter } from "next/navigation";
 
 const karla = Karla({
 	subsets: ["latin"],
@@ -44,6 +43,8 @@ export default function Expenses() {
 		""
 	);
 	const [expenseDescription, setExpenseDescription] = useState("");
+	const [expenseValueFormError, setExpenseValueFormError] = useState(false);
+	const [expenseTypeFormError, setExpenseTypeFormError] = useState(false);
 
 	const handleExpenseValue: CurrencyInputProps["onValueChange"] = (
 		expenseValue
@@ -57,8 +58,19 @@ export default function Expenses() {
 		setExpenseType(expense);
 	};
 
+	const formValidator = async () => {
+		// @ts-ignore
+		if (expenseValue.toString().length === 0) {
+			setExpenseValueFormError(true);
+		}
+		if (expenseType.toString().length === 0) {
+			setExpenseTypeFormError(true);
+		}
+	};
+
 	const handleExpenseRequest = async () => {
 		const dateFormatted = format(dateValue, "yyyy-MM-dd");
+		await formValidator();
 		const expenseData = {
 			value: expenseValue,
 			expenseType: expenseType,
@@ -71,103 +83,110 @@ export default function Expenses() {
 				Authorization: `Bearer ${accessToken}`,
 			},
 		};
-		await api.post("/expenses", expenseData, config)
-			.then(() => router.push("/expenses"));
-	};
-
-	const colorMapper = (selected: string) => {
-		switch (selected.toUpperCase()) {
-			case "GROCERY":
-				return "#7DA5A4";
-			case "MEALS":
-				return "#bf616a";
-			case "SHOPPING":
-				return "#DEA97E";
-			case "HOUSING":
-				return "#87A1C1";
-			case "CAR":
-				return "#AC9970";
-			case "PHARMACY":
-				return "#90AB7A";
-			default:
-				return "#c8ccd2";
+		try {
+			if (!expenseValueFormError && !expenseTypeFormError) {
+				await api
+					.post("/expenses", expenseData, config)
+					.then(() => router.push("/expenses"));
+			}
+		} catch (e) {
+			console.log(e);
 		}
 	};
 
 	return (
 		<Layout>
-			<section className={`${karla.className}`}>
-				<div className={styles[`expenses-top__container`]}>
-					<Card>
-					<span className={styles[`expenses-header__title--first`]}>
-						New
-					</span>{" "}
-						<span className={styles[`expenses-header__title--second`]}>
-						Expense
-					</span>
-						<div className={styles[`expenses-calendar__container`]}>
-							<Calendar
-								locale={"en-US"}
-								className={[`${rubik.className}`]}
-								// @ts-ignore
-								onChange={setDateValue}
-								value={dateValue}
-							/>
-						</div>
-						<span className={styles[`expenses-calendar__label`]}>
-							select date
-						</span>
-					</Card>
-				</div>
-				<div className={styles[`expenses-bottom__container`]}>
-					<Card>
-						<div className={styles[`expenses-value__container`]}>
-							<InputValue onValueChange={(value) => handleExpenseValue(value)} />
-							<div className={styles[`expenses__label`]}>
-								<span>set value</span>
+			<section className={`${styles[`expenses`]} ${karla.className}`}>
+				<div className={`${styles[`expenses__wrapper`]}`}>
+					<div className={styles[`expenses-top__container`]}>
+						<Card>
+							<span className={styles[`expenses-header__title--first`]}>
+								New
+							</span>{" "}
+							<span className={styles[`expenses-header__title--second`]}>
+								Expense
+							</span>
+							<div className={styles[`expenses-calendar__wrapper`]}>
+								<div className={styles[`expenses-calendar__container`]}>
+									<Calendar
+										locale={"en-US"}
+										className={[`${rubik.className}`]}
+										// @ts-ignore
+										onChange={setDateValue}
+										value={dateValue}
+									/>
+									<span className={styles[`expenses-calendar__label`]}>
+										select date
+									</span>
+								</div>
 							</div>
-						</div>
-						<div className={styles[`expenses-type-selector__container`]}>
-							<div className={styles[`expenses-type-selector__wrapper`]}>
-								{expensesTypes.map((expense, index) => (
-									<div
-										key={index}
-										className={styles[`expenses-type-selector__button`]}
-									>
-										<ExpenseTypeButton
-											selected={expenseType === expense}
-											onClick={() => setExpenseType(expense)}
-											width={110}
-											height={20}
-											label={expense}
-										/>
-									</div>
-								))}
-							</div>
-							<div className={styles[`expenses__label`]}>
-								<span>select type</span>
-							</div>
-						</div>
-						<div>
-							<div className={styles[`expenses-description__container`]}>
-								<Input onChange={(e) => setExpenseDescription(e.target.value)} />
-							</div>
-							<span className={styles[`expenses__label`]}>set description</span>
-						</div>
-						<div className={styles[`expenses-register__container`]}>
-							<div className={styles[`expenses-register__wrapper`]}>
-								<Button
-									onClick={handleExpenseRequest}
-									label={"Cancel"}
-									colour={"secondary"}
+						</Card>
+					</div>
+					<div className={styles[`expenses-bottom__container`]}>
+						<Card>
+							<div className={styles[`expenses-value__container`]}>
+								<InputValue
+									onValueChange={(value) => handleExpenseValue(value)}
 								/>
+								{!expenseValueFormError ? (
+									<div className={styles[`expenses__label`]}>
+										<span>set value</span>
+									</div>
+								) : (
+									<div className={styles[`expenses__label--error`]}>
+										<span>set value</span>
+									</div>
+								)}
 							</div>
-							<Button
-								onClick={handleExpenseRequest}
-								label={"Register"}
-							/>
-						</div>
-					</Card>
+							<div className={styles[`expenses-type-selector__container`]}>
+								<div className={styles[`expenses-type-selector__wrapper`]}>
+									{expensesTypes.map((expense, index) => (
+										<div
+											key={index}
+											className={styles[`expenses-type-selector__button`]}
+										>
+											<ExpenseTypeButton
+												selected={expenseType === expense}
+												onClick={() => setExpenseType(expense)}
+												width={110}
+												height={20}
+												label={expense}
+											/>
+										</div>
+									))}
+								</div>
+								{!expenseTypeFormError ? (
+									<div className={styles[`expenses__label`]}>
+										<span>select type</span>
+									</div>
+								) : (
+									<div className={styles[`expenses__label--error`]}>
+										<span>select type</span>
+									</div>
+								)}
+							</div>
+							<div>
+								<div className={styles[`expenses-description__container`]}>
+									<Input
+										onChange={(e) => setExpenseDescription(e.target.value)}
+									/>
+								</div>
+								<span className={styles[`expenses__label`]}>
+									set description
+								</span>
+							</div>
+							<div className={styles[`expenses-register__container`]}>
+								<div className={styles[`expenses-register__wrapper`]}>
+									<Button
+										onClick={() => router.push("/expenses")}
+										label={"Cancel"}
+										colour={"secondary"}
+									/>
+								</div>
+								<Button onClick={handleExpenseRequest} label={"Register"} />
+							</div>
+						</Card>
+					</div>
 				</div>
 			</section>
 		</Layout>

@@ -1,3 +1,15 @@
+.expenses {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.expenses__wrapper {
+    width: 100%;
+    max-width: 800px;
+}
+
 .expenses-top__container {
     padding: 1rem 1rem .5rem 1rem;
 }
@@ -16,15 +28,22 @@
     display: flex;
 }
 
+.expenses-calendar__wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
 .expenses-calendar__container {
     margin-top: 1rem;
     display: flex;
-    align-items: center;
     justify-content: center;
     flex-direction: column;
 }
 
 .expenses-calendar__label {
+    padding-top: .5rem;
     margin-left: .25rem;
     font-size: .85rem;
     color: var(--color-expenses-calendar-label);
@@ -56,6 +75,12 @@
     color: var(--color-expenses-label);
 }
 
+.expenses__label--error {
+    margin-top: .5rem;
+    font-size: .85rem;
+    color: #B65354;
+}
+
 .expenses-description__container {
     margin-top: 1rem;
     padding-bottom: .5rem;
@@ -69,4 +94,10 @@
 
 .expenses-register__wrapper {
     margin-right: 1rem;
+}
+
+@media (min-width: 768px) {
+    .expenses-type-selector__wrapper {
+        height: 3rem;
+    }
 }
