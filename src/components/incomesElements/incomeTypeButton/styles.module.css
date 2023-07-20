@@ -1,0 +1,12 @@
+.income-button {
+    display: flex;
+    align-items: center;
+    border: 1px solid transparent;
+    border-radius: 7.5px;
+    cursor: pointer;
+    background-color: var(--color-expense-type-button-bg-unselected);
+}
+
+.income-button > span {
+    padding-left: .25rem;
+}

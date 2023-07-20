@@ -18,7 +18,7 @@ import LoadingSpinner from "@/components/basicElements/loadingSpinner";
 interface ExpenseProps {
 	id: number;
 	value: number;
-	expenseType: string;
+	incomeType: string;
 	date: string;
 	description: string | null;
 }
@@ -42,18 +42,18 @@ const DatePicker = dynamic(() => import("react-date-picker"), {
 	ssr: false,
 });
 
-export const ExpensesHistoryTable = () => {
+export const IncomesHistoryTable = () => {
 	const router = useRouter();
 	const themeContext = useTheme();
 	const [isLoading, setIsLoading] = useState(true);
 	const [currentPage, setCurrentPage] = useState(0);
 	const [isNextPageEnable, setIsNextPageEnable] = useState(true);
-	const [expenseTypeOption, setExpenseTypeOption] =
+	const [incomeTypeOption, setExpenseTypeOption] =
 		useState<ExpenseTypeOptionProps>({
 			value: "",
-			label: "expense type",
+			label: "income type",
 		});
-	const [expensesPageable, setExpensesPageable] = useState<ExpenseProps[]>([]);
+	const [incomesPageable, setIncomesPageable] = useState<ExpenseProps[]>([]);
 	const [dateValue, setDateValue] = useState(null);
 	const accessToken = Cookies.get("budgetbuddy.accessToken");
 	const config = {
@@ -62,15 +62,10 @@ export const ExpensesHistoryTable = () => {
 		},
 	};
 
-	const expenseTypeOptions = [
-		{ value: "", label: "expense type" },
-		{ value: "GROCERY", label: "grocery" },
-		{ value: "MEALS", label: "meals" },
-		{ value: "SHOPPING", label: "shopping" },
-		{ value: "HOUSING", label: "housing" },
-		{ value: "CAR", label: "car" },
-		{ value: "PHARMACY", label: "pharmacy" },
-		{ value: "TRAVELS", label: "travels" },
+	const incomeTypeOptions = [
+		{ value: "", label: "income type" },
+		{ value: "SALARY", label: "salary" },
+		{ value: "INVESTMENT", label: "investment" },
 	];
 
 	const currencyFormatter = new Intl.NumberFormat("pt-BR", {
@@ -92,27 +87,27 @@ export const ExpensesHistoryTable = () => {
 	};
 
 	const urlBuilder = () => {
-		if (expenseTypeOption.value && dateValue) {
-			return `/expenses/pageable?page=${currentPage}&size=10&expenseType=${
-				expenseTypeOption.value
+		if (incomeTypeOption.value && dateValue) {
+			return `/incomes/pageable?page=${currentPage}&size=10&incomeType=${
+				incomeTypeOption.value
 			}&date=${format(dateValue, "yyyy-MM-dd")}`;
-		} else if (expenseTypeOption.value) {
-			return `/expenses/pageable?page=${currentPage}&size=10&expenseType=${expenseTypeOption.value}`;
+		} else if (incomeTypeOption.value) {
+			return `/incomes/pageable?page=${currentPage}&size=10&incomeType=${incomeTypeOption.value}`;
 		} else if (dateValue) {
-			return `/expenses/pageable?page=${currentPage}&size=10&date=${format(
+			return `/incomes/pageable?page=${currentPage}&size=10&date=${format(
 				dateValue,
 				"yyyy-MM-dd"
 			)}`;
 		} else {
-			return `/expenses/pageable?page=${currentPage}&size=10`;
+			return `/incomes/pageable?page=${currentPage}&size=10`;
 		}
 	};
 
-	const fetchMonthlyExpenses = async () => {
+	const fetchMonthlyIncomes = async () => {
 		setIsLoading(true);
 		try {
 			const response = await api.get(urlBuilder(), config);
-			setExpensesPageable(response.data);
+			setIncomesPageable(response.data);
 			if (response.data.length > 9) {
 				setIsNextPageEnable(true);
 			} else {
@@ -127,8 +122,8 @@ export const ExpensesHistoryTable = () => {
 	const handleDeleteExpense = async (id: number) => {
 		setIsLoading(true);
 		try {
-			const response = await api.delete(`/expenses/${id}`, config).then(() => {
-				fetchMonthlyExpenses();
+			const response = await api.delete(`/incomes/${id}`, config).then(() => {
+				fetchMonthlyIncomes();
 			});
 		} catch (e) {
 			console.log(e);
@@ -136,8 +131,8 @@ export const ExpensesHistoryTable = () => {
 	};
 
 	useEffect(() => {
-		fetchMonthlyExpenses();
-	}, [currentPage, expenseTypeOption, dateValue]);
+		fetchMonthlyIncomes();
+	}, [currentPage, incomeTypeOption, dateValue]);
 
 	return (
 		<>
@@ -145,19 +140,19 @@ export const ExpensesHistoryTable = () => {
 				<LoadingSpinner />
 			) : (
 				<div className={`${karla.className}`}>
-					<div className={`${styles[`expenses-table__header`]}`}>
-						<div className={`${styles[`expenses-table__header--title`]}`}>
+					<div className={`${styles[`incomes-table__header`]}`}>
+						<div className={`${styles[`incomes-table__header--title`]}`}>
 							<span>Expense</span> <span>History</span>
 						</div>
-						<div className={`${styles[`expenses-table__header--buttons`]}`}>
+						<div className={`${styles[`incomes-table__header--buttons`]}`}>
 							<DatePicker
 								// @ts-ignore
 								onChange={setDateValue}
 								value={dateValue}
 							/>
 							<Select
-								options={expenseTypeOptions}
-								value={expenseTypeOption}
+								options={incomeTypeOptions}
+								value={incomeTypeOption}
 								// @ts-ignore
 								onChange={setExpenseTypeOption}
 								className="react-select-container"
@@ -186,7 +181,7 @@ export const ExpensesHistoryTable = () => {
 							/>
 						</div>
 					</div>
-					<table className={`${styles[`expenses-table`]}`}>
+					<table className={`${styles[`incomes-table`]}`}>
 						<thead>
 							<tr>
 								<th>Value</th>
@@ -197,17 +192,17 @@ export const ExpensesHistoryTable = () => {
 							</tr>
 						</thead>
 						<tbody>
-							{expensesPageable.map((item, index) => (
+							{incomesPageable.map((item, index) => (
 								<tr key={index}>
 									<td style={{textAlign: "end"}}>{currencyFormatter.format(item.value)}</td>
 									<td
 										style={{
-											color: colorMapper(item.expenseType),
+											color: colorMapper(item.incomeType),
 											fontWeight: 600,
 											fontSize: isMobile ? ".85rem" : "1rem",
 										}}
 									>
-										{item.expenseType.toLowerCase()}
+										{item.incomeType.toLowerCase()}
 									</td>
 									<td
 										style={{
@@ -236,7 +231,7 @@ export const ExpensesHistoryTable = () => {
 												colour={"outline"}
 												icon={"pencil"}
 												size={"small"}
-												onClick={() => router.push(`/expenses/${item.id}`)}
+												onClick={() => router.push(`/incomes/${item.id}`)}
 											/>
 											<Button
 												label={""}
@@ -251,8 +246,8 @@ export const ExpensesHistoryTable = () => {
 							))}
 						</tbody>
 					</table>
-					<div className={styles[`expenses-table__footer`]}>
-						<div className={styles[`expenses-table__footer-buttons`]}>
+					<div className={styles[`incomes-table__footer`]}>
+						<div className={styles[`incomes-table__footer-buttons`]}>
 							<Button label={"<"} onClick={previousPage} />
 							<Button
 								label={">"}

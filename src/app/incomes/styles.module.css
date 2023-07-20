@@ -1,0 +1,32 @@
+.incomes {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.incomes__wrapper {
+    width: 100%;
+    max-width: 800px;
+}
+
+.incomes-header_container {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.incomes-header__title--first {
+    font-size: 1.5rem;
+    font-weight: 200;
+}
+
+.incomes-header__title--second {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.incomes_container {
+    padding: 0.5rem 1rem 1rem 1rem;
+}

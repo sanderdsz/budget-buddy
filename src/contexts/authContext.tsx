@@ -121,7 +121,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 				email: verifyTokenResponse.data.email,
 			};
 		} catch (e: any) {
-			if (e.response.status === 403) {
+			if (e.response.status === 403 || e.response.status === 401) {
 				router.push("/");
 			}
 		}

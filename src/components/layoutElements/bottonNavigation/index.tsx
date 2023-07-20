@@ -28,12 +28,12 @@ export const BottonNavigation = () => {
 				className={`
         ${styles.nav__button} 
         ${rubik.className}
-        ${pathname.includes("bank") ? styles["nav__button--active"] : ""}
+        ${pathname.includes("incomes") ? styles["nav__button--active"] : ""}
       `}
-				onClick={() => router.push("/bank")}
+				onClick={() => router.push("/incomes")}
 			>
 				<CreditCard height={30} width={30} />
-				Bank
+				Incomes
 			</button>
 			<button
 				className={`
