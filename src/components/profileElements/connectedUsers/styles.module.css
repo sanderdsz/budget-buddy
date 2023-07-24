@@ -1,0 +1,10 @@
+.user-children__mapper {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user-children__email {
+    font-weight: 200;
+}

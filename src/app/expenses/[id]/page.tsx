@@ -13,7 +13,6 @@ import { ExpenseTypeButton } from "@/components/expensesElements/expenseTypeButt
 import { Input } from "@/components/basicElements/input";
 import { Button } from "@/components/basicElements/button";
 import { useRouter } from "next/navigation";
-import { format } from "date-fns";
 import { CurrencyInputProps } from "react-currency-input-field";
 
 interface ExpenseProps {

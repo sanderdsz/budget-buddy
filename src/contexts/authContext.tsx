@@ -5,11 +5,13 @@ import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { api } from "../services/api";
 
-type User = {
+export type User = {
 	id: number;
 	email: string;
 	firstName?: string;
 	lastName?: string;
+	userChildren: User[];
+	userParent: User;
 };
 
 type SignInProps = {
@@ -75,6 +77,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 				email,
 				firstName: userResponse.data.firstName,
 				lastName: userResponse.data.lastName,
+				userChildren: userResponse.data.userChildren,
+				userParent: userResponse.data.userParent
 			});
 			await router.push("home");
 			return userResponse;
@@ -98,6 +102,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 			email: userResponse.data.email,
 			firstName: userResponse.data.firstName,
 			lastName: userResponse.data.lastName,
+			userChildren: userResponse.data.userChildren,
+			userParent: userResponse.data.userParent
 		});
 	};
 
