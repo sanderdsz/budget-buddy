@@ -35,8 +35,8 @@ export default function ConnectedUsers() {
   return (
     <div>
       {userChildren.length > 0 ? (
-        userChildren.map((user) => (
-          <div className={`${styles[`user-children__mapper`]}`}>
+        userChildren.map((user, index) => (
+          <div key={index} className={`${styles[`user-children__mapper`]}`}>
             <span>{user.firstName}</span>
             <span className={`${styles[`user-children__email`]}`}>{user.email}</span>
             <Button

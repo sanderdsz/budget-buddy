@@ -14,6 +14,9 @@ import {Avatar} from "@/components/basicElements/avatar";
 import {Input} from "@/components/basicElements/input";
 import {Button} from "@/components/basicElements/button";
 import ConnectedUsers from "@/components/profileElements/connectedUsers";
+import {AvatarSelector} from "@/components/profileElements/avatarSelector";
+import FormData from "form-data";
+//import Avatar from "react-avatar-edit"
 
 const karla = Karla({
   subsets: ["latin"],
@@ -31,6 +34,7 @@ export default function Profile() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [selectedImage, setSelectedImage] = useState<File | string | null>(null);
   const config = {
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -38,15 +42,27 @@ export default function Profile() {
     responseType: "blob",
   };
 
-  const handleFirstName = (): void => {
-    setFirstName(firstName === undefined ? "" : firstName);
+  const handleAvatarUpload = async (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    try {
+      await api.post("/users/avatar", formData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+    } catch (e) {
+      console.log(e)
+    }
+    setSelectedImage(URL.createObjectURL(file));
+    setAvatar("")
   };
 
   const fetchAvatar = async () => {
     try {
       // @ts-ignore
       const response = await api.get("/users/avatar", config);
-      const blob = new Blob([response.data], { type: "image/png" });
+      const blob = new Blob([response.data], {type: "image/png"});
       const url = URL.createObjectURL(blob);
       setAvatar(url);
     } catch (e) {
@@ -75,7 +91,7 @@ export default function Profile() {
             <Card>
               <div className={`${styles[`profile-info__wrapper`]}`}>
                 <div className={`${styles[`profile-info__avatar`]}`}>
-                  {!avatar ? (
+                  {!avatar && !selectedImage ? (
                     <Skeleton
                       circle
                       baseColor={
@@ -94,7 +110,14 @@ export default function Profile() {
                       }}
                     />
                   ) : (
-                    <Avatar size={100} src={avatar} />
+                    <>
+                      <AvatarSelector
+                        onChange={handleAvatarUpload}
+                        size={100}
+                        //@ts-ignore
+                        src={avatar ? avatar : selectedImage}
+                      />
+                    </>
                   )}
                   <span className={`${styles[`profile-info__label`]}`}>
                     set avatar
@@ -227,12 +250,12 @@ export default function Profile() {
                 <span>Connected Users</span>
               </div>
               <div>
-                <ConnectedUsers />
+                <ConnectedUsers/>
               </div>
             </Card>
           </div>
           <div className={`${styles[`profile__buttons`]}`}>
-            <Button label={"update"} />
+            <Button label={"update"}/>
           </div>
         </div>
       </section>
