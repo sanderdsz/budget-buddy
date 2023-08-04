@@ -142,7 +142,7 @@ export const IncomesHistoryTable = () => {
 				<div className={`${karla.className}`}>
 					<div className={`${styles[`incomes-table__header`]}`}>
 						<div className={`${styles[`incomes-table__header--title`]}`}>
-							<span>Expense</span> <span>History</span>
+							<span>Income</span> <span>History</span>
 						</div>
 						<div className={`${styles[`incomes-table__header--buttons`]}`}>
 							<DatePicker

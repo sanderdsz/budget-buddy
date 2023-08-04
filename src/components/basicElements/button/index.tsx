@@ -1,8 +1,9 @@
 import React from "react";
 import { Rubik } from "next/font/google";
-import { Pencil, Trash } from "@phosphor-icons/react";
+import {Pencil, Trash, CheckFat, X} from "@phosphor-icons/react";
 
 import styles from "./styles.module.css";
+import LoadingSpinner from "@/components/basicElements/loadingSpinner";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	colour?:
@@ -16,7 +17,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	size?: "small" | "medium" | "large";
 	label?: string;
 	height?: number;
-	icon?: "pencil" | "trash";
+	icon?: "pencil" | "trash" | "check" | "cancel";
+	isLoading?: boolean;
 }
 
 const iconsMapper = (icon: string) => {
@@ -25,6 +27,10 @@ const iconsMapper = (icon: string) => {
 			return <Pencil height={20} width={20} />;
 		case "trash":
 			return <Trash height={20} width={20} />;
+		case "check":
+			return <CheckFat height={20} width={20} />
+		case "cancel":
+			return <X height={20} width={20} />
 	}
 };
 
@@ -36,6 +42,7 @@ export const Button = ({
 	label,
 	height = 1.5,
 	icon,
+	isLoading,
 	...props
 }: ButtonProps) => {
 	return (
@@ -49,8 +56,12 @@ export const Button = ({
 			style={{ height: `${height}rem` }}
 			{...props}
 		>
-			{icon ? iconsMapper(icon) : null}
-			{label}
+			{isLoading ? <LoadingSpinner width={20} height={20} borderWidth={4}/> : (
+				<>
+					{icon ? iconsMapper(icon) : null}
+					{label}
+				</>
+			)}
 		</button>
 	);
 };

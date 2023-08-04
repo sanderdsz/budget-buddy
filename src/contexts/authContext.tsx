@@ -71,7 +71,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 					Authorization: `Bearer ${accessToken}`,
 				},
 			};
-			const userResponse = await api.get(`/users`, config);
+			const userResponse = await api.get(`/users/me`, config);
 			setUser({
 				id: userResponse.data.id,
 				email,

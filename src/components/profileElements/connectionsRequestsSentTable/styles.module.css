@@ -1,0 +1,50 @@
+.connected-users__title {
+    font-weight: 200;
+    font-size: 1.25rem;
+    padding-bottom: 1rem;
+}
+
+.connected-users__table {
+    width: 100%;
+    border-spacing: 0;
+    text-align: center;
+}
+
+.connected-users__table > thead > tr > th {
+    font-weight: 600;
+    height: 35px;
+    border-bottom: 1px solid var(--color-head-border-botton);
+}
+
+.connected-users__table > tbody > tr > td {
+    padding: .25rem .5rem;
+    font-weight: 200;
+    height: 30px;
+    border-bottom: 1px solid var(--color-body-border-botton);
+}
+
+.user-children__mapper {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user-children__email {
+    font-weight: 200;
+}
+
+.connected-users__skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+@media (max-width: 768px) {
+    .connected-users__table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        text-align: start;
+    }
+}

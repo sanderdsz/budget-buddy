@@ -49,6 +49,7 @@ export default function Expenses() {
 							onClick={() => router.push("/expenses/new")}
 						/>
 					</div>
+					{/*
 					<div className={styles[`expenses_container--first`]}>
 						<div className={styles[`${monthlyExpenseContainerResponsive}`]}>
 							<Card>
@@ -56,6 +57,7 @@ export default function Expenses() {
 							</Card>
 						</div>
 					</div>
+					*/}
 					<div className={styles[`expenses_container`]}>
 						<Card>
 							<ExpensesHistoryTable />

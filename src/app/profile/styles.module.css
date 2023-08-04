@@ -18,6 +18,14 @@
     padding: .5rem 1rem 0.5rem 1rem;
 }
 
+.profile__container--lg {
+    width: 100%;
+}
+
+.profile__container--md {
+    width: 50%;
+}
+
 .profile-header__title--first {
     font-size: 1.5rem;
     font-weight: 200;
@@ -30,6 +38,11 @@
 
 .profile__container {
     padding: 0.5rem 1rem 1rem 1rem;
+}
+
+.profile__section--first {
+    display: flex;
+    flex-direction: row;
 }
 
 .profile-info__wrapper {
@@ -63,12 +76,44 @@
 .profile__title {
     font-weight: 200;
     font-size: 1.25rem;
+    padding-bottom: .5rem;
+}
+
+.profile__container--small {
+    height: 100%;
+    padding: .5rem 0 .5rem 0;
+}
+
+.profile__container--connection {
+    padding: .5rem 0 0 0;
+}
+
+.profile-connection__container {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+}
+
+.profile-connection__list {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile-connection__title {
+    font-weight: 200;
     padding-bottom: 1rem;
 }
 
 .profile__buttons {
-    padding: .5rem 1rem .5rem 0rem;
+    padding: .5rem 0rem .5rem 0rem;
     display: flex;
     justify-content: flex-end;
 }
 
+@media(max-width: 768px) {
+    .profile__section--first {
+        flex-direction: column;
+    }
+}

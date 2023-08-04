@@ -1,6 +1,25 @@
 .label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: .15rem .35rem;
     border-radius: 10px;
     font-weight: 600;
     color: var(--color-badge-primary);
+}
+
+.primary {
+    background: var(--primary);
+}
+
+.secondary {
+    background: var(--gold-01);
+}
+
+.success {
+    background: var(--green-03);
+}
+
+.warning {
+    background: var(--red-03);
 }

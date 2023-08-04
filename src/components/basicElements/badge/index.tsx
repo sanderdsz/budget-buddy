@@ -3,12 +3,16 @@ import { ReactNode } from "react";
 
 type LabelProps = {
 	children: ReactNode;
-	color?: string;
+	color?:
+		| "primary"
+		| "secondary"
+		| "success"
+		| "warning";
 };
 
 export const Badge = ({ children, color }: LabelProps) => {
 	return (
-		<div className={styles[`label`]} style={{ backgroundColor: color }}>
+		<div className={`${styles[`label`]} ${styles[`${color}`]}`}>
 			{children}
 		</div>
 	);
