@@ -31,10 +31,19 @@ type WeeklyBalanceProps = {
 	endDate: string;
 };
 
+type MonthlyBalanceProps = {
+	monthBalance: BalanceProps;
+	month: number;
+	startDate: string;
+	endDate: string;
+};
+
 export default function BalanceHistoryChart() {
 	const theme = useTheme();
 	const [width, setWidth] = useState(0);
 	const [weeklyBalance, setWeeklyBalance] = useState<WeeklyBalanceProps[]>();
+	const [monthlyBalance, setMonthlyBalance] = useState<MonthlyBalanceProps[]>();
+	const [currentBalance, setCurrentBalance] = useState("month");
 	const [widthResponsive, setWidthResponsive] = useState(1.2);
 
 	const currencyFormatter = new Intl.NumberFormat("pt-BR", {
@@ -47,7 +56,9 @@ export default function BalanceHistoryChart() {
 		if (active && payload && payload.length) {
 			return (
 				<div>
-					<p style={{ margin: 0, color: fontColor }}>{`Week ${label}`}</p>
+					<p style={{ margin: 0, color: fontColor }}>{
+						currentBalance === "week" ? `Week ${label}` : `Month ${label}`
+					}</p>
 					<p
 						style={{ margin: 0, color: fontColor }}
 					>{`Balance: ${currencyFormatter.format(payload[0].value)}`}</p>
@@ -60,6 +71,14 @@ export default function BalanceHistoryChart() {
 	const handleWindowResize = () => {
 		setWidth(window.innerWidth);
 	};
+
+	const handleCurrentBalance = (balance: string) => {
+		if (balance === "week") {
+			setCurrentBalance("week");
+		} else {
+			setCurrentBalance("month");
+		}
+	}
 
 	const fetchWeeklyBalances = async () => {
 		const accessToken = Cookies.get("budgetbuddy.accessToken");
@@ -80,8 +99,28 @@ export default function BalanceHistoryChart() {
 		}
 	};
 
+	const fetchMonthlyBalances = async () => {
+		const accessToken = Cookies.get("budgetbuddy.accessToken");
+		const config = {
+			headers: {
+				Authorization: `Bearer ${accessToken}`,
+			},
+		};
+		try {
+			const response = await api.get<MonthlyBalanceProps[]>(
+				`/balances/monthly`,
+				config
+			);
+			setMonthlyBalance(response.data);
+			return response.data;
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
 	useEffect(() => {
 		fetchWeeklyBalances();
+		fetchMonthlyBalances();
 		setWidthResponsive(isMobile ? 1.2 : 1.5);
 	}, []);
 
@@ -104,19 +143,29 @@ export default function BalanceHistoryChart() {
 						</span>
 					</div>
 					<span className={styles[`balance-history-chart__title--subtitle`]}>
-						balance per week
+						balance per {currentBalance}
 					</span>
 				</div>
 				<div className={styles[`balance-history-chart__buttons`]}>
-					<Button height={2} label={"Week"} />
-					<Button height={2} label={"Month"} colour={"secondary"} />
+					<Button
+						height={2}
+						label={"Week"}
+						colour={currentBalance === "week" ? "primary" : "secondary"}
+						onClick={() => handleCurrentBalance("week")}
+					/>
+					<Button
+						height={2}
+						label={"Month"}
+						colour={currentBalance === "month" ? "primary" : "secondary"}
+						onClick={() => handleCurrentBalance("month")}
+					/>
 				</div>
 			</div>
 			<div className={styles[`balance-history-chart__chart`]}>
 				<AreaChart
 					width={window.innerWidth > 800 ? 650 : width / widthResponsive}
 					height={200}
-					data={weeklyBalance}
+					data={currentBalance === "week" ? weeklyBalance : monthlyBalance}
 				>
 					<defs>
 						<linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
@@ -132,13 +181,13 @@ export default function BalanceHistoryChart() {
 						<>
 							<Area
 								type="monotone"
-								dataKey="weekBalance.balance"
+								dataKey={currentBalance === "week" ? "weekBalance.balance" : "monthBalance.balance"}
 								stroke="#4c566a"
 								strokeWidth={2}
 								fill="url(#colorUv)"
 							/>
 							<XAxis
-								dataKey="week"
+								dataKey={currentBalance === "week" ? "week" : "month"}
 								stroke="#4c566a"
 								axisLine={false}
 								tickLine={false}
@@ -149,13 +198,13 @@ export default function BalanceHistoryChart() {
 						<>
 							<Area
 								type="monotone"
-								dataKey="weekBalance.balance"
+								dataKey={currentBalance === "week" ? "weekBalance.balance" : "monthBalance.balance"}
 								stroke="#c8ccd2"
 								strokeWidth={2}
 								fill="url(#colorUv)"
 							/>
 							<XAxis
-								dataKey="week"
+								dataKey={currentBalance === "week" ? "week" : "month"}
 								stroke="#c8ccd2"
 								axisLine={false}
 								tickLine={false}

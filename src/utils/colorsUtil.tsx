@@ -40,8 +40,12 @@ export const colorMapper = (label: string) => {
 			return "#90AB7A";
 		case "SALARY":
 			return "#90AB7A";
-		case "INVESTMENT":
+		case "SERVICES":
 			return "#87A1C1";
+		case "BONUS":
+			return "#AC9970";
+		case "TICKETS":
+			return "#7DA5A4";
 		default:
 			return "#c8ccd2";
 	}

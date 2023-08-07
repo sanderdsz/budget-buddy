@@ -63,11 +63,11 @@
 .incomes-type-selector__wrapper {
     align-items: flex-end;
     margin-bottom: 0;
-    height: 3rem;
+    height: 6rem;
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 1rem;
+    justify-content: space-around;
+    gap: .5rem;
 }
 
 .incomes__label {

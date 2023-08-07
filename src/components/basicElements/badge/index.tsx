@@ -8,11 +8,21 @@ type LabelProps = {
 		| "secondary"
 		| "success"
 		| "warning";
+	customColor?: string;
+	justifyStart?: boolean;
 };
 
-export const Badge = ({ children, color }: LabelProps) => {
+export const Badge = (
+	{ children, color, customColor, justifyStart = false }: LabelProps
+) => {
 	return (
-		<div className={`${styles[`label`]} ${styles[`${color}`]}`}>
+		<div
+			className={`${styles[`label`]} ${styles[`${color}`]}`}
+			style={{
+				backgroundColor: customColor ? customColor : "" ,
+				justifyContent: justifyStart ? "start" : "center"
+			}}
+		>
 			{children}
 		</div>
 	);

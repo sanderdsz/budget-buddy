@@ -14,7 +14,7 @@ import {CurrencyInputProps} from "react-currency-input-field";
 import {format} from "date-fns";
 import Cookies from "js-cookie";
 import {api} from "@/services/api";
-import {Index} from "@/components/incomesElements/incomeTypeButton";
+import {IncomeTypeButton} from "@/components/incomesElements/incomeTypeButton";
 
 const karla = Karla({
   subsets: ["latin"],
@@ -28,7 +28,9 @@ const rubik = Rubik({
 
 const incomesTypes = [
   "SALARY",
-  "INVESTMENT",
+  "TICKETS",
+  "BONUS",
+  "SERVICES",
 ];
 
 export default function NewIncome() {
@@ -137,7 +139,7 @@ export default function NewIncome() {
                       key={index}
                       className={styles[`incomes-type-selector__button`]}
                     >
-                      <Index
+                      <IncomeTypeButton
                         selected={incomeType === income}
                         onClick={() => setincomeType(income)}
                         width={120}

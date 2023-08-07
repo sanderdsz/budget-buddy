@@ -2,11 +2,8 @@
 
 import {
 	Cell,
-	LineChart,
-	Line,
 	ResponsiveContainer,
 	Tooltip,
-	XAxis,
 	Pie,
 	PieChart,
 } from "recharts";
@@ -15,8 +12,6 @@ import { colorsFormatter, iconsMapper } from "@/utils/colorsUtil";
 import { api } from "@/services/api";
 import Cookies from "js-cookie";
 import Skeleton from "react-loading-skeleton";
-import { iconsFormatter } from "@/utils/iconsFormatter";
-import { ProgressBar } from "@/components/basicElements/progressBar";
 import { useTheme } from "@/contexts/themeContext";
 import { Badge } from "@/components/basicElements/badge";
 
@@ -208,7 +203,11 @@ export default function MonthlyExpensesPieChart() {
 					<div className={styles[`home-monthly__graph-description`]}>
 						{monthlyExpenses &&
 							monthlyExpenses.map((expense, index) => (
-								<Badge key={index} color={colorsFormatter(expense.expenseType)}>
+								<Badge
+									key={index}
+									customColor={colorsFormatter(expense.expenseType)}
+									justifyStart={true}
+								>
 									<div
 										className={styles[`home-monthly__graph-description--text`]}
 									>

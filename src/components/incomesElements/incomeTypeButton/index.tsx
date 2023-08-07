@@ -1,7 +1,7 @@
 import React from "react";
 import {
-  Coins,
-  PiggyBank,
+  Coins, Confetti, HandCoins,
+  PiggyBank, Ticket,
 } from "@phosphor-icons/react";
 import { Rubik } from "next/font/google";
 import { colorMapper } from "@/utils/colorsUtil";
@@ -22,7 +22,7 @@ const rubik = Rubik({
 });
 
 
-export const Index = ({
+export const IncomeTypeButton = ({
   height,
   label,
   width,
@@ -33,8 +33,12 @@ export const Index = ({
     switch (label.toUpperCase()) {
       case "SALARY":
         return <Coins height={height} width={height} />;
-      case "INVESTMENT":
-        return <PiggyBank height={height} width={height} />;
+      case "TICKETS":
+        return <Ticket height={height} width={height} />;
+      case "BONUS":
+        return <Confetti height={height} width={height} />;
+      case "SERVICES":
+        return <HandCoins height={height} width={height} />;
     }
   };
   const buttonColor = selected ? colorMapper(label) : undefined;
