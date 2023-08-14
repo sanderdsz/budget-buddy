@@ -1,0 +1,37 @@
+.month-expenses__container {
+    margin: 0;
+}
+
+.month-expenses__title {
+    margin: 0 0 1rem 0;
+}
+
+.month-expenses__title--first {
+    font-weight: 200;
+    font-size: 1.5rem;
+}
+
+.month-expenses__title--second {
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.month-expenses__balance {
+    font-size: 2.25rem;
+    font-weight: 600;
+    color: var(--gold-01);
+}
+
+@media (max-width: 420px) {
+    .month-expenses__title--first {
+        font-size: 1.5rem;
+    }
+
+    .month-expenses__title--second {
+        font-size: 1.5rem;
+    }
+
+    .month-expenses__balance {
+        font-size: 1.5rem;
+    }
+}
