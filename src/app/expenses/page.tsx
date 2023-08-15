@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import {ConnectionExpensesTable} from "@/components/expensesElements/connectionExpensesTable";
 import {MonthExpenses} from "@/components/expensesElements/monthExpenses";
 import {YearExpenses} from "@/components/expensesElements/yearExpenses";
+import {YearExpensesChart} from "@/components/expensesElements/yearExpensesChart";
 
 const karla = Karla({
 	subsets: ["latin"],
@@ -72,6 +73,11 @@ export default function Expenses() {
 								<YearExpenses />
 							</Card>
 						</div>
+					</div>
+					<div className={styles[`expenses_container`]}>
+						<Card>
+							<YearExpensesChart />
+						</Card>
 					</div>
 					<div className={styles[`expenses_container`]}>
 						<Card>
