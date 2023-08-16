@@ -3,7 +3,7 @@
 import styles from "./styles.module.css";
 import {Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis} from "recharts";
 import {useTheme} from "@/contexts/themeContext";
-import {useEffect, useState} from "react";
+import {PureComponent, useEffect, useState} from "react";
 import Cookies from "js-cookie";
 import {api} from "@/services/api";
 import {isMobile} from "react-device-detect";
@@ -32,7 +32,7 @@ export const YearExpensesChart = () => {
     if (long) {
       return date.toLocaleString("en-US", { month: 'long' });
     } else {
-      return date.toLocaleString("en-US", { month: 'narrow' });
+      return date.toLocaleString("en-US", { month: 'short' });
     }
   }
 
@@ -46,12 +46,35 @@ export const YearExpensesChart = () => {
           }</p>
           <p
             style={{ margin: 0, color: fontColor }}
-          >{`Balance: ${currencyFormatter.format(payload[0].value)}`}</p>
+          >{`Total: ${currencyFormatter.format(payload[0].value)}`}</p>
         </div>
       );
     }
     return null;
   };
+
+  class CustomAxisTick extends PureComponent {
+    render() {
+      // @ts-ignore
+      const {x, y, stroke, payload} = this.props;
+
+      return (
+        <g transform={`translate(${x},${y})`}>
+          <text
+            x={0}
+            y={0}
+            dy={16}
+            textAnchor="end"
+            fill="#4c566a"
+            transform="rotate(-35)"
+            style={{fontSize: 12}}
+          >
+            {monthNameFormatter(payload.value, false)}
+          </text>
+        </g>
+      );
+    }
+  }
 
   const handleWindowResize = () => {
     setWidth(window.innerWidth);
@@ -160,6 +183,7 @@ export const YearExpensesChart = () => {
                 axisLine={false}
                 tickLine={false}
                 hide={false}
+                tick={<CustomAxisTick />}
               />
             </AreaChart>
           </div>
