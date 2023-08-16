@@ -4,9 +4,13 @@ type LoadingSpinnerProps = {
 	height?: number;
 	width?: number;
 	borderWidth?: number;
-}
+};
 
-export default function LoadingSpinner({height = 60, width = 60, borderWidth = 8}: LoadingSpinnerProps) {
+export default function LoadingSpinner({
+	height = 60,
+	width = 60,
+	borderWidth = 8,
+}: LoadingSpinnerProps) {
 	return (
 		<div className={styles[`loader-container`]}>
 			<div
@@ -14,9 +18,9 @@ export default function LoadingSpinner({height = 60, width = 60, borderWidth = 8
 				style={{
 					width: width,
 					height: height,
-					borderWidth: borderWidth
-				}}>
-			</div>
+					borderWidth: borderWidth,
+				}}
+			></div>
 		</div>
 	);
 }

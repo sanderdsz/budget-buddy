@@ -1,12 +1,6 @@
 "use client";
 
-import {
-	Cell,
-	ResponsiveContainer,
-	Tooltip,
-	Pie,
-	PieChart,
-} from "recharts";
+import { Cell, ResponsiveContainer, Tooltip, Pie, PieChart } from "recharts";
 import { useEffect, useState } from "react";
 import { colorsFormatter, iconsMapper } from "@/utils/colorsUtil";
 import { api } from "@/services/api";

@@ -78,7 +78,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 				firstName: userResponse.data.firstName,
 				lastName: userResponse.data.lastName,
 				userChildren: userResponse.data.userChildren,
-				userParent: userResponse.data.userParent
+				userParent: userResponse.data.userParent,
 			});
 			await router.push("home");
 			return userResponse;
@@ -103,7 +103,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 			firstName: userResponse.data.firstName,
 			lastName: userResponse.data.lastName,
 			userChildren: userResponse.data.userChildren,
-			userParent: userResponse.data.userParent
+			userParent: userResponse.data.userParent,
 		});
 	};
 

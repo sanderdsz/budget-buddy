@@ -10,10 +10,10 @@ import { isMobile } from "react-device-detect";
 import { useEffect, useState } from "react";
 import { ExpensesHistoryTable } from "@/components/expensesElements/expensesHistoryTable";
 import { useRouter } from "next/navigation";
-import {ConnectionExpensesTable} from "@/components/expensesElements/connectionExpensesTable";
-import {MonthExpenses} from "@/components/expensesElements/monthExpenses";
-import {YearExpenses} from "@/components/expensesElements/yearExpenses";
-import {YearExpensesChart} from "@/components/expensesElements/yearExpensesChart";
+import { ConnectionExpensesTable } from "@/components/expensesElements/connectionExpensesTable";
+import { MonthExpenses } from "@/components/expensesElements/monthExpenses";
+import { YearExpenses } from "@/components/expensesElements/yearExpenses";
+import { YearExpensesChart } from "@/components/expensesElements/yearExpensesChart";
 
 const karla = Karla({
 	subsets: ["latin"],

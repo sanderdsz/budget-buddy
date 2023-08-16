@@ -56,9 +56,9 @@ export default function BalanceHistoryChart() {
 		if (active && payload && payload.length) {
 			return (
 				<div>
-					<p style={{ margin: 0, color: fontColor }}>{
-						currentBalance === "week" ? `Week ${label}` : `Month ${label}`
-					}</p>
+					<p style={{ margin: 0, color: fontColor }}>
+						{currentBalance === "week" ? `Week ${label}` : `Month ${label}`}
+					</p>
 					<p
 						style={{ margin: 0, color: fontColor }}
 					>{`Balance: ${currencyFormatter.format(payload[0].value)}`}</p>
@@ -78,7 +78,7 @@ export default function BalanceHistoryChart() {
 		} else {
 			setCurrentBalance("month");
 		}
-	}
+	};
 
 	const fetchWeeklyBalances = async () => {
 		const accessToken = Cookies.get("budgetbuddy.accessToken");
@@ -181,7 +181,11 @@ export default function BalanceHistoryChart() {
 						<>
 							<Area
 								type="monotone"
-								dataKey={currentBalance === "week" ? "weekBalance.balance" : "monthBalance.balance"}
+								dataKey={
+									currentBalance === "week"
+										? "weekBalance.balance"
+										: "monthBalance.balance"
+								}
 								stroke="#4c566a"
 								strokeWidth={2}
 								fill="url(#colorUv)"
@@ -198,7 +202,11 @@ export default function BalanceHistoryChart() {
 						<>
 							<Area
 								type="monotone"
-								dataKey={currentBalance === "week" ? "weekBalance.balance" : "monthBalance.balance"}
+								dataKey={
+									currentBalance === "week"
+										? "weekBalance.balance"
+										: "monthBalance.balance"
+								}
 								stroke="#c8ccd2"
 								strokeWidth={2}
 								fill="url(#colorUv)"

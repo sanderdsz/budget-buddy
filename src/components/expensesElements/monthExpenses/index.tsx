@@ -25,10 +25,7 @@ export const MonthExpenses = () => {
 			},
 		};
 		try {
-			const response = await api.get(
-				`/expenses/total/month`,
-				config
-			);
+			const response = await api.get(`/expenses/total/month`, config);
 			setMonthExpense(currencyFormatter.format(response.data.value));
 		} catch (e) {
 			console.log(e);
@@ -42,9 +39,7 @@ export const MonthExpenses = () => {
 	return (
 		<div className={styles[`month-expenses__container`]}>
 			<div className={styles[`month-expenses__title`]}>
-				<span className={styles[`month-expenses__title--first`]}>
-					Month
-				</span>{" "}
+				<span className={styles[`month-expenses__title--first`]}>Month</span>{" "}
 				<span className={styles[`month-expenses__title--second`]}>
 					Expenses
 				</span>

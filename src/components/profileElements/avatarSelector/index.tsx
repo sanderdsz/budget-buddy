@@ -1,44 +1,48 @@
-import {Avatar} from "@/components/basicElements/avatar";
-import React, {useRef} from "react";
+import { Avatar } from "@/components/basicElements/avatar";
+import React, { useRef } from "react";
 import styles from "./styles.module.css";
 
 interface AvatarSelectorProps {
-  src: string;
-  size: number;
-  onChange: (file: File) => void;
+	src: string;
+	size: number;
+	onChange: (file: File) => void;
 }
 
-export const AvatarSelector = ({ onChange, src, size }: AvatarSelectorProps) => {
-  const inputRef = useRef<HTMLInputElement>(null);
+export const AvatarSelector = ({
+	onChange,
+	src,
+	size,
+}: AvatarSelectorProps) => {
+	const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleButtonClick = () => {
-    if (inputRef.current) {
-      inputRef.current.click();
-    }
-  };
+	const handleButtonClick = () => {
+		if (inputRef.current) {
+			inputRef.current.click();
+		}
+	};
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      onChange(file);
-    }
-  };
+	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0];
+		if (file) {
+			onChange(file);
+		}
+	};
 
-  return (
-    <div>
-      <button
-        onClick={handleButtonClick}
-        className={`${styles[`avatar-selector__button`]}`}
-      >
-        <Avatar size={size} src={src} />
-      </button>
-      <input
-        type="file"
-        ref={inputRef}
-        accept="image/*"
-        style={{ display: "none" }}
-        onChange={handleFileChange}
-      />
-    </div>
-  )
-}
+	return (
+		<div>
+			<button
+				onClick={handleButtonClick}
+				className={`${styles[`avatar-selector__button`]}`}
+			>
+				<Avatar size={size} src={src} />
+			</button>
+			<input
+				type="file"
+				ref={inputRef}
+				accept="image/*"
+				style={{ display: "none" }}
+				onChange={handleFileChange}
+			/>
+		</div>
+	);
+};

@@ -1,6 +1,6 @@
 import React from "react";
 import { Rubik } from "next/font/google";
-import {Pencil, Trash, CheckFat, X} from "@phosphor-icons/react";
+import { Pencil, Trash, CheckFat, X } from "@phosphor-icons/react";
 
 import styles from "./styles.module.css";
 import LoadingSpinner from "@/components/basicElements/loadingSpinner";
@@ -28,9 +28,9 @@ const iconsMapper = (icon: string) => {
 		case "trash":
 			return <Trash height={20} width={20} />;
 		case "check":
-			return <CheckFat height={20} width={20} />
+			return <CheckFat height={20} width={20} />;
 		case "cancel":
-			return <X height={20} width={20} />
+			return <X height={20} width={20} />;
 	}
 };
 
@@ -56,7 +56,9 @@ export const Button = ({
 			style={{ height: `${height}rem` }}
 			{...props}
 		>
-			{isLoading ? <LoadingSpinner width={20} height={20} borderWidth={4}/> : (
+			{isLoading ? (
+				<LoadingSpinner width={20} height={20} borderWidth={4} />
+			) : (
 				<>
 					{icon ? iconsMapper(icon) : null}
 					{label}

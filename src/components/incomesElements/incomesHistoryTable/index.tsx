@@ -194,7 +194,9 @@ export const IncomesHistoryTable = () => {
 						<tbody>
 							{incomesPageable.map((item, index) => (
 								<tr key={index}>
-									<td style={{textAlign: "end"}}>{currencyFormatter.format(item.value)}</td>
+									<td style={{ textAlign: "end" }}>
+										{currencyFormatter.format(item.value)}
+									</td>
 									<td
 										style={{
 											color: colorMapper(item.incomeType),
