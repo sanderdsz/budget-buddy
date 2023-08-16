@@ -163,6 +163,8 @@ export const YearExpensesChart = () => {
               <CartesianGrid
                 strokeDasharray="8"
                 vertical={false}
+                stroke="#4c566a"
+                strokeWidth={0.85}
               />
               <Area
                 type="monotone"
