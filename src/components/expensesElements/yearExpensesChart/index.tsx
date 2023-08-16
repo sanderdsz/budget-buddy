@@ -53,17 +53,30 @@ export const YearExpensesChart = () => {
     return null;
   };
 
+  const CustomYAxisTick = ({ x, y, payload }: any) => {
+    return (
+      <text
+        x={x}
+        y={y}
+        fill="#4c566a"
+        style={{fontSize: 12}}
+        textAnchor="end"
+      >
+        {`${payload.value}`}
+      </text>
+    );
+  };
+
   class CustomAxisTick extends PureComponent {
     render() {
       // @ts-ignore
       const {x, y, stroke, payload} = this.props;
-
       return (
         <g transform={`translate(${x},${y})`}>
           <text
             x={0}
             y={0}
-            dy={16}
+            dy={8}
             textAnchor="end"
             fill="#4c566a"
             transform="rotate(-35)"
@@ -178,6 +191,7 @@ export const YearExpensesChart = () => {
                 axisLine={false}
                 tickLine={false}
                 style={{fontSize: 12}}
+                tick={<CustomYAxisTick />}
               />
               <XAxis
                 dataKey={"month"}
