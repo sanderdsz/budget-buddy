@@ -14,6 +14,7 @@ import { ConnectionExpensesTable } from "@/components/expensesElements/connectio
 import { MonthExpenses } from "@/components/expensesElements/monthExpenses";
 import { YearExpenses } from "@/components/expensesElements/yearExpenses";
 import { YearExpensesChart } from "@/components/expensesElements/yearExpensesChart";
+import {ExpensesTypePanel} from "@/components/expensesElements/expensesTypePanel";
 
 const karla = Karla({
 	subsets: ["latin"],
@@ -73,6 +74,11 @@ export default function Expenses() {
 								<YearExpenses />
 							</Card>
 						</div>
+					</div>
+					<div className={styles[`expenses_container`]}>
+						<Card>
+							<ExpensesTypePanel />
+						</Card>
 					</div>
 					<div className={styles[`expenses_container`]}>
 						<Card>

@@ -6,13 +6,17 @@ type LabelProps = {
 	color?: "primary" | "secondary" | "success" | "warning";
 	customColor?: string;
 	justifyStart?: boolean;
+	paddingX?: number;
+	paddingY?: number;
 };
 
 export const Badge = ({
 	children,
-	color,
+	color = "primary",
 	customColor,
 	justifyStart = false,
+	paddingX = 0.15,
+	paddingY = 0.35,
 }: LabelProps) => {
 	return (
 		<div
@@ -20,6 +24,7 @@ export const Badge = ({
 			style={{
 				backgroundColor: customColor ? customColor : "",
 				justifyContent: justifyStart ? "start" : "center",
+				padding: `${paddingX}rem ${paddingY}rem`
 			}}
 		>
 			{children}

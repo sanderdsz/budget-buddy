@@ -87,7 +87,7 @@ export default function MonthlyExpensesPieChart() {
 	const fetchMonthlyExpenses = async () => {
 		try {
 			const response = await api.get<MonthlyExpenseProps[]>(
-				`/expenses/monthly`,
+				`/expenses/summary/month/${currentDate.getMonth() + 1}`,
 				config
 			);
 			setMonthlyExpenses(response.data);
