@@ -116,7 +116,7 @@ export const ExpensesTypePanel = () => {
                   {
                     lastMonthlyExpenses &&
                     lastMonthlyExpenses.map((lastExpense, index) => (
-                      <>
+                      <div key={index}>
                         { expense.expenseType === lastExpense.expenseType ? (
                           <>
                             { expense.totalValue > lastExpense.totalValue && (
@@ -131,7 +131,7 @@ export const ExpensesTypePanel = () => {
                             )}
                           </>
                         ) : null }
-                      </>
+                      </div>
                     ))
                   }
                 </div>

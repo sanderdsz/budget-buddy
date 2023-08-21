@@ -23,6 +23,7 @@
 
 .expenses-type__title--first {
     font-size: 1.5rem;
+    font-weight: 200;
 }
 
 .expenses-type__title--second {

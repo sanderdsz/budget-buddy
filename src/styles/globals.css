@@ -65,6 +65,7 @@
     /* fonts */
     --color-font-primary: var(--gray-05);
     --color-font-secondary: var(--blue-05);
+    --color-font-tertiary: var(--gold-01);
     --color-font-light: var(--white-03);
     --color-font-dark: var(--gray-05);
 
@@ -163,7 +164,7 @@
     /* fonts */
     --color-font-primary: var(--white-01);
     --color-font-secondary: var(--primary);
-    --color-font-tertiary: var(--yellow-01);
+    --color-font-tertiary: var(--blue-05);
     --color-font-light: var(--white-03);
     --color-font-dark: var(--gray-05);
 

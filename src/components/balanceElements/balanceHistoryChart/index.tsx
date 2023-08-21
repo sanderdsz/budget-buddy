@@ -1,17 +1,14 @@
 "use client";
 
-import { Button } from "@/components/basicElements/button";
 import {
 	Area,
-	AreaChart,
-	Line,
-	LineChart,
-	ResponsiveContainer,
+	AreaChart, CartesianGrid,
 	Tooltip,
-	XAxis,
+	XAxis, YAxis,
 } from "recharts";
 import { useTheme } from "@/contexts/themeContext";
-import { useEffect, useState } from "react";
+import {PureComponent, useEffect, useState} from "react";
+import { Button } from "@/components/basicElements/button";
 import { api } from "@/services/api";
 import Cookies from "js-cookie";
 import { isMobile } from "react-device-detect";
@@ -51,6 +48,15 @@ export default function BalanceHistoryChart() {
 		currency: "BRL",
 	});
 
+	const monthNameFormatter = (monthNumber: number, long: boolean) => {
+		const date = new Date(2000, monthNumber - 1);
+		if (long) {
+			return date.toLocaleString("en-US", { month: "long" });
+		} else {
+			return date.toLocaleString("en-US", { month: "short" });
+		}
+	};
+
 	const CustomTooltip = ({ active, payload, label }: any) => {
 		const fontColor = theme.activeTheme === "light" ? "#5E81AC" : "#EBCB8B";
 		if (active && payload && payload.length) {
@@ -66,6 +72,63 @@ export default function BalanceHistoryChart() {
 			);
 		}
 		return null;
+	};
+
+	class CustomWeekAxisTick extends PureComponent {
+		render() {
+			// @ts-ignore
+			const { x, y, stroke, payload } = this.props;
+			return (
+				<g transform={`translate(${x},${y})`}>
+					<text
+						x={0}
+						y={0}
+						dy={8}
+						textAnchor="end"
+						fill="#4c566a"
+						style={{ fontSize: 12 }}
+					>
+						{`week ${payload.value}`}
+					</text>
+				</g>
+			);
+		}
+	}
+
+	class CustomMonthAxisTick extends PureComponent {
+		render() {
+			// @ts-ignore
+			const { x, y, stroke, payload } = this.props;
+			return (
+				<g transform={`translate(${x},${y})`}>
+					<text
+						x={0}
+						y={0}
+						dy={8}
+						textAnchor="end"
+						fill="#4c566a"
+						transform="rotate(-25)"
+						style={{ fontSize: 11 }}
+					>
+						{monthNameFormatter(payload.value, false)}
+					</text>
+				</g>
+			);
+		}
+	}
+
+	const CustomYAxisTick = ({ x, y, payload }: any) => {
+		return (
+			<text
+				x={x}
+				y={y}
+				fill="#4c566a"
+				style={{ fontSize: 12 }}
+				textAnchor="end"
+			>
+				{`${payload.value}`}
+			</text>
+		);
 	};
 
 	const handleWindowResize = () => {
@@ -166,6 +229,12 @@ export default function BalanceHistoryChart() {
 					width={window.innerWidth > 800 ? 650 : width / widthResponsive}
 					height={200}
 					data={currentBalance === "week" ? weeklyBalance : monthlyBalance}
+					margin={{
+						top: 0,
+						right: 5,
+						left: 0,
+						bottom: 0,
+					}}
 				>
 					<defs>
 						<linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
@@ -190,12 +259,30 @@ export default function BalanceHistoryChart() {
 								strokeWidth={2}
 								fill="url(#colorUv)"
 							/>
+							<CartesianGrid
+								strokeDasharray="8"
+								vertical={false}
+								stroke="#c8ccd2"
+								strokeWidth={0.85}
+							/>
+							<YAxis
+								stroke="#4c566a"
+								axisLine={false}
+								tickLine={false}
+								style={{ fontSize: 12 }}
+								tick={<CustomYAxisTick />}
+							/>
 							<XAxis
 								dataKey={currentBalance === "week" ? "week" : "month"}
 								stroke="#4c566a"
 								axisLine={false}
 								tickLine={false}
-								hide={true}
+								hide={false}
+								tick={
+									currentBalance === "week"
+										? <CustomWeekAxisTick />
+										: <CustomMonthAxisTick />
+								}
 							/>
 						</>
 					) : (
@@ -211,12 +298,30 @@ export default function BalanceHistoryChart() {
 								strokeWidth={2}
 								fill="url(#colorUv)"
 							/>
+							<CartesianGrid
+								strokeDasharray="8"
+								vertical={false}
+								stroke="#4c566a"
+								strokeWidth={0.85}
+							/>
+							<YAxis
+								stroke="#4c566a"
+								axisLine={false}
+								tickLine={false}
+								style={{ fontSize: 12 }}
+								tick={<CustomYAxisTick />}
+							/>
 							<XAxis
 								dataKey={currentBalance === "week" ? "week" : "month"}
 								stroke="#c8ccd2"
 								axisLine={false}
 								tickLine={false}
-								hide={true}
+								hide={false}
+								tick={
+									currentBalance === "week"
+										? <CustomWeekAxisTick />
+										: <CustomMonthAxisTick />
+								}
 							/>
 						</>
 					)}

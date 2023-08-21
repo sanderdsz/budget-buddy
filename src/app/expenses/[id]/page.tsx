@@ -141,18 +141,20 @@ export default function Page({ params }: { params: { id: string } }) {
 						<span className={styles[`expenses-header__title--second`]}>
 							Expense
 						</span>
-						<div className={styles[`expenses-calendar__container`]}>
-							<Calendar
-								locale={"en-US"}
-								className={[`${rubik.className}`]}
-								// @ts-ignore
-								onChange={setDateValue}
-								value={dateValue}
-							/>
+						<div className={styles[`expenses-calendar__wrapper`]}>
+							<div className={styles[`expenses-calendar__container`]}>
+								<Calendar
+									locale={"en-US"}
+									className={[`${rubik.className}`]}
+									// @ts-ignore
+									onChange={setDateValue}
+									value={dateValue}
+								/>
+								<span className={styles[`expenses-calendar__label`]}>
+										select date
+									</span>
+							</div>
 						</div>
-						<span className={styles[`expenses-calendar__label`]}>
-							select date
-						</span>
 					</Card>
 				</div>
 				<div className={styles[`expenses-bottom__container`]}>
