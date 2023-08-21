@@ -37,6 +37,20 @@
     color: var(--color-balance-history-chart-subtitle);
 }
 
+.expenses-type__loading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.expenses-type__loading--skeleton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: .5rem;
+}
+
 .expenses-type__wrapper {
     display: flex;
     flex-direction: column;
