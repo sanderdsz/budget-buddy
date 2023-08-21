@@ -24,7 +24,7 @@ export const Badge = ({
 			style={{
 				backgroundColor: customColor ? customColor : "",
 				justifyContent: justifyStart ? "start" : "center",
-				padding: `${paddingX}rem ${paddingY}rem`
+				padding: `${paddingX}rem ${paddingY}rem`,
 			}}
 		>
 			{children}

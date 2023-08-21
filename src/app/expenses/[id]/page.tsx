@@ -151,8 +151,8 @@ export default function Page({ params }: { params: { id: string } }) {
 									value={dateValue}
 								/>
 								<span className={styles[`expenses-calendar__label`]}>
-										select date
-									</span>
+									select date
+								</span>
 							</div>
 						</div>
 					</Card>
