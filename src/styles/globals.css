@@ -86,6 +86,7 @@
 
     /* bottom navigation */
     --color-botton-nav-bg-primary: var(--white-02);
+    --color-botton-nav-bg-active: var(--white-04);
     --color-botton-nav-font-primary: var(--gray-05);
     --color-botton-nav-font-primary-hover: var(--primary);
     --color-botton-nav-font-primary-active: var(--blue-05);
@@ -185,6 +186,7 @@
 
     /* bottom navigation */
     --color-botton-nav-bg-primary: var(--gray-01);
+    --color-botton-nav-bg-active: var(--gray-02);
     --color-botton-nav-font-primary: var(--white-05);
     --color-botton-nav-font-primary-hover: var(--primary);
     --color-botton-nav-font-primary-active: var(--yellow-01);
