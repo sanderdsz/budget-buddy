@@ -1,8 +1,13 @@
 .incomes {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     height: 100%;
     width: 100%;
+}
+
+.incomes__header {
+    padding: 1rem 1rem 0 1rem;
 }
 
 .incomes__wrapper {

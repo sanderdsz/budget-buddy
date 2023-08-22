@@ -133,14 +133,14 @@ export default function Page({ params }: { params: { id: string } }) {
 	return (
 		<Layout>
 			<section className={`${karla.className}`}>
+				<div className={`${styles[`expenses__header`]}`}>
+					<span className={styles[`expenses-header__title--first`]}>Edit</span>{" "}
+					<span className={styles[`expenses-header__title--second`]}>
+						Expense
+					</span>
+				</div>
 				<div className={styles[`expenses-top__container`]}>
 					<Card>
-						<span className={styles[`expenses-header__title--first`]}>
-							Edit
-						</span>{" "}
-						<span className={styles[`expenses-header__title--second`]}>
-							Expense
-						</span>
 						<div className={styles[`expenses-calendar__wrapper`]}>
 							<div className={styles[`expenses-calendar__container`]}>
 								<Calendar

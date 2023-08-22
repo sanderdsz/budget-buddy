@@ -98,14 +98,14 @@ export default function Expenses() {
 		<Layout>
 			<section className={`${styles[`expenses`]} ${karla.className}`}>
 				<div className={`${styles[`expenses__wrapper`]}`}>
+					<div className={`${styles[`expenses__header`]}`}>
+						<span className={styles[`expenses-header__title--first`]}>New</span>{" "}
+						<span className={styles[`expenses-header__title--second`]}>
+							Expense
+						</span>
+					</div>
 					<div className={styles[`expenses-top__container`]}>
 						<Card>
-							<span className={styles[`expenses-header__title--first`]}>
-								New
-							</span>{" "}
-							<span className={styles[`expenses-header__title--second`]}>
-								Expense
-							</span>
 							<div className={styles[`expenses-calendar__wrapper`]}>
 								<div className={styles[`expenses-calendar__container`]}>
 									<Calendar

@@ -84,15 +84,15 @@ export default function NewIncome() {
 	return (
 		<Layout>
 			<section className={`${styles[`incomes`]} ${karla.className}`}>
+				<div className={`${styles[`incomes__header`]}`}>
+					<span className={styles[`incomes-header__title--first`]}>New</span>{" "}
+					<span className={styles[`incomes-header__title--second`]}>
+						Income
+					</span>
+				</div>
 				<div className={`${styles[`incomes__wrapper`]}`}>
 					<div className={styles[`incomes-top__container`]}>
 						<Card>
-							<span className={styles[`incomes-header__title--first`]}>
-								New
-							</span>{" "}
-							<span className={styles[`incomes-header__title--second`]}>
-								Income
-							</span>
 							<div className={styles[`incomes-calendar__wrapper`]}>
 								<div className={styles[`incomes-calendar__container`]}>
 									<Calendar
