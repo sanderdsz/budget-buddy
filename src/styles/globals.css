@@ -18,12 +18,14 @@
     --gray-03: #3b4252;
     --gray-04: #434c5e;
     --gray-05: #4c566a;
+    --gray-06: #6c757d;
 
     --blue-01: #AFC0D6;
     --blue-02: #9BB0CC;
     --blue-03: #87A1C1;
     --blue-04: #7291B7;
     --blue-05: #5E81AC;
+    --blue-06: #3a6ea5;
 
     --cyan-01: #8FBCBB;
     --cyan-02: #86B0AF;
@@ -87,9 +89,9 @@
     /* bottom navigation */
     --color-botton-nav-bg-primary: var(--white-02);
     --color-botton-nav-bg-active: var(--white-04);
-    --color-botton-nav-font-primary: var(--gray-05);
+    --color-botton-nav-font-primary: var(--gray-06);
     --color-botton-nav-font-primary-hover: var(--primary);
-    --color-botton-nav-font-primary-active: var(--blue-05);
+    --color-botton-nav-font-primary-active: var(--blue-06);
 
     /* inputs */
     --color-input-bg-primary: var(--white-01);
