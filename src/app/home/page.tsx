@@ -10,6 +10,7 @@ import { AvailableBalance } from "@/components/balanceElements/availableBalance"
 import MonthlyExpensesPieChart from "@/components/expensesElements/monthlyExpensesPieChart";
 import { isMobile } from "react-device-detect";
 import { MonthlyTarget } from "@/components/balanceElements/monthlyTarget/monthlyTarget";
+import ExpensesPieChart from "@/components/expensesElements/expensesPieChart";
 
 import styles from "./styles.module.css";
 
@@ -72,8 +73,13 @@ export default function Home() {
 							</Card>
 						</div>
 						<div className={styles[`${monthlyExpenseContainerResponsive}`]}>
+							{/*
 							<Card>
 								<MonthlyExpensesPieChart />
+							</Card>
+							*/}
+							<Card>
+								<ExpensesPieChart />
 							</Card>
 						</div>
 					</div>

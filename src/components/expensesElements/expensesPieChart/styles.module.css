@@ -1,0 +1,102 @@
+.home-monthly {
+    padding: 0rem;
+    background: var(--color-home-bg-secondary);
+}
+
+.home-monthly__title-container {
+    margin: 0 0 1rem 0;
+}
+
+.home-monthly__title {
+    padding: 0 0 .25rem 0;
+}
+
+.home-monthly__subtitle {
+    font-size: 1rem;
+    font-weight: 200;
+}
+
+.home-monthly__subtitle--expense {
+    font-weight: 600;
+    color: var(--color-home-monthly-title-secondary);
+}
+
+.home-monthly__title--first {
+    color: var(--color-home-monthly-title-primary);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.home-monthly__title--second {
+    font-size: 1.5rem;
+    font-weight: 200;
+}
+
+.home-monthly__graph-container {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.home-monthly__graph-container--no-content {
+    padding: 4rem 0;
+    font-size: 1.25rem;
+    font-weight: 200;
+    color: var(--color-home-monthly-title-primary);
+}
+
+.home-monthly__graph {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.home-monthly__graph-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 5px;
+}
+
+.home-monthly__graph-description--text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.home-monthly__graph-description--text {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.home-monthly__graph-description--icons {
+    padding-left: .5rem;
+}
+
+.home-monthly__target {
+    font-weight: 600;
+}
+
+.home-monthly__target-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+}
+
+.home-monthly__target-maximum {
+    font-weight: 300;
+    color: var(--color-home-monthly-title-secondary);
+}
+
+.home-monthly__chart-tooltip {
+    color: var(--color-font-light);
+}
+
+@media (max-width: 768px) {
+    .home-monthly {
+        padding: 0rem;
+    }
+}
