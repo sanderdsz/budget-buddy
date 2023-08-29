@@ -70,7 +70,6 @@ export default function ExpensesPieChart() {
 	};
 
 	const CustomTooltip = (props: any) => {
-		console.log(props)
 		const { active, payload, label, name } = props
 		const backgroundColor = theme.activeTheme === "light" ? "#c8ccd2" : "#4c566a";
 		if (active && payload && payload.length) {
@@ -217,6 +216,8 @@ export default function ExpensesPieChart() {
 											name={expense.expenseType}
 											key={`cell-${index}`}
 											fill={colorsFormatter(expense.expenseType)}
+											stroke={colorsFormatter(expense.expenseType)}
+											strokeWidth={1}
 										/>
 									))}
 								<Label

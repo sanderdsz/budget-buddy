@@ -14,6 +14,7 @@ import { useTheme } from "@/contexts/themeContext";
 import { isMobile } from "react-device-detect";
 import { useRouter } from "next/navigation";
 import LoadingSpinner from "@/components/basicElements/loadingSpinner";
+import {SmileySad} from "@phosphor-icons/react";
 
 interface ExpenseConnectionProps {
 	id: number;
@@ -144,113 +145,130 @@ export const ConnectionExpensesTable = () => {
 
 	return (
 		<>
-			{isLoading ? (
+			{ isLoading ? (
 				<LoadingSpinner />
 			) : (
-				<div className={`${karla.className}`}>
-					<div className={`${styles[`expenses-table__header`]}`}>
-						<div className={`${styles[`expenses-table__header--title`]}`}>
-							<span>Expense</span> <span>Connection</span>
-						</div>
-						<div className={`${styles[`expenses-table__header--buttons`]}`}>
-							<DatePicker
-								// @ts-ignore
-								onChange={setDateValue}
-								value={dateValue}
-							/>
-							<Select
-								options={expenseTypeOptions}
-								value={expenseTypeOption}
-								// @ts-ignore
-								onChange={setExpenseTypeOption}
-								className="react-select-container"
-								classNamePrefix="react-select"
-								theme={(theme) => ({
-									...theme,
-									borderRadius: 5,
-									colors: {
-										...theme.colors,
-										primary25:
-											themeContext.activeTheme === "dark"
-												? "#4c566a"
-												: "#c8ccd2",
-										primary:
-											themeContext.activeTheme === "dark"
-												? "#E4BA84"
-												: "#5E81AC",
-									},
-								})}
-								styles={{
-									option: (base) => ({
-										...base,
-										borderRadius: `5px`,
-									}),
-								}}
-							/>
+				<>
+					<div className={`${karla.className}`}>
+						<div className={`${styles[`expenses-table__header`]}`}>
+							<div className={`${styles[`expenses-table__header--title`]}`}>
+								<span>Expense</span>
+								<span>Connection</span>
+							</div>
+							<>
+								{ expensesPageable.length === 0 ? (
+									<div style={{
+										display: "flex",
+										gap: "0.5rem",
+										fontWeight: 200,
+										fontSize: "1.25rem"
+									}}>
+										<SmileySad
+											width={25}
+											height={25}
+										/>
+										connections expenses are empty.
+									</div>
+								) : (
+									<>
+										<div className={`${styles[`expenses-table__header--buttons`]}`}>
+											<DatePicker
+												// @ts-ignore
+												onChange={setDateValue}
+												value={dateValue}/>
+											<Select
+												options={expenseTypeOptions}
+												value={expenseTypeOption}
+												// @ts-ignore
+												onChange={setExpenseTypeOption}
+												className="react-select-container"
+												classNamePrefix="react-select"
+												theme={(theme) => ({
+													...theme,
+													borderRadius: 5,
+													colors: {
+														...theme.colors,
+														primary25: themeContext.activeTheme === "dark"
+															? "#4c566a"
+															: "#c8ccd2",
+														primary: themeContext.activeTheme === "dark"
+															? "#E4BA84"
+															: "#5E81AC",
+													},
+												})}
+												styles={{
+													option: (base) => ({
+														...base,
+														borderRadius: `5px`,
+													}),
+												}}/>
+										</div>
+										<table className={`${styles[`expenses-table`]}`}>
+											<thead>
+											<tr>
+												<th>Value</th>
+												<th>Type</th>
+												<th>Date</th>
+												<th>User</th>
+												<th>Description</th>
+											</tr>
+											</thead>
+											<tbody>
+											{expensesPageable.map((item, index) => (
+												<tr key={index}>
+													<td style={{textAlign: "end"}}>
+														{currencyFormatter.format(item.value)}
+													</td>
+													<td
+														style={{
+															color: colorMapper(item.expenseType),
+															fontWeight: 600,
+															fontSize: isMobile ? ".85rem" : "1rem",
+														}}
+													>
+														{item.expenseType.toLowerCase()}
+													</td>
+													<td
+														style={{
+															fontSize: isMobile ? ".85rem" : "1rem",
+														}}
+													>
+														{dateFormatter(item.date)}
+													</td>
+													<td
+														style={{
+															fontSize: isMobile ? ".85rem" : "1rem",
+														}}
+													>
+														{item.userName}
+													</td>
+													<td
+														style={{
+															fontSize: isMobile ? ".85rem" : "1rem",
+														}}
+													>
+														{item.description}
+													</td>
+												</tr>
+											))}
+											</tbody>
+										</table>
+										<div className={styles[`expenses-table__footer`]}>
+											<div className={styles[`expenses-table__footer-buttons`]}>
+												<Button label={"<"} onClick={previousPage}/>
+												<Button
+													label={">"}
+													onClick={nextPage}
+													colour={isNextPageEnable ? "primary" : "disabled"}
+													disabled={!isNextPageEnable}/>
+											</div>
+										</div>
+									</>
+								)}
+							</>
 						</div>
 					</div>
-					<table className={`${styles[`expenses-table`]}`}>
-						<thead>
-							<tr>
-								<th>Value</th>
-								<th>Type</th>
-								<th>Date</th>
-								<th>User</th>
-								<th>Description</th>
-							</tr>
-						</thead>
-						<tbody>
-							{expensesPageable.map((item, index) => (
-								<tr key={index}>
-									<td style={{ textAlign: "end" }}>
-										{currencyFormatter.format(item.value)}
-									</td>
-									<td
-										style={{
-											color: colorMapper(item.expenseType),
-											fontWeight: 600,
-											fontSize: isMobile ? ".85rem" : "1rem",
-										}}
-									>
-										{item.expenseType.toLowerCase()}
-									</td>
-									<td
-										style={{
-											fontSize: isMobile ? ".85rem" : "1rem",
-										}}
-									>
-										{dateFormatter(item.date)}
-									</td>
-									<td
-										style={{
-											fontSize: isMobile ? ".85rem" : "1rem",
-										}}
-									>
-										{item.userName}
-									</td>
-									<td
-										style={{
-											fontSize: isMobile ? ".85rem" : "1rem",
-										}}
-									>
-										{item.description}
-									</td>
-								</tr>
-							))}
-						</tbody>
-					</table>
-					<div className={styles[`expenses-table__footer`]}>
-						<div className={styles[`expenses-table__footer-buttons`]}>
-							<Button label={"<"} onClick={previousPage} />
-							<Button
-								label={">"}
-								onClick={nextPage}
-								colour={isNextPageEnable ? "primary" : "disabled"}
-								disabled={!isNextPageEnable}
-							/>
-						</div>
-					</div>
-				</div>
+				</>
 			)}
 		</>
 	);

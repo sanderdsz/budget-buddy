@@ -187,6 +187,8 @@ export default function MonthlyExpensesPieChart() {
 												name={expense.expenseType}
 												key={`cell-${index}`}
 												fill={colorsFormatter(expense.expenseType)}
+												stroke={colorsFormatter(expense.expenseType)}
+												strokeWidth={1}
 											/>
 										))}
 								</Pie>
