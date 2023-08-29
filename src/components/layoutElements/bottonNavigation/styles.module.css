@@ -14,6 +14,7 @@
 }
 
 .nav__button {
+    padding: .25rem .5rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,6 +23,7 @@
     border: 0;
     font-size: .8rem;
     color: var(--color-botton-nav-font-primary);
+    border-radius: 5px;
 }
 
 .nav__button:hover {
@@ -29,8 +31,6 @@
 }
 
 .nav__button--active {
-    padding: .25rem .5rem;
-    border-radius: 5px;
     background-color: var(--color-botton-nav-bg-active);
     color: var(--color-botton-nav-font-primary-active);
 }
