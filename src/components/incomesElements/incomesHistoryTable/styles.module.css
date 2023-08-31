@@ -39,7 +39,7 @@
 .incomes-table__header--title > span:nth-child(2) {
     font-weight: 600;
     font-size: 1.5rem;
-    color: var(--color-font-secondary);
+    color: var(--color-font-primary);
 }
 
 .incomes-table__header--buttons {

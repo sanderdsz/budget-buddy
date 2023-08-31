@@ -71,7 +71,7 @@ export default function ExpensesPieChart() {
 
 	const CustomTooltip = (props: any) => {
 		const { active, payload, label, name } = props
-		const backgroundColor = theme.activeTheme === "light" ? "#c8ccd2" : "#4c566a";
+		const backgroundColor = theme.activeTheme === "light" ? "#eceff4" : "#4c566a";
 		if (active && payload && payload.length) {
 			return (
 				<div style={{
@@ -84,13 +84,13 @@ export default function ExpensesPieChart() {
 					gap: "0.25rem"
 				}}>
 					<span style={{
-						color: payload[0].payload.fill
+						color: theme.activeTheme === "light" ? "#87A1C1" : "#c8ccd2"
 					}}>
 						{ payload[0].name.toLowerCase() }
 					</span>
 					<span style={{
 						margin: 0,
-						color: payload[0].payload.fill
+						color: theme.activeTheme === "light" ? "#87A1C1" : "#c8ccd2"
 					}}>
 						{`${currencyFormatter.format(payload[0].value)}`}
 					</span>

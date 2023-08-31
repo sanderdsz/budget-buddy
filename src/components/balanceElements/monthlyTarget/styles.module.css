@@ -19,7 +19,7 @@
 .monthly-target__title--first {
     font-size: 1.5rem;
     font-weight: 600;
-    color: var(--color-home-monthly-title-secondary);
+    color: var(--color-font-primary);
 }
 
 .monthly-target__title--second {

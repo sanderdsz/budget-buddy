@@ -18,11 +18,11 @@
 
 .home-monthly__subtitle--expense {
     font-weight: 600;
-    color: var(--color-home-monthly-title-secondary);
+    color: var(--color-font-primary);
 }
 
 .home-monthly__title--first {
-    color: var(--color-home-monthly-title-primary);
+    color: var(--color-font-primary);
     font-size: 1.5rem;
     font-weight: 600;
 }

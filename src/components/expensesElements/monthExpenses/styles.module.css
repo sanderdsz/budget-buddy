@@ -9,7 +9,7 @@
 .month-expenses__title--first {
     font-weight: 600;
     font-size: 1.5rem;
-    color: var(--color-font-tertiary);
+    color: var(--color-font-primary);
 }
 
 .month-expenses__title--second {
