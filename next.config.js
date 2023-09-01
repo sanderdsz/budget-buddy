@@ -7,7 +7,12 @@ const nextConfig = {
 module.exports = nextConfig
 
 const ContentSecurityPolicy = `
-  default-src 'self';
+  default-src 'self' 'unsafe-inline';
+  script-src 'self' 'unsafe-inline';
+  child-src example.com;
+  style-src 'self' example.com fonts.googleapis.com;
+  style-src-elem 'self' example.com;
+  font-src 'self';
   connect-src http://168.75.75.99:8080;
 `;
 
