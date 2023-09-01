@@ -7,8 +7,9 @@ const nextConfig = {
 module.exports = nextConfig
 
 const ContentSecurityPolicy = `
-    connect-src http://168.75.75.99:8080; 
-  `
+  default-src 'self';
+  connect-src http://168.75.75.99:8080;
+`;
 
 module.exports = {
   async headers() {
