@@ -7,10 +7,6 @@ const nextConfig = {
 module.exports = nextConfig
 
 const ContentSecurityPolicy = `
-    default-src 'self';
-    script-src 'self';
-    style-src 'self';
-    font-src 'self';
     connect-src http://168.75.75.99:8080; 
   `
 
