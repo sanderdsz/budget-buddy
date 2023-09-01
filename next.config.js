@@ -6,6 +6,14 @@ const nextConfig = {
 }
 module.exports = nextConfig
 
+const ContentSecurityPolicy = `
+    default-src 'self';
+    script-src 'self';
+    style-src 'self';
+    font-src 'self';
+    connect-src http://168.75.75.99:8080; 
+  `
+
 module.exports = {
   async headers() {
     return [
@@ -14,7 +22,7 @@ module.exports = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self' http://168.75.75.99:8080",
+            value: ContentSecurityPolicy.replace(/\s{2,}/g, ' ').trim(),
           },
         ],
       }
