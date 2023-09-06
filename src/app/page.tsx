@@ -25,14 +25,16 @@ export default function Index() {
 	const [isLoading, setIsLoading] = useState(false);
 
 	const loginRedirection = () => {
-		//setIsLoading(true);
+		setIsLoading(true);
 		auth.signIn({ email, password }).then((response) => {
 			if (response.status !== 200) {
 				setMessage(response.message);
 				setClassname(`form__message--activated`);
+				setIsLoading(false);
 			} else {
 				setMessage(" ");
 				setClassname(`form__message--deactivated`);
+				setIsLoading(false);
 			}
 		});
 	};
@@ -92,7 +94,7 @@ export default function Index() {
 									label="sign in"
 									colour="primary"
 									onClick={() => loginRedirection()}
-									disabled={isLoading}
+									isLoading={isLoading}
 									height={2}
 								/>
 								<Button

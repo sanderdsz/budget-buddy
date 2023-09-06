@@ -17,6 +17,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	size?: "small" | "medium" | "large";
 	label?: string;
 	height?: number;
+	width?: number;
 	icon?: "pencil" | "trash" | "check" | "cancel";
 	isLoading?: boolean;
 }
@@ -41,6 +42,7 @@ export const Button = ({
 	size = "medium",
 	label,
 	height = 1.5,
+	width,
 	icon,
 	isLoading,
 	...props
@@ -53,7 +55,10 @@ export const Button = ({
 				${styles[`${size}`]}
 				${rubik.className}
 			`}
-			style={{ height: `${height}rem` }}
+			style={{
+				height: `${height}rem`,
+				width: `${isLoading ? 4 : null}rem`
+		}}
 			{...props}
 		>
 			{isLoading ? (
