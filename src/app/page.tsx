@@ -9,6 +9,7 @@ import { useAuth } from "@/contexts/authContext";
 import { Input } from "@/components/basicElements/input";
 
 import styles from "../styles/index.module.css";
+import {PasswordInput} from "@/components/basicElements/passwordInput";
 
 const rubik = Rubik({
 	subsets: ["latin"],
@@ -34,7 +35,6 @@ export default function Index() {
 			} else {
 				setMessage(" ");
 				setClassname(`form__message--deactivated`);
-				setIsLoading(false);
 			}
 		});
 	};
@@ -70,7 +70,7 @@ export default function Index() {
 									/>
 								</div>
 								<div>
-									<Input
+									<PasswordInput
 										placeholder="password"
 										value={password}
 										onChange={(e) => setPassword(e.target.value)}

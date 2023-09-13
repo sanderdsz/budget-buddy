@@ -1,0 +1,45 @@
+.password-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input__field {
+    width: 100%;
+    padding: 0.25rem;
+    background-color: var(--color-input-bg-primary);
+    border: 2px solid var(--color-input-border-primary);
+    border-radius: 5px;
+    transition: .25s;
+    outline: none;
+    color: var(--color-input-font-primary);
+}
+
+.password-input__icon {
+    position: absolute;
+}
+
+.password-input__field::placeholder {
+    color: var(--color-input-placeholder-primary);
+}
+
+.password-input__field:focus {
+    border: 2px solid var(--color-input-border-focus-primary);
+}
+
+.password-input__field:disabled {
+    cursor: not-allowed;
+    color: var(--color-input-placeholder-primary);
+}
+
+.password-input__button {
+    position: absolute;
+    right: 0;
+    background-color: transparent;
+    border: none;
+    color: var(--color-font-primary);
+}
+
+.password-input__button:hover {
+    cursor: pointer;
+}
