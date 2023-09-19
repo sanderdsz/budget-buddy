@@ -7,9 +7,9 @@ import { api } from "@/services/api";
 import Cookies from "js-cookie";
 import Skeleton from "react-loading-skeleton";
 import { useTheme } from "@/contexts/themeContext";
-import { Badge } from "@/components/basicElements/badge";
 
 import styles from "./styles.module.css";
+import LoadingSpinner from "@/components/basicElements/loadingSpinner";
 
 type ExpenseProps = {
 	value: number;
@@ -42,6 +42,7 @@ export default function ExpensesPieChart() {
 		MonthlyExpenseProps[] | undefined
 	>();
 	const [expense, setExpense] = useState("");
+	const [isLoading, setIsLoading] = useState(true);
 
 	const renderLabelContent = (props: any) => {
 		const { value, name, x, y, midAngle, fill, outerRadius, percentage, cx, cy } = props;
@@ -136,6 +137,7 @@ export default function ExpensesPieChart() {
 				config
 			);
 			setExpense(currencyFormatter.format(response.data.expenses));
+			setIsLoading(false);
 		} catch (e) {
 			console.log(e);
 		}
@@ -183,59 +185,67 @@ export default function ExpensesPieChart() {
 					)}
 				</span>
 			</div>
-			{monthlyExpenses?.length === 0 ? (
-				<div className={styles[`home-monthly__graph-container`]}>
-					<div className={styles[`home-monthly__graph-container--no-content`]}>
-						There's no spending's this month yet.
-					</div>
+			{ isLoading ? (
+				<div className={styles[`home-monthly__loading-container`]}>
+					<LoadingSpinner />
 				</div>
 			) : (
-				<div className={styles[`home-monthly__graph-container`]}>
-					<div
-						className={styles[`home-monthly__graph`]}
-					>
-						<PieChart width={300} height={250}>
-							<Pie
-								dataKey="totalValue"
-								isAnimationActive={true}
-								data={monthlyExpenses}
-								cx="50%"
-								cy="50%"
-								startAngle={180}
-								endAngle={-180}
-								innerRadius={55}
-								paddingAngle={5}
-								// @ts-ignore
-								outerRadius={monthlyExpenses?.length > 5 ? 90 : 80}
-								label={renderLabelContent}
-								labelLine={false}
+				<>
+					{ monthlyExpenses?.length === 0 ? (
+						<div className={styles[`home-monthly__graph-container`]}>
+							<div className={styles[`home-monthly__graph-container--no-content`]}>
+								There's no spending's this month.
+							</div>
+						</div>
+					) : (
+						<div className={styles[`home-monthly__graph-container`]}>
+							<div
+								className={styles[`home-monthly__graph`]}
 							>
-								{monthlyExpenses &&
-									monthlyExpenses.map((expense, index) => (
-										<Cell
-											name={expense.expenseType}
-											key={`cell-${index}`}
-											fill={colorsFormatter(expense.expenseType)}
-											stroke={colorsFormatter(expense.expenseType)}
-											strokeWidth={1}
-										/>
-									))}
-								<Label
-									width={50}
-									position="center"
-									fontWeight={600}
-									fill={theme.activeTheme === "light" ? "#232730" : "#c8ccd2"}
-								>
-									{ expense }
-								</Label>
-							</Pie>
-							<Tooltip
-								wrapperStyle={{ outline: "none" }}
-								content={<CustomTooltip />}
-							/>
-						</PieChart>
-					</div>
-				</div>
+								<PieChart width={300} height={250}>
+									<Pie
+										dataKey="totalValue"
+										isAnimationActive={true}
+										data={monthlyExpenses}
+										cx="50%"
+										cy="50%"
+										startAngle={180}
+										endAngle={-180}
+										innerRadius={55}
+										paddingAngle={5}
+										// @ts-ignore
+										outerRadius={monthlyExpenses?.length > 5 ? 90 : 80}
+										label={renderLabelContent}
+										labelLine={false}
+									>
+										{monthlyExpenses &&
+											monthlyExpenses.map((expense, index) => (
+												<Cell
+													name={expense.expenseType}
+													key={`cell-${index}`}
+													fill={colorsFormatter(expense.expenseType)}
+													stroke={colorsFormatter(expense.expenseType)}
+													strokeWidth={1}
+												/>
+											))}
+										<Label
+											width={50}
+											position="center"
+											fontWeight={600}
+											fill={theme.activeTheme === "light" ? "#232730" : "#c8ccd2"}
+										>
+											{ expense }
+										</Label>
+									</Pie>
+									<Tooltip
+										wrapperStyle={{ outline: "none" }}
+										content={<CustomTooltip />}
+									/>
+								</PieChart>
+							</div>
+						</div>
+					)}
+				</>
 			)}
 		</div>
 	);

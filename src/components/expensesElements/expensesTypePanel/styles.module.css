@@ -98,6 +98,15 @@
     top: 2.8rem;
 }
 
+.expenses-type__warning {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.25rem;
+    font-weight: lighter;
+    color: var(--color-font-secondary);
+}
+
 @media (min-width: 768px) {
     .expenses-type__container {
         justify-content: space-evenly;

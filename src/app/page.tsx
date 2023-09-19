@@ -63,6 +63,7 @@ export default function Index() {
 							<div className={styles.form__input}>
 								<div>
 									<Input
+										type={"email"}
 										placeholder="e-mail"
 										value={email}
 										onChange={(e) => setEmail(e.target.value)}

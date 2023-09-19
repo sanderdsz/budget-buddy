@@ -128,69 +128,82 @@ export const ExpensesTypePanel = () => {
 				</div>
 			</div>
 			<div className={styles[`expenses-type__container`]}>
-				{isLoading ? (
+				{ isLoading ? (
 					<div className={styles[`expenses-type__loading`]}>{skeleton}</div>
 				) : (
 					<>
-						{monthlyExpenses &&
-							monthlyExpenses.map((expense, index) => (
-								<div key={index} className={styles[`expenses-type__wrapper`]}>
-									<div className={styles[`expenses-type__box`]}>
-										<div
-											className={styles[`expenses-type__progress-bar`]}
-											style={{
-												background: `
+						{
+							// @ts-ignore
+							monthlyExpenses?.length <= 0 ? (
+								<>
+									<span className={styles[`expenses-type__warning`]}>
+										There's no expenses this month.
+									</span>
+								</>
+							) : (
+								<>
+									{ monthlyExpenses &&
+										monthlyExpenses.map((expense, index) => (
+											<div key={index} className={styles[`expenses-type__wrapper`]}>
+												<div className={styles[`expenses-type__box`]}>
+													<div
+														className={styles[`expenses-type__progress-bar`]}
+														style={{
+															background: `
                           radial-gradient(closest-side, white 60%, transparent 80% 100%),
                           conic-gradient(${handleColorPercentage(
-														expense.percentage
-													)} ${expense.percentage}%, #4c566a 0)
+																expense.percentage
+															)} ${expense.percentage}%, #4c566a 0)
                         `,
-											}}
-										>
-											<div className={styles[`expenses-type__icon`]}>
-												{iconsFormatter(expense.expenseType)}
-											</div>
-										</div>
-										<div className={styles[`expenses-type__badge`]}>
-											{lastMonthlyExpenses &&
-												lastMonthlyExpenses.map((lastExpense, index) => (
-													<div key={index}>
-														{expense.expenseType === lastExpense.expenseType ? (
-															<>
-																{expense.totalValue >
-																	lastExpense.totalValue && (
-																	<Badge
-																		paddingX={0.1}
-																		paddingY={0.1}
-																		customColor={"#AC997099"}
-																	>
-																		<ArrowElbowRight width={15} height={15} />
-																	</Badge>
-																)}
-																{expense.totalValue <
-																	lastExpense.totalValue && (
-																	<Badge
-																		paddingX={0.1}
-																		paddingY={0.1}
-																		customColor={"#A3BE8C99"}
-																	>
-																		<ArrowDownRight width={15} height={15} />
-																	</Badge>
-																)}
-															</>
-														) : null}
+														}}
+													>
+														<div className={styles[`expenses-type__icon`]}>
+															{iconsFormatter(expense.expenseType)}
+														</div>
 													</div>
-												))}
-										</div>
-									</div>
-									<span
-										className={styles[`expenses-type__value`]}
-										style={{ color: handleColorPercentage(expense.percentage) }}
-									>
-										{currencyFormatter.format(expense.totalValue)}
-									</span>
-								</div>
-							))}
+													<div className={styles[`expenses-type__badge`]}>
+														{lastMonthlyExpenses &&
+															lastMonthlyExpenses.map((lastExpense, index) => (
+																<div key={index}>
+																	{expense.expenseType === lastExpense.expenseType ? (
+																		<>
+																			{expense.totalValue >
+																				lastExpense.totalValue && (
+																					<Badge
+																						paddingX={0.1}
+																						paddingY={0.1}
+																						customColor={"#AC997099"}
+																					>
+																						<ArrowElbowRight width={15} height={15} />
+																					</Badge>
+																				)}
+																			{expense.totalValue <
+																				lastExpense.totalValue && (
+																					<Badge
+																						paddingX={0.1}
+																						paddingY={0.1}
+																						customColor={"#A3BE8C99"}
+																					>
+																						<ArrowDownRight width={15} height={15} />
+																					</Badge>
+																				)}
+																		</>
+																	) : null}
+																</div>
+															))}
+													</div>
+												</div>
+												<span
+													className={styles[`expenses-type__value`]}
+													style={{ color: handleColorPercentage(expense.percentage) }}
+												>
+													{currencyFormatter.format(expense.totalValue)}
+												</span>
+											</div>
+									))}
+								</>
+							)
+						}
 					</>
 				)}
 			</div>

@@ -157,17 +157,8 @@ export const ConnectionExpensesTable = () => {
 							</div>
 							<>
 								{ expensesPageable.length === 0 ? (
-									<div style={{
-										display: "flex",
-										gap: "0.5rem",
-										fontWeight: 200,
-										fontSize: "1.25rem"
-									}}>
-										<SmileySad
-											width={25}
-											height={25}
-										/>
-										connections expenses are empty.
+									<div className={`${styles[`expenses-table__warning`]}`}>
+										Connections expenses are empty.
 									</div>
 								) : (
 									<>

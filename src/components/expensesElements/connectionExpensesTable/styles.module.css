@@ -60,6 +60,14 @@
     justify-content: space-between;
 }
 
+.expenses-table__warning {
+    display: flex;
+    align-items: center;
+    font-size: 1.25rem;
+    font-weight: lighter;
+    color: var(--color-font-secondary);
+}
+
 @media (max-width: 768px) {
     .expenses-table {
         display: block;

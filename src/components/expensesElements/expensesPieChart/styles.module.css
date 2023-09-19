@@ -43,7 +43,7 @@
     padding: 4rem 0;
     font-size: 1.25rem;
     font-weight: 200;
-    color: var(--color-home-monthly-title-primary);
+    color: var(--color-font-secondary);
 }
 
 .home-monthly__graph {
@@ -93,6 +93,10 @@
 
 .home-monthly__chart-tooltip {
     color: var(--color-font-light);
+}
+
+.home-monthly__loading-container {
+    height: 10rem;
 }
 
 @media (max-width: 768px) {
