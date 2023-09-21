@@ -45,13 +45,17 @@ export default function ExpensesPieChart() {
 	const [isLoading, setIsLoading] = useState(true);
 
 	const renderLabelContent = (props: any) => {
+		console.log(props)
 		const { value, name, x, y, midAngle, fill, outerRadius, percentage, cx, cy } = props;
 		const xAngle = (percentage: number) => {
 			if (midAngle < -150) {
+				return -60;
+			}
+			if (midAngle < -100) {
 				return -50;
 			}
 			if (percentage < -125) {
-				return - 70;
+				return - 90;
 			}
 			return 0;
 		}
@@ -59,7 +63,7 @@ export default function ExpensesPieChart() {
 				<g transform={`translate(${x}, ${y})`} textAnchor={'start'}>
 					<text
 						x={xAngle(midAngle)}
-						y={0}
+						y={10}
 						fill={`${fill}`}
 						fontSize={"1rem"}
 						fontWeight={600}
@@ -202,7 +206,7 @@ export default function ExpensesPieChart() {
 							<div
 								className={styles[`home-monthly__graph`]}
 							>
-								<PieChart width={300} height={250}>
+								<PieChart width={350} height={250}>
 									<Pie
 										dataKey="totalValue"
 										isAnimationActive={true}
