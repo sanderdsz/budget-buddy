@@ -45,7 +45,6 @@ export default function ExpensesPieChart() {
 	const [isLoading, setIsLoading] = useState(true);
 
 	const renderLabelContent = (props: any) => {
-		console.log(props)
 		const { value, name, x, y, midAngle, fill, outerRadius, percentage, cx, cy } = props;
 		const xAngle = (percentage: number) => {
 			if (midAngle < -150) {
