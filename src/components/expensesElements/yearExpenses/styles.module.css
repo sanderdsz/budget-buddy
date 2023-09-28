@@ -23,6 +23,12 @@
     color: var(--gold-01);
 }
 
+.month-expenses__balance--small {
+    font-size: 2.25rem;
+    font-weight: 600;
+    color: var(--gold-01);
+}
+
 @media (max-width: 420px) {
     .month-expenses__title--first {
         font-size: 1.5rem;
@@ -34,5 +40,9 @@
 
     .month-expenses__balance {
         font-size: 1.5rem;
+    }
+
+    .month-expenses__balance--small {
+        font-size: 1.1rem;
     }
 }

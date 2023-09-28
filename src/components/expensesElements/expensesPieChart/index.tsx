@@ -47,6 +47,9 @@ export default function ExpensesPieChart() {
 	const renderLabelContent = (props: any) => {
 		const { value, name, x, y, midAngle, fill, outerRadius, percentage, cx, cy } = props;
 		const xAngle = (percentage: number) => {
+			if (midAngle < -170) {
+				return -50;
+			}
 			if (midAngle < -150) {
 				return -60;
 			}
@@ -205,7 +208,7 @@ export default function ExpensesPieChart() {
 							<div
 								className={styles[`home-monthly__graph`]}
 							>
-								<PieChart width={350} height={250}>
+								<PieChart width={300} height={250}>
 									<Pie
 										dataKey="totalValue"
 										isAnimationActive={true}
