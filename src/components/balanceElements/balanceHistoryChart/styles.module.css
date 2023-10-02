@@ -42,6 +42,11 @@
     justify-content: center;
 }
 
+.balance-history-chart__loading {
+    width: 600px;
+    height: 12rem;
+}
+
 @media (max-width: 768px) {
     .balance-history-chart__chart {
         left: -1.5rem;
@@ -55,5 +60,9 @@
 
     .balance-history-chart__title--second {
         font-size: 1.3rem;
+    }
+
+    .balance-history-chart__loading {
+        width: 100%;
     }
 }

@@ -36,10 +36,18 @@
     position: relative;
 }
 
+.year-expense-chart__loading {
+    height: 10rem;
+}
+
 @media (min-width: 768px) {
     .year-expense-chart__chart {
         display: flex;
         justify-content: center;
         width: 100%;
+    }
+
+    .year-expense-chart__loading {
+        width: 600px;
     }
 }

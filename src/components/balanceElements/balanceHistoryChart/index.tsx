@@ -243,7 +243,9 @@ export default function BalanceHistoryChart() {
 			</div>
 			<div className={styles[`balance-history-chart__chart`]}>
 				{isLoading ? (
-					<LoadingSpinner />
+					<div className={styles[`balance-history-chart__loading`]}>
+						<LoadingSpinner />
+					</div>
 				) : (
 					<>
 						<AreaChart

@@ -141,74 +141,74 @@ export const YearExpensesChart = () => {
 	}, []);
 
 	return (
-		<>
-			{isLoading ? (
-				<LoadingSpinner />
-			) : (
-				<div className={`${styles[`year-expense-chart__container`]}`}>
-					<div className={`${styles[`year-expense-chart__header`]}`}>
-						<div className={styles[`year-expense-chart__title`]}>
-							<div>
-								<span className={styles[`year-expense-chart__title--first`]}>
-									Expenses
-								</span>{" "}
-								<span className={styles[`year-expense-chart__title--second`]}>
-									History
-								</span>
-							</div>
-							<span className={styles[`year-expense-chart__title--subtitle`]}>
-								expenses per month
-							</span>
-						</div>
+		<div className={`${styles[`year-expense-chart__container`]}`}>
+			<div className={`${styles[`year-expense-chart__header`]}`}>
+				<div className={styles[`year-expense-chart__title`]}>
+					<div>
+						<span className={styles[`year-expense-chart__title--first`]}>
+							Expenses
+						</span>{" "}
+						<span className={styles[`year-expense-chart__title--second`]}>
+							History
+						</span>
 					</div>
-					<div className={`${styles[`year-expense-chart__chart`]}`}>
-						<AreaChart
-							width={window.innerWidth > 800 ? 650 : width / widthResponsive}
-							height={220}
-							data={yearExpense}
-						>
-							<defs>
-								<linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-									<stop offset="5%" stopColor="#5E81AC" stopOpacity={0} />
-									<stop offset="95%" stopColor="#5E81AC" stopOpacity={1} />
-								</linearGradient>
-							</defs>
-							<Tooltip
-								wrapperStyle={{ outline: "none" }}
-								content={<CustomTooltip />}
-							/>
-							<CartesianGrid
-								strokeDasharray="8"
-								vertical={false}
-								stroke="#4c566a"
-								strokeWidth={0.85}
-							/>
-							<Area
-								type="monotone"
-								dataKey={"value"}
-								stroke="#4c566a"
-								strokeWidth={2}
-								fill="url(#colorUv)"
-							/>
-							<YAxis
-								stroke="#4c566a"
-								axisLine={false}
-								tickLine={false}
-								style={{ fontSize: 12 }}
-								tick={<CustomYAxisTick />}
-							/>
-							<XAxis
-								dataKey={"month"}
-								stroke="#4c566a"
-								axisLine={false}
-								tickLine={false}
-								hide={false}
-								tick={<CustomAxisTick />}
-							/>
-						</AreaChart>
-					</div>
+					<span className={styles[`year-expense-chart__title--subtitle`]}>
+						expenses per month
+					</span>
 				</div>
-			)}
-		</>
+			</div>
+			<div className={`${styles[`year-expense-chart__chart`]}`}>
+				{isLoading ? (
+					<div className={`${styles[`year-expense-chart__loading`]}`}>
+						<LoadingSpinner />
+					</div>
+				) : (
+					<AreaChart
+						width={window.innerWidth > 800 ? 650 : width / widthResponsive}
+						height={220}
+						data={yearExpense}
+					>
+						<defs>
+							<linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+								<stop offset="5%" stopColor="#5E81AC" stopOpacity={0} />
+								<stop offset="95%" stopColor="#5E81AC" stopOpacity={1} />
+							</linearGradient>
+						</defs>
+						<Tooltip
+							wrapperStyle={{ outline: "none" }}
+							content={<CustomTooltip />}
+						/>
+						<CartesianGrid
+							strokeDasharray="8"
+							vertical={false}
+							stroke="#4c566a"
+							strokeWidth={0.85}
+						/>
+						<Area
+							type="monotone"
+							dataKey={"value"}
+							stroke="#4c566a"
+							strokeWidth={2}
+							fill="url(#colorUv)"
+						/>
+						<YAxis
+							stroke="#4c566a"
+							axisLine={false}
+							tickLine={false}
+							style={{ fontSize: 12 }}
+							tick={<CustomYAxisTick />}
+						/>
+						<XAxis
+							dataKey={"month"}
+							stroke="#4c566a"
+							axisLine={false}
+							tickLine={false}
+							hide={false}
+							tick={<CustomAxisTick />}
+						/>
+					</AreaChart>
+				)}
+			</div>
+		</div>
 	);
 };
