@@ -72,7 +72,10 @@ export default function Expenses() {
 		const dateFormatted = format(dateValue, "yyyy-MM-dd");
 		await formValidator();
 		const expenseData = {
-			value: expenseValue,
+			value: parseFloat(
+				// @ts-ignore
+				expenseValue.toString().replace(",", ".")
+			),
 			expenseType: expenseType,
 			date: dateFormatted,
 			description: expenseDescription,

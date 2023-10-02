@@ -13,7 +13,7 @@ import { ExpenseTypeButton } from "@/components/expensesElements/expenseTypeButt
 import { Input } from "@/components/basicElements/input";
 import { Button } from "@/components/basicElements/button";
 import { useRouter } from "next/navigation";
-import { CurrencyInputProps } from "react-currency-input-field";
+import { CurrencyInputProps, formatValue } from "react-currency-input-field";
 
 interface ExpenseProps {
 	id: number;
@@ -92,7 +92,10 @@ export default function Page({ params }: { params: { id: string } }) {
 		await formValidator();
 		const expenseData = {
 			id: params.id,
-			value: expenseValue,
+			value: parseFloat(
+				// @ts-ignore
+				expenseValue.toString().replace(",", ".")
+			),
 			expenseType: expenseType,
 			date: dateValue,
 			description: expenseDescription,

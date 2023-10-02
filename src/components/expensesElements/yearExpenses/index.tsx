@@ -28,7 +28,6 @@ export const YearExpenses = () => {
 			const response = await api.get(`/expenses/total/year`, config);
 			setYearExpense(currencyFormatter.format(response.data.value));
 			const teste = currencyFormatter.format(response.data.value);
-			console.log(teste.length)
 		} catch (e) {
 			console.log(e);
 		}
