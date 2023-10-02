@@ -241,121 +241,119 @@ export default function BalanceHistoryChart() {
 					/>
 				</div>
 			</div>
-			<div className={styles[`balance-history-chart__chart`]}>
-				{isLoading ? (
-					<div className={styles[`balance-history-chart__loading`]}>
-						<LoadingSpinner />
-					</div>
-				) : (
-					<>
-						<AreaChart
-							width={window.innerWidth > 800 ? 650 : width / widthResponsive}
-							height={200}
-							data={currentBalance === "week" ? weeklyBalance : monthlyBalance}
-							margin={{
-								top: 0,
-								right: 5,
-								left: 0,
-								bottom: 0,
-							}}
-						>
-							<defs>
-								<linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-									<stop offset="5%" stopColor="#5E81AC" stopOpacity={0} />
-									<stop offset="95%" stopColor="#5E81AC" stopOpacity={1} />
-								</linearGradient>
-							</defs>
-							<Tooltip
-								wrapperStyle={{ outline: "none" }}
-								content={<CustomTooltip />}
-							/>
-							{theme.activeTheme === "light" ? (
-								<>
-									<Area
-										type="monotone"
-										dataKey={
-											currentBalance === "week"
-												? "weekBalance.balance"
-												: "monthBalance.balance"
-										}
-										stroke="#4c566a"
-										strokeWidth={2}
-										fill="url(#colorUv)"
-									/>
-									<CartesianGrid
-										strokeDasharray="8"
-										vertical={false}
-										stroke="#c8ccd2"
-										strokeWidth={0.85}
-									/>
-									<YAxis
-										stroke="#4c566a"
-										axisLine={false}
-										tickLine={false}
-										style={{ fontSize: 12 }}
-										tick={<CustomYAxisTick />}
-									/>
-									<XAxis
-										dataKey={currentBalance === "week" ? "week" : "month"}
-										stroke="#4c566a"
-										axisLine={false}
-										tickLine={false}
-										hide={false}
-										tick={
-											currentBalance === "week" ? (
-												<CustomWeekAxisTick />
-											) : (
-												<CustomMonthAxisTick />
-											)
-										}
-									/>
-								</>
-							) : (
-								<>
-									<Area
-										type="monotone"
-										dataKey={
-											currentBalance === "week"
-												? "weekBalance.balance"
-												: "monthBalance.balance"
-										}
-										stroke="#c8ccd2"
-										strokeWidth={2}
-										fill="url(#colorUv)"
-									/>
-									<CartesianGrid
-										strokeDasharray="8"
-										vertical={false}
-										stroke="#4c566a"
-										strokeWidth={0.85}
-									/>
-									<YAxis
-										stroke="#4c566a"
-										axisLine={false}
-										tickLine={false}
-										style={{ fontSize: 12 }}
-										tick={<CustomYAxisTick />}
-									/>
-									<XAxis
-										dataKey={currentBalance === "week" ? "week" : "month"}
-										stroke="#c8ccd2"
-										axisLine={false}
-										tickLine={false}
-										hide={false}
-										tick={
-											currentBalance === "week" ? (
-												<CustomWeekAxisTick />
-											) : (
-												<CustomMonthAxisTick />
-											)
-										}
-									/>
-								</>
-							)}
-						</AreaChart>
-					</>
-				)}
-			</div>
+			{isLoading ? (
+				<div className={styles[`balance-history-chart__loading`]}>
+					<LoadingSpinner />
+				</div>
+			) : (
+				<div className={styles[`balance-history-chart__chart`]}>
+					<AreaChart
+						width={window.innerWidth > 800 ? 650 : width / widthResponsive}
+						height={200}
+						data={currentBalance === "week" ? weeklyBalance : monthlyBalance}
+						margin={{
+							top: 0,
+							right: 5,
+							left: 0,
+							bottom: 0,
+						}}
+					>
+						<defs>
+							<linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+								<stop offset="5%" stopColor="#5E81AC" stopOpacity={0} />
+								<stop offset="95%" stopColor="#5E81AC" stopOpacity={1} />
+							</linearGradient>
+						</defs>
+						<Tooltip
+							wrapperStyle={{ outline: "none" }}
+							content={<CustomTooltip />}
+						/>
+						{theme.activeTheme === "light" ? (
+							<>
+								<Area
+									type="monotone"
+									dataKey={
+										currentBalance === "week"
+											? "weekBalance.balance"
+											: "monthBalance.balance"
+									}
+									stroke="#4c566a"
+									strokeWidth={2}
+									fill="url(#colorUv)"
+								/>
+								<CartesianGrid
+									strokeDasharray="8"
+									vertical={false}
+									stroke="#c8ccd2"
+									strokeWidth={0.85}
+								/>
+								<YAxis
+									stroke="#4c566a"
+									axisLine={false}
+									tickLine={false}
+									style={{ fontSize: 12 }}
+									tick={<CustomYAxisTick />}
+								/>
+								<XAxis
+									dataKey={currentBalance === "week" ? "week" : "month"}
+									stroke="#4c566a"
+									axisLine={false}
+									tickLine={false}
+									hide={false}
+									tick={
+										currentBalance === "week" ? (
+											<CustomWeekAxisTick />
+										) : (
+											<CustomMonthAxisTick />
+										)
+									}
+								/>
+							</>
+						) : (
+							<>
+								<Area
+									type="monotone"
+									dataKey={
+										currentBalance === "week"
+											? "weekBalance.balance"
+											: "monthBalance.balance"
+									}
+									stroke="#c8ccd2"
+									strokeWidth={2}
+									fill="url(#colorUv)"
+								/>
+								<CartesianGrid
+									strokeDasharray="8"
+									vertical={false}
+									stroke="#4c566a"
+									strokeWidth={0.85}
+								/>
+								<YAxis
+									stroke="#4c566a"
+									axisLine={false}
+									tickLine={false}
+									style={{ fontSize: 12 }}
+									tick={<CustomYAxisTick />}
+								/>
+								<XAxis
+									dataKey={currentBalance === "week" ? "week" : "month"}
+									stroke="#c8ccd2"
+									axisLine={false}
+									tickLine={false}
+									hide={false}
+									tick={
+										currentBalance === "week" ? (
+											<CustomWeekAxisTick />
+										) : (
+											<CustomMonthAxisTick />
+										)
+									}
+								/>
+							</>
+						)}
+					</AreaChart>
+				</div>
+			)}
 		</div>
 	);
 }

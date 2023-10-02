@@ -157,12 +157,12 @@ export const YearExpensesChart = () => {
 					</span>
 				</div>
 			</div>
-			<div className={`${styles[`year-expense-chart__chart`]}`}>
-				{isLoading ? (
-					<div className={`${styles[`year-expense-chart__loading`]}`}>
-						<LoadingSpinner />
-					</div>
-				) : (
+			{isLoading ? (
+				<div className={`${styles[`year-expense-chart__loading`]}`}>
+					<LoadingSpinner />
+				</div>
+			) : (
+				<div className={`${styles[`year-expense-chart__chart`]}`}>
 					<AreaChart
 						width={window.innerWidth > 800 ? 650 : width / widthResponsive}
 						height={220}
@@ -207,8 +207,8 @@ export const YearExpensesChart = () => {
 							tick={<CustomAxisTick />}
 						/>
 					</AreaChart>
-				)}
-			</div>
+				</div>
+			)}
 		</div>
 	);
 };
