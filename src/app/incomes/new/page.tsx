@@ -59,7 +59,10 @@ export default function NewIncome() {
 		const dateFormatted = format(dateValue, "yyyy-MM-dd");
 		await formValidator();
 		const incomeData = {
-			value: incomeValue,
+			value: parseFloat(
+				// @ts-ignore
+				incomeValue.toString().replace(",", ".")
+			),
 			incomeType: incomeType,
 			date: dateFormatted,
 			description: incomeDescription,

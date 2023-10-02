@@ -68,12 +68,15 @@ export default function EditIncome({ params }: { params: { id: string } }) {
 	};
 
 	const handleIncomeRequest = async () => {
-		const dateFormatted = format(dateValue, "yyyy-MM-dd");
 		await formValidator();
 		const incomeData = {
-			value: incomeValue,
+			id: params.id,
+			value: parseFloat(
+				// @ts-ignore
+				incomeValue.toString().replace(",", ".")
+			),
 			incomeType: incomeType,
-			date: dateFormatted,
+			date: dateValue,
 			description: incomeDescription,
 		};
 		const accessToken = Cookies.get("budgetbuddy.accessToken");
@@ -85,7 +88,7 @@ export default function EditIncome({ params }: { params: { id: string } }) {
 		try {
 			if (!incomeValueFormError && !incomeTypeFormError) {
 				await api
-					.post("/incomes", incomeData, config)
+					.put(`/incomes/${params.id}`, incomeData, config)
 					.then(() => router.push("/incomes"));
 			}
 		} catch (e) {
