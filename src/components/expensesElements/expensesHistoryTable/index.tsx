@@ -238,7 +238,9 @@ export const ExpensesHistoryTable = () => {
 												colour={"outline"}
 												icon={"pencil"}
 												size={"small"}
-												onClick={() => router.push(`/expenses/${item.id}`)}
+												onClick={() =>
+													router.push(`/dashboard/expenses/${item.id}`)
+												}
 											/>
 											<Button
 												label={""}

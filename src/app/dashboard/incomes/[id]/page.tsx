@@ -1,7 +1,6 @@
 "use client";
 
 import styles from "../new/styles.module.css";
-import { Layout } from "@/layouts";
 import { Karla, Rubik } from "next/font/google";
 import { Card } from "@/components/layoutElements/card";
 import Calendar from "react-calendar";
@@ -11,7 +10,6 @@ import { InputValue } from "@/components/basicElements/inputValue";
 import { Input } from "@/components/basicElements/input";
 import { Button } from "@/components/basicElements/button";
 import { CurrencyInputProps } from "react-currency-input-field";
-import { format } from "date-fns";
 import Cookies from "js-cookie";
 import { api } from "@/services/api";
 import { IncomeTypeButton } from "@/components/incomesElements/incomeTypeButton";
@@ -89,7 +87,7 @@ export default function EditIncome({ params }: { params: { id: string } }) {
 			if (!incomeValueFormError && !incomeTypeFormError) {
 				await api
 					.put(`/incomes/${params.id}`, incomeData, config)
-					.then(() => router.push("/incomes"));
+					.then(() => router.push("/dashboard/incomes"));
 			}
 		} catch (e) {
 			console.log(e);
@@ -129,7 +127,6 @@ export default function EditIncome({ params }: { params: { id: string } }) {
 	}, [income]);
 
 	return (
-		<Layout>
 			<section className={`${styles[`incomes`]} ${karla.className}`}>
 				<div className={`${styles[`incomes__header`]}`}>
 					<span className={styles[`incomes-header__title--first`]}>Edit</span>{" "}
@@ -223,7 +220,7 @@ export default function EditIncome({ params }: { params: { id: string } }) {
 									<div className={styles[`incomes-register__container`]}>
 										<div className={styles[`incomes-register__wrapper`]}>
 											<Button
-												onClick={() => router.push("/incomes")}
+												onClick={() => router.push("/dashboard/incomes")}
 												label={"Cancel"}
 												colour={"secondary"}
 											/>
@@ -236,6 +233,5 @@ export default function EditIncome({ params }: { params: { id: string } }) {
 					</div>
 				</div>
 			</section>
-		</Layout>
 	);
 }

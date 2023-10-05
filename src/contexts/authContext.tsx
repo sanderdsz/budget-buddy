@@ -80,7 +80,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 				userChildren: userResponse.data.userChildren,
 				userParent: userResponse.data.userParent,
 			});
-			await router.push("home");
+			await router.push("dashboard");
 			return userResponse;
 		} catch (err) {
 			console.log(err);

@@ -2,7 +2,6 @@
 
 import styles from "./styles.module.css";
 import { Karla } from "next/font/google";
-import { Layout } from "@/layouts";
 import { Button } from "@/components/basicElements/button";
 import MonthlyExpensesPieChart from "@/components/expensesElements/monthlyExpensesPieChart";
 import { Card } from "@/components/layoutElements/card";
@@ -35,7 +34,6 @@ export default function Expenses() {
 	}, []);
 
 	return (
-		<Layout>
 			<section className={`${styles[`expenses`]} ${karla.className}`}>
 				<div className={styles[`expenses__wrapper`]}>
 					<div className={styles[`expenses-header_container`]}>
@@ -97,6 +95,5 @@ export default function Expenses() {
 					</div>
 				</div>
 			</section>
-		</Layout>
 	);
 }

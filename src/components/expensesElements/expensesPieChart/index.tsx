@@ -1,6 +1,14 @@
 "use client";
 
-import {Cell, ResponsiveContainer, Tooltip, Pie, PieChart, Label, Sector} from "recharts";
+import {
+	Cell,
+	ResponsiveContainer,
+	Tooltip,
+	Pie,
+	PieChart,
+	Label,
+	Sector,
+} from "recharts";
 import { useEffect, useState } from "react";
 import { colorsFormatter, iconsMapper } from "@/utils/colorsUtil";
 import { api } from "@/services/api";
@@ -45,7 +53,18 @@ export default function ExpensesPieChart() {
 	const [isLoading, setIsLoading] = useState(true);
 
 	const renderLabelContent = (props: any) => {
-		const { value, name, x, y, midAngle, fill, outerRadius, percentage, cx, cy } = props;
+		const {
+			value,
+			name,
+			x,
+			y,
+			midAngle,
+			fill,
+			outerRadius,
+			percentage,
+			cx,
+			cy,
+		} = props;
 		const xAngle = (percentage: number) => {
 			if (midAngle < -170) {
 				return -50;
@@ -57,48 +76,55 @@ export default function ExpensesPieChart() {
 				return -50;
 			}
 			if (percentage < -125) {
-				return - 90;
+				return -90;
 			}
 			return 0;
-		}
+		};
 		return (
-				<g transform={`translate(${x}, ${y})`} textAnchor={'start'}>
-					<text
-						x={xAngle(midAngle)}
-						y={10}
-						fill={`${fill}`}
-						fontSize={"1rem"}
-						fontWeight={600}
-					>
-						R$ {`${value}`}
-					</text>
-				</g>
+			<g transform={`translate(${x}, ${y})`} textAnchor={"start"}>
+				<text
+					x={xAngle(midAngle)}
+					y={10}
+					fill={`${fill}`}
+					fontSize={"1rem"}
+					fontWeight={600}
+				>
+					R$ {`${value}`}
+				</text>
+			</g>
 		);
 	};
 
 	const CustomTooltip = (props: any) => {
-		const { active, payload, label, name } = props
-		const backgroundColor = theme.activeTheme === "light" ? "#eceff4" : "#4c566a";
+		const { active, payload, label, name } = props;
+		const backgroundColor =
+			theme.activeTheme === "light" ? "#eceff4" : "#4c566a";
 		if (active && payload && payload.length) {
 			return (
-				<div style={{
-					padding: "0.25rem 0.5rem",
-					background: backgroundColor,
-					borderRadius: "5px",
-					boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
-					display: "flex",
-					flexDirection: "column",
-					gap: "0.25rem"
-				}}>
-					<span style={{
-						color: theme.activeTheme === "light" ? "#87A1C1" : "#c8ccd2"
-					}}>
-						{ payload[0].name.toLowerCase() }
+				<div
+					style={{
+						padding: "0.25rem 0.5rem",
+						background: backgroundColor,
+						borderRadius: "5px",
+						boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
+						display: "flex",
+						flexDirection: "column",
+						gap: "0.25rem",
+					}}
+				>
+					<span
+						style={{
+							color: theme.activeTheme === "light" ? "#87A1C1" : "#c8ccd2",
+						}}
+					>
+						{payload[0].name.toLowerCase()}
 					</span>
-					<span style={{
-						margin: 0,
-						color: theme.activeTheme === "light" ? "#87A1C1" : "#c8ccd2"
-					}}>
+					<span
+						style={{
+							margin: 0,
+							color: theme.activeTheme === "light" ? "#87A1C1" : "#c8ccd2",
+						}}
+					>
 						{`${currencyFormatter.format(payload[0].value)}`}
 					</span>
 				</div>
@@ -191,23 +217,23 @@ export default function ExpensesPieChart() {
 					)}
 				</span>
 			</div>
-			{ isLoading ? (
+			{isLoading ? (
 				<div className={styles[`home-monthly__loading-container`]}>
 					<LoadingSpinner />
 				</div>
 			) : (
 				<>
-					{ monthlyExpenses?.length === 0 ? (
+					{monthlyExpenses?.length === 0 ? (
 						<div className={styles[`home-monthly__graph-container`]}>
-							<div className={styles[`home-monthly__graph-container--no-content`]}>
+							<div
+								className={styles[`home-monthly__graph-container--no-content`]}
+							>
 								There's no spending's this month.
 							</div>
 						</div>
 					) : (
 						<div className={styles[`home-monthly__graph-container`]}>
-							<div
-								className={styles[`home-monthly__graph`]}
-							>
+							<div className={styles[`home-monthly__graph`]}>
 								<PieChart width={300} height={250}>
 									<Pie
 										dataKey="totalValue"
@@ -238,9 +264,11 @@ export default function ExpensesPieChart() {
 											width={50}
 											position="center"
 											fontWeight={600}
-											fill={theme.activeTheme === "light" ? "#232730" : "#c8ccd2"}
+											fill={
+												theme.activeTheme === "light" ? "#232730" : "#c8ccd2"
+											}
 										>
-											{ expense }
+											{expense}
 										</Label>
 									</Pie>
 									<Tooltip

@@ -233,7 +233,9 @@ export const IncomesHistoryTable = () => {
 												colour={"outline"}
 												icon={"pencil"}
 												size={"small"}
-												onClick={() => router.push(`/incomes/${item.id}`)}
+												onClick={() =>
+													router.push(`/dashboard/incomes/${item.id}`)
+												}
 											/>
 											<Button
 												label={""}

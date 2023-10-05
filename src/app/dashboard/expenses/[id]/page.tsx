@@ -1,7 +1,6 @@
 "use client";
 
 import styles from "../new/styles.module.css";
-import { Layout } from "@/layouts";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { api } from "@/services/api";
@@ -110,7 +109,7 @@ export default function Page({ params }: { params: { id: string } }) {
 			if (!expenseValueFormError && !expenseTypeFormError) {
 				await api
 					.put(`/expenses/${params.id}`, expenseData, config)
-					.then(() => router.push("/expenses"));
+					.then(() => router.push("/dashboard/expenses"));
 			}
 		} catch (e) {
 			console.log(e);
@@ -134,7 +133,6 @@ export default function Page({ params }: { params: { id: string } }) {
 	}, [expense]);
 
 	return (
-		<Layout>
 			<section className={`${karla.className}`}>
 				<div className={`${styles[`expenses__header`]}`}>
 					<span className={styles[`expenses-header__title--first`]}>Edit</span>{" "}
@@ -217,7 +215,7 @@ export default function Page({ params }: { params: { id: string } }) {
 						<div className={styles[`expenses-register__container`]}>
 							<div className={styles[`expenses-register__wrapper`]}>
 								<Button
-									onClick={() => router.push("/expenses")}
+									onClick={() => router.push("/dashboard/expenses")}
 									label={"Cancel"}
 									colour={"secondary"}
 								/>
@@ -227,6 +225,5 @@ export default function Page({ params }: { params: { id: string } }) {
 					</Card>
 				</div>
 			</section>
-		</Layout>
 	);
 }

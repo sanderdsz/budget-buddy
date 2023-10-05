@@ -1,13 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Layout } from "@/layouts";
 import { Karla } from "next/font/google";
 import LoadingSpinner from "@/components/basicElements/loadingSpinner";
 import { Card } from "@/components/layoutElements/card";
 import dynamic from "next/dynamic";
 import { AvailableBalance } from "@/components/balanceElements/availableBalance";
-import MonthlyExpensesPieChart from "@/components/expensesElements/monthlyExpensesPieChart";
 import { isMobile } from "react-device-detect";
 import { MonthlyTarget } from "@/components/balanceElements/monthlyTarget/monthlyTarget";
 import ExpensesPieChart from "@/components/expensesElements/expensesPieChart";
@@ -26,7 +24,7 @@ const DynamicBalanceHistoryChart = dynamic(
 	}
 );
 
-export default function Home() {
+export default function Dashboard() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [availableContainerResponsive, setavailableContainerResponsive] =
 		useState("");
@@ -43,7 +41,7 @@ export default function Home() {
 	}, []);
 
 	return (
-		<Layout>
+		<>
 			{isLoading ? (
 				<LoadingSpinner />
 			) : (
@@ -85,6 +83,6 @@ export default function Home() {
 					</div>
 				</section>
 			)}
-		</Layout>
+		</>
 	);
 }

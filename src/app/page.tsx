@@ -9,7 +9,7 @@ import { useAuth } from "@/contexts/authContext";
 import { Input } from "@/components/basicElements/input";
 
 import styles from "../styles/index.module.css";
-import {PasswordInput} from "@/components/basicElements/passwordInput";
+import { PasswordInput } from "@/components/basicElements/passwordInput";
 
 const rubik = Rubik({
 	subsets: ["latin"],

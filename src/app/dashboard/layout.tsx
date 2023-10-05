@@ -1,14 +1,14 @@
-import { ReactNode, useEffect, useState } from "react";
+"use client";
+
 import { Header } from "@/components/layoutElements/header";
 import { BottonNavigation } from "@/components/layoutElements/bottonNavigation";
+import {Suspense, useEffect, useState} from "react";
 
-import styles from "./styles.module.css";
-
-interface LayoutProps {
-	children: ReactNode;
-}
-
-export const Layout = ({ children }: LayoutProps) => {
+export default function DashboardLayout({
+	children,
+}: {
+	children: React.ReactNode;
+}) {
 	const [isMobile, setIsMobile] = useState(false);
 
 	useEffect(() => {
@@ -25,10 +25,22 @@ export const Layout = ({ children }: LayoutProps) => {
 	}, []);
 
 	return (
-		<>
-			<Header />
-			<main className={styles[`layout`]}>{children}</main>
-			<BottonNavigation />
-		</>
+		<section>
+			<nav>
+				<Header />
+			</nav>
+			<main style={{
+				marginTop: "5.1rem",
+				marginBottom: "5.5rem",
+				overflow: "hidden"
+			}}>
+				<Suspense>
+					{children}
+				</Suspense>
+			</main>
+			<footer>
+				<BottonNavigation />
+			</footer>
+		</section>
 	);
-};
+}

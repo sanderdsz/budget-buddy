@@ -12,7 +12,6 @@ import { format } from "date-fns";
 import { api } from "@/services/api";
 import Cookies from "js-cookie";
 import { Input } from "@/components/basicElements/input";
-import { Layout } from "@/layouts";
 import { Card } from "@/components/layoutElements/card";
 import { useRouter } from "next/navigation";
 
@@ -90,7 +89,7 @@ export default function Expenses() {
 			if (!expenseValueFormError && !expenseTypeFormError) {
 				await api
 					.post("/expenses", expenseData, config)
-					.then(() => router.push("/expenses"));
+					.then(() => router.push("/dashboard/expenses"));
 			}
 		} catch (e) {
 			console.log(e);
@@ -98,7 +97,6 @@ export default function Expenses() {
 	};
 
 	return (
-		<Layout>
 			<section className={`${styles[`expenses`]} ${karla.className}`}>
 				<div className={`${styles[`expenses__wrapper`]}`}>
 					<div className={`${styles[`expenses__header`]}`}>
@@ -181,7 +179,7 @@ export default function Expenses() {
 							<div className={styles[`expenses-register__container`]}>
 								<div className={styles[`expenses-register__wrapper`]}>
 									<Button
-										onClick={() => router.push("/expenses")}
+										onClick={() => router.push("/dashboard/expenses")}
 										label={"Cancel"}
 										colour={"secondary"}
 									/>
@@ -192,6 +190,5 @@ export default function Expenses() {
 					</div>
 				</div>
 			</section>
-		</Layout>
 	);
 }

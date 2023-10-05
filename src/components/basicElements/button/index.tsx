@@ -57,8 +57,8 @@ export const Button = ({
 			`}
 			style={{
 				height: `${height}rem`,
-				width: `${isLoading ? 4.5 : null}rem`
-		}}
+				width: `${isLoading ? 4.5 : null}rem`,
+			}}
 			{...props}
 		>
 			{isLoading ? (

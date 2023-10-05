@@ -45,10 +45,13 @@ export const YearExpenses = () => {
 					Expenses
 				</span>
 			</div>
-			<span className={yearExpense.length < 12 ?
-					styles[`month-expenses__balance`] :
-					styles[`month-expenses__balance--small`]
-			}>
+			<span
+				className={
+					yearExpense.length < 12
+						? styles[`month-expenses__balance`]
+						: styles[`month-expenses__balance--small`]
+				}
+			>
 				{yearExpense ? (
 					<>{yearExpense}</>
 				) : (

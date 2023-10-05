@@ -17,9 +17,9 @@ export const BottonNavigation = () => {
 				className={`
         ${styles.nav__button} 
         ${rubik.className}
-        ${pathname === "/home" ? styles["nav__button--active"] : ""}
+        ${pathname === "/dashboard" ? styles["nav__button--active"] : ""}
       `}
-				onClick={() => router.push("/home")}
+				onClick={() => router.push("/dashboard")}
 			>
 				<House height={30} width={30} />
 				Home
@@ -28,9 +28,9 @@ export const BottonNavigation = () => {
 				className={`
         ${styles.nav__button} 
         ${rubik.className}
-        ${pathname.includes("incomes") ? styles["nav__button--active"] : ""}
+        ${pathname.includes("/incomes") ? styles["nav__button--active"] : ""}
       `}
-				onClick={() => router.push("/incomes")}
+				onClick={() => router.push("/dashboard/incomes")}
 			>
 				<CreditCard height={30} width={30} />
 				Incomes
@@ -39,9 +39,9 @@ export const BottonNavigation = () => {
 				className={`
         ${styles.nav__button} 
         ${rubik.className}
-        ${pathname.includes("expenses") ? styles["nav__button--active"] : ""}
+        ${pathname.includes("/expenses") ? styles["nav__button--active"] : ""}
       `}
-				onClick={() => router.push("/expenses")}
+				onClick={() => router.push("/dashboard/expenses")}
 			>
 				<ChartLine height={30} width={30} />
 				Expenses
@@ -50,9 +50,9 @@ export const BottonNavigation = () => {
 				className={`
         ${styles.nav__button} 
         ${rubik.className}
-        ${pathname === "/profile" ? styles["nav__button--active"] : ""}
+        ${pathname.includes("/profile") ? styles["nav__button--active"] : ""}
       `}
-				onClick={() => router.push("/profile")}
+				onClick={() => router.push("/dashboard/profile")}
 			>
 				<User height={30} width={30} />
 				Profile

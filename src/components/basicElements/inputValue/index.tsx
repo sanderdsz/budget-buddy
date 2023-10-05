@@ -16,7 +16,7 @@ export const InputValue = ({ onValueChange, ...props }: CurrencyInputProps) => {
 			placeholder={"R$ 10.000,00"}
 			prefix="R$"
 			onValueChange={onValueChange}
-			intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
+			intlConfig={{ locale: "pt-BR", currency: "BRL" }}
 			{...props}
 		/>
 	);

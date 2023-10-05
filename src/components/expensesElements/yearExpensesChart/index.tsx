@@ -44,18 +44,21 @@ export const YearExpensesChart = () => {
 
 	const CustomTooltip = ({ active, payload, label }: any) => {
 		const fontColor = theme.activeTheme === "light" ? "#87A1C1" : "#c8ccd2";
-		const backgroundColor = theme.activeTheme === "light" ? "#eceff4" : "#4c566a";
+		const backgroundColor =
+			theme.activeTheme === "light" ? "#eceff4" : "#4c566a";
 		if (active && payload && payload.length) {
 			return (
-				<div style={{
-					padding: "0.25rem 0.5rem",
-					background: backgroundColor,
-					borderRadius: "5px",
-					boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
-					display: "flex",
-					flexDirection: "column",
-					gap: "0.25rem"
-				}}>
+				<div
+					style={{
+						padding: "0.25rem 0.5rem",
+						background: backgroundColor,
+						borderRadius: "5px",
+						boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
+						display: "flex",
+						flexDirection: "column",
+						gap: "0.25rem",
+					}}
+				>
 					<p style={{ margin: 0, color: fontColor }}>{`${monthNameFormatter(
 						label,
 						true

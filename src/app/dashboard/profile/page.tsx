@@ -1,7 +1,6 @@
 "use client";
 
 import styles from "./styles.module.css";
-import { Layout } from "@/layouts";
 import { Karla } from "next/font/google";
 import { Card } from "@/components/layoutElements/card";
 import Cookies from "js-cookie";
@@ -149,7 +148,6 @@ export default function Profile() {
 	}, []);
 
 	return (
-		<Layout>
 			<section className={`${styles[`profile`]} ${karla.className}`}>
 				<div className={`${styles[`profile__wrapper`]}`}>
 					<div className={`${styles[`profile-header__container`]}`}>
@@ -404,6 +402,5 @@ export default function Profile() {
 					</div>
 				</div>
 			</section>
-		</Layout>
 	);
 }

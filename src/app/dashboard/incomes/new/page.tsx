@@ -77,7 +77,7 @@ export default function NewIncome() {
 			if (!incomeValueFormError && !incomeTypeFormError) {
 				await api
 					.post("/incomes", incomeData, config)
-					.then(() => router.push("/incomes"));
+					.then(() => router.push("/dashboard/incomes"));
 			}
 		} catch (e) {
 			console.log(e);
@@ -168,7 +168,7 @@ export default function NewIncome() {
 							<div className={styles[`incomes-register__container`]}>
 								<div className={styles[`incomes-register__wrapper`]}>
 									<Button
-										onClick={() => router.push("/incomes")}
+										onClick={() => router.push("/dashboard/incomes")}
 										label={"Cancel"}
 										colour={"secondary"}
 									/>
