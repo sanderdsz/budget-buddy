@@ -1,7 +1,6 @@
 "use client";
 
 import styles from "./styles.module.css";
-import { Layout } from "@/layouts";
 import { Karla, Rubik } from "next/font/google";
 import { Card } from "@/components/layoutElements/card";
 import Calendar from "react-calendar";
@@ -85,100 +84,98 @@ export default function NewIncome() {
 	};
 
 	return (
-		<Layout>
-			<section className={`${styles[`incomes`]} ${karla.className}`}>
-				<div className={`${styles[`incomes__header`]}`}>
-					<span className={styles[`incomes-header__title--first`]}>New</span>{" "}
-					<span className={styles[`incomes-header__title--second`]}>
-						Income
-					</span>
-				</div>
-				<div className={`${styles[`incomes__wrapper`]}`}>
-					<div className={styles[`incomes-top__container`]}>
-						<Card>
-							<div className={styles[`incomes-calendar__wrapper`]}>
-								<div className={styles[`incomes-calendar__container`]}>
-									<Calendar
-										locale={"en-US"}
-										className={[`${rubik.className}`]}
-										// @ts-ignore
-										onChange={setDateValue}
-										value={dateValue}
-									/>
-									<span className={styles[`incomes-calendar__label`]}>
-										select date
-									</span>
-								</div>
-							</div>
-						</Card>
-					</div>
-					<div className={styles[`incomes-bottom__container`]}>
-						<Card>
-							<div className={styles[`incomes-value__container`]}>
-								<InputValue
-									onValueChange={(value) => handleIncomeValue(value)}
+		<section className={`${styles[`incomes`]} ${karla.className}`}>
+			<div className={`${styles[`incomes__header`]}`}>
+				<span className={styles[`incomes-header__title--first`]}>New</span>{" "}
+				<span className={styles[`incomes-header__title--second`]}>
+					Income
+				</span>
+			</div>
+			<div className={`${styles[`incomes__wrapper`]}`}>
+				<div className={styles[`incomes-top__container`]}>
+					<Card>
+						<div className={styles[`incomes-calendar__wrapper`]}>
+							<div className={styles[`incomes-calendar__container`]}>
+								<Calendar
+									locale={"en-US"}
+									className={[`${rubik.className}`]}
+									// @ts-ignore
+									onChange={setDateValue}
+									value={dateValue}
 								/>
-								{!incomeValueFormError ? (
-									<div className={styles[`incomes__label`]}>
-										<span>set value</span>
-									</div>
-								) : (
-									<div className={styles[`incomes__label--error`]}>
-										<span>set value</span>
-									</div>
-								)}
-							</div>
-							<div className={styles[`incomes-type-selector__container`]}>
-								<div className={styles[`incomes-type-selector__wrapper`]}>
-									{incomesTypes.map((income, index) => (
-										<div
-											key={index}
-											className={styles[`incomes-type-selector__button`]}
-										>
-											<IncomeTypeButton
-												selected={incomeType === income}
-												onClick={() => setincomeType(income)}
-												width={120}
-												height={20}
-												label={income}
-											/>
-										</div>
-									))}
-								</div>
-								{!incomeTypeFormError ? (
-									<div className={styles[`incomes__label`]}>
-										<span>select type</span>
-									</div>
-								) : (
-									<div className={styles[`incomes__label--error`]}>
-										<span>select type</span>
-									</div>
-								)}
-							</div>
-							<div>
-								<div className={styles[`incomes-description__container`]}>
-									<Input
-										onChange={(e) => setIncomeDescription(e.target.value)}
-									/>
-								</div>
-								<span className={styles[`incomes__label`]}>
-									set description
+								<span className={styles[`incomes-calendar__label`]}>
+									select date
 								</span>
 							</div>
-							<div className={styles[`incomes-register__container`]}>
-								<div className={styles[`incomes-register__wrapper`]}>
-									<Button
-										onClick={() => router.push("/dashboard/incomes")}
-										label={"Cancel"}
-										colour={"secondary"}
-									/>
-								</div>
-								<Button onClick={handleIncomeRequest} label={"Register"} />
-							</div>
-						</Card>
-					</div>
+						</div>
+					</Card>
 				</div>
-			</section>
-		</Layout>
+				<div className={styles[`incomes-bottom__container`]}>
+					<Card>
+						<div className={styles[`incomes-value__container`]}>
+							<InputValue
+								onValueChange={(value) => handleIncomeValue(value)}
+							/>
+							{!incomeValueFormError ? (
+								<div className={styles[`incomes__label`]}>
+									<span>set value</span>
+								</div>
+							) : (
+								<div className={styles[`incomes__label--error`]}>
+									<span>set value</span>
+								</div>
+							)}
+						</div>
+						<div className={styles[`incomes-type-selector__container`]}>
+							<div className={styles[`incomes-type-selector__wrapper`]}>
+								{incomesTypes.map((income, index) => (
+									<div
+										key={index}
+										className={styles[`incomes-type-selector__button`]}
+									>
+										<IncomeTypeButton
+											selected={incomeType === income}
+											onClick={() => setincomeType(income)}
+											width={120}
+											height={20}
+											label={income}
+										/>
+									</div>
+								))}
+							</div>
+							{!incomeTypeFormError ? (
+								<div className={styles[`incomes__label`]}>
+									<span>select type</span>
+								</div>
+							) : (
+								<div className={styles[`incomes__label--error`]}>
+									<span>select type</span>
+								</div>
+							)}
+						</div>
+						<div>
+							<div className={styles[`incomes-description__container`]}>
+								<Input
+									onChange={(e) => setIncomeDescription(e.target.value)}
+								/>
+							</div>
+							<span className={styles[`incomes__label`]}>
+								set description
+							</span>
+						</div>
+						<div className={styles[`incomes-register__container`]}>
+							<div className={styles[`incomes-register__wrapper`]}>
+								<Button
+									onClick={() => router.push("/dashboard/incomes")}
+									label={"Cancel"}
+									colour={"secondary"}
+								/>
+							</div>
+							<Button onClick={handleIncomeRequest} label={"Register"} />
+						</div>
+					</Card>
+				</div>
+			</div>
+		</section>
 	);
 }
