@@ -7,6 +7,7 @@ import { ThemeToggle } from "@/components/basicElements/themeToggle";
 import { Button } from "@/components/basicElements/button";
 import { useAuth } from "@/contexts/authContext";
 import { Input } from "@/components/basicElements/input";
+import { signIn } from "next-auth/react"
 
 import styles from "../styles/index.module.css";
 import { PasswordInput } from "@/components/basicElements/passwordInput";
@@ -101,8 +102,8 @@ export default function Index() {
 								<Button
 									label="sign up"
 									colour="outline"
-									onClick={() => null}
-									disabled={true}
+									onClick={() => signIn("github")}
+									disabled={false}
 									height={2}
 								/>
 							</div>
