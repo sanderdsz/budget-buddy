@@ -8,9 +8,10 @@ import { Button } from "@/components/basicElements/button";
 import { useAuth } from "@/contexts/authContext";
 import { Input } from "@/components/basicElements/input";
 import { signIn } from "next-auth/react"
+import { SocialLoginButton } from "@/components/basicElements/socialLoginButton";
+import { PasswordInput } from "@/components/basicElements/passwordInput";
 
 import styles from "../styles/index.module.css";
-import { PasswordInput } from "@/components/basicElements/passwordInput";
 
 const rubik = Rubik({
 	subsets: ["latin"],
@@ -106,6 +107,9 @@ export default function Index() {
 									disabled={false}
 									height={2}
 								/>
+							</div>
+							<div className={styles[`social-login__container`]}>
+								<SocialLoginButton provider="Google" />
 							</div>
 						</div>
 					</div>
