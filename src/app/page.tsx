@@ -109,7 +109,14 @@ export default function Index() {
 								/>
 							</div>
 							<div className={styles[`social-login__container`]}>
-								<SocialLoginButton provider="Google" />
+								<SocialLoginButton
+									provider="Google"
+									onClick={() => signIn("google")}
+								/>
+								<SocialLoginButton
+									provider="Github"
+									onClick={() => signIn("github")}
+								/>
 							</div>
 						</div>
 					</div>

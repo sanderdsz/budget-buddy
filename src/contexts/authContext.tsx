@@ -1,9 +1,10 @@
 "use client";
 
-import { createContext, ReactNode, useContext, useState } from "react";
+import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-import { api } from "../services/api";
+import { api } from "@/services/api";
+import {useSession} from "next-auth/react";
 
 export type User = {
 	id: number;
@@ -59,6 +60,7 @@ const AuthContext = createContext({} as AuthContextData);
 export const AuthProvider = ({ children }: AuthProviderProps) => {
 	const [user, setUser] = useState<User>();
 	const router = useRouter();
+	const { data: session } = useSession();
 
 	const signIn = async ({ email, password }: SignInProps) => {
 		try {
@@ -110,9 +112,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 	const verifyToken = async (): Promise<VerifyTokenParams | undefined> => {
 		const accessToken = Cookies.get("budgetbuddy.accessToken");
 		const email = Cookies.get("budgetbuddy.email");
+		/*
 		if (!accessToken || !email) {
 			router.push("/");
 		}
+	 	*/
 		const data = {
 			accessToken: accessToken,
 			email: email,
@@ -127,11 +131,17 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 				email: verifyTokenResponse.data.email,
 			};
 		} catch (e: any) {
+			/*
 			if (e.response.status === 403 || e.response.status === 401) {
 				router.push("/");
-			}
+			}*/
+			console.log(e);
 		}
 	};
+
+	useEffect(() => {
+		console.log(session)
+	}, [session]);
 
 	return (
 		<AuthContext.Provider value={{ user, signIn, verifyToken, fetchUser }}>

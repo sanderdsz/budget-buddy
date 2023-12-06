@@ -1,9 +1,9 @@
 import React from "react";
 import { Rubik } from "next/font/google";
 import {GoogleLogo, Pencil, Trash, CheckFat, X, GithubLogo} from "@phosphor-icons/react";
+import LoadingSpinner from "@/components/basicElements/loadingSpinner";
 
 import styles from "./styles.module.css";
-import LoadingSpinner from "@/components/basicElements/loadingSpinner";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	colour?:

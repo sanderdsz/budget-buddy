@@ -3,6 +3,7 @@ import { AuthProvider } from "@/contexts/authContext";
 import { ThemeProvider } from "@/contexts/themeContext";
 
 import "../styles/globals.css";
+import OauthContext from "@/contexts/oauthContext";
 
 export default function RootLayout({
 	children,
@@ -12,9 +13,11 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body>
-				<AuthProvider>
-					<ThemeProvider>{children}</ThemeProvider>
-				</AuthProvider>
+				<OauthContext>
+					<AuthProvider>
+						<ThemeProvider>{children}</ThemeProvider>
+					</AuthProvider>
+				</OauthContext>
 			</body>
 		</html>
 	);
