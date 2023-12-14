@@ -1,15 +1,17 @@
 "use client";
 
 import Head from "next/head";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { Rubik, Karla } from "next/font/google";
 import { ThemeToggle } from "@/components/basicElements/themeToggle";
 import { Button } from "@/components/basicElements/button";
 import { useAuth } from "@/contexts/authContext";
 import { Input } from "@/components/basicElements/input";
-import { signIn } from "next-auth/react"
+import { signIn, useSession } from "next-auth/react"
 import { SocialLoginButton } from "@/components/basicElements/socialLoginButton";
 import { PasswordInput } from "@/components/basicElements/passwordInput";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 import styles from "../styles/index.module.css";
 
@@ -26,6 +28,8 @@ export default function Index() {
 	const [message, setMessage] = useState("");
 	const [classname, setClassname] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
+	const { data: session }: any = useSession();
+	const router = useRouter();
 
 	const loginRedirection = () => {
 		setIsLoading(true);
@@ -40,6 +44,16 @@ export default function Index() {
 			}
 		});
 	};
+
+	const googleLogin = () => {
+		signIn("google")
+	}
+
+	useEffect(() => {
+		if (session && session.user.email) {
+			auth.sessionCookies(session);
+		}
+	}, [session]);
 
 	return (
 		<>
@@ -103,20 +117,21 @@ export default function Index() {
 								<Button
 									label="sign up"
 									colour="outline"
-									onClick={() => signIn("github")}
-									disabled={false}
+									disabled={true}
 									height={2}
 								/>
 							</div>
 							<div className={styles[`social-login__container`]}>
 								<SocialLoginButton
 									provider="Google"
-									onClick={() => signIn("google")}
+									onClick={() => googleLogin()}
 								/>
+								{/*
 								<SocialLoginButton
 									provider="Github"
 									onClick={() => signIn("github")}
 								/>
+								*/}
 							</div>
 						</div>
 					</div>

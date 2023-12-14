@@ -4,7 +4,7 @@ import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { api } from "@/services/api";
-import {useSession} from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 export type User = {
 	id: number;
@@ -49,6 +49,7 @@ type AuthContextData = {
 	user?: User;
 	verifyToken: () => Promise<VerifyTokenParams | undefined>;
 	fetchUser: () => Promise<void>;
+	sessionCookies: (session: any) => Promise<void>;
 };
 
 const AuthContext = createContext({} as AuthContextData);
@@ -60,7 +61,7 @@ const AuthContext = createContext({} as AuthContextData);
 export const AuthProvider = ({ children }: AuthProviderProps) => {
 	const [user, setUser] = useState<User>();
 	const router = useRouter();
-	const { data: session } = useSession();
+	const { data: session }: any = useSession();
 
 	const signIn = async ({ email, password }: SignInProps) => {
 		try {
@@ -112,11 +113,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 	const verifyToken = async (): Promise<VerifyTokenParams | undefined> => {
 		const accessToken = Cookies.get("budgetbuddy.accessToken");
 		const email = Cookies.get("budgetbuddy.email");
-		/*
 		if (!accessToken || !email) {
 			router.push("/");
 		}
-	 	*/
 		const data = {
 			accessToken: accessToken,
 			email: email,
@@ -131,20 +130,22 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 				email: verifyTokenResponse.data.email,
 			};
 		} catch (e: any) {
-			/*
 			if (e.response.status === 403 || e.response.status === 401) {
 				router.push("/");
-			}*/
+			}
 			console.log(e);
 		}
 	};
 
-	useEffect(() => {
+	const sessionCookies = async (session : any)  => {
 		console.log(session)
-	}, [session]);
+		Cookies.set("budgetbuddy.accessToken", session.accessToken);
+		Cookies.set("budgetbuddy.email", session.user.email);
+		router.push("/dashboard")
+	}
 
 	return (
-		<AuthContext.Provider value={{ user, signIn, verifyToken, fetchUser }}>
+		<AuthContext.Provider value={{ user, signIn, verifyToken, fetchUser, sessionCookies }}>
 			{children}
 		</AuthContext.Provider>
 	);
