@@ -16,6 +16,7 @@ import FormData from "form-data";
 import { Divider } from "@/components/basicElements/divider";
 import { isMobile } from "react-device-detect";
 import ConnectionsRequestsSentTable from "@/components/profileElements/connectionsRequestsSentTable";
+import { useSession } from "next-auth/react";
 
 const karla = Karla({
 	subsets: ["latin"],
@@ -25,7 +26,9 @@ const karla = Karla({
 export default function Profile() {
 	const auth = useAuth();
 	const theme = useTheme();
+	const { data: session }: any = useSession();
 	const accessToken = Cookies.get("budgetbuddy.accessToken");
+	const provider = Cookies.get("budgetbuddy.provider");
 	const [avatar, setAvatar] = useState("");
 	const [user, setUser] = useState<User>();
 	const [firstName, setFirstName] = useState("");
@@ -140,12 +143,20 @@ export default function Profile() {
 	};
 
 	useEffect(() => {
-		fetchAvatar();
+		if (!provider) {
+			fetchAvatar();
+		}
 		auth.fetchUser();
 		setAvailableContainerResponsive(
 			isMobile ? `profile__container--lg` : `profile__container--md`
 		);
 	}, []);
+
+	useEffect(() => {
+		if (session && session.user) {
+			setAvatar(session.user.image);
+		}
+	}, [session]);
 
 	return (
 			<section className={`${styles[`profile`]} ${karla.className}`}>
@@ -193,11 +204,12 @@ export default function Profile() {
 													size={100}
 													//@ts-ignore
 													src={avatar ? avatar : selectedImage}
+													disabled={provider ? true : false}
 												/>
 											</>
 										)}
 										<span className={`${styles[`profile-info__label`]}`}>
-											set avatar
+											{ provider ? null : `set avatar` }
 										</span>
 									</div>
 									<div style={{ width: "100%" }}>

@@ -63,7 +63,6 @@ export const options: NextAuthOptions = {
     },
     */
     async session({ session, token, user }: any) {
-      console.log("API TOKEN: " + apiAccessToken)
       session.accessToken = apiAccessToken;
       return session
     }

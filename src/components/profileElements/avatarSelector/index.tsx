@@ -6,12 +6,14 @@ interface AvatarSelectorProps {
 	src: string;
 	size: number;
 	onChange: (file: File) => void;
+	disabled?: boolean;
 }
 
 export const AvatarSelector = ({
 	onChange,
 	src,
 	size,
+	disabled
 }: AvatarSelectorProps) => {
 	const inputRef = useRef<HTMLInputElement>(null);
 
@@ -33,6 +35,7 @@ export const AvatarSelector = ({
 			<button
 				onClick={handleButtonClick}
 				className={`${styles[`avatar-selector__button`]}`}
+				disabled={disabled}
 			>
 				<Avatar size={size} src={src} />
 			</button>
@@ -42,6 +45,7 @@ export const AvatarSelector = ({
 				accept="image/*"
 				style={{ display: "none" }}
 				onChange={handleFileChange}
+				disabled={disabled}
 			/>
 		</div>
 	);

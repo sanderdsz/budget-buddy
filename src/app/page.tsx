@@ -10,8 +10,6 @@ import { Input } from "@/components/basicElements/input";
 import { signIn, useSession } from "next-auth/react"
 import { SocialLoginButton } from "@/components/basicElements/socialLoginButton";
 import { PasswordInput } from "@/components/basicElements/passwordInput";
-import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
 
 import styles from "../styles/index.module.css";
 
@@ -29,7 +27,6 @@ export default function Index() {
 	const [classname, setClassname] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 	const { data: session }: any = useSession();
-	const router = useRouter();
 
 	const loginRedirection = () => {
 		setIsLoading(true);

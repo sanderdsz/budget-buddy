@@ -7,6 +7,7 @@ import { useTheme } from "@/contexts/themeContext";
 import { useEffect, useState } from "react";
 import { api } from "@/services/api";
 import Cookies from "js-cookie";
+import { useSession } from "next-auth/react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -19,8 +20,10 @@ const rubik = Rubik({
 
 export const Header = () => {
 	const auth = useAuth();
+	const { data: session }: any = useSession();
 	const theme = useTheme();
 	const accessToken = Cookies.get("budgetbuddy.accessToken");
+	const provider = Cookies.get("budgetbuddy.provider");
 	const [avatar, setAvatar] = useState("");
 	const config = {
 		headers: {
@@ -32,8 +35,16 @@ export const Header = () => {
 	useEffect(() => {
 		auth.verifyToken();
 		auth.fetchUser();
-		fetchAvatar();
+		if (!provider) {
+			fetchAvatar();
+		}
 	}, []);
+
+	useEffect(() => {
+		if (session && session.user) {
+			setAvatar(session.user.image);
+		}
+	}, [session]);
 
 	const fetchAvatar = async () => {
 		try {

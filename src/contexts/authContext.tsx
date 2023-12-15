@@ -13,6 +13,7 @@ export type User = {
 	lastName?: string;
 	userChildren: User[];
 	userParent: User;
+	externalAvatar?: string;
 };
 
 type SignInProps = {
@@ -138,10 +139,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 	};
 
 	const sessionCookies = async (session : any)  => {
-		console.log(session)
 		Cookies.set("budgetbuddy.accessToken", session.accessToken);
 		Cookies.set("budgetbuddy.email", session.user.email);
-		router.push("/dashboard")
+		Cookies.set("budgetbuddy.provider", "google");
+		router.push("/dashboard");
 	}
 
 	return (
