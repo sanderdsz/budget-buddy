@@ -153,7 +153,7 @@ export default function Profile() {
 	}, []);
 
 	useEffect(() => {
-		if (session && session.user) {
+		if (session && session.user && session.user.image !== undefined) {
 			setAvatar(session.user.image);
 		}
 	}, [session]);
