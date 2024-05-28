@@ -70,6 +70,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 			const { accessToken } = response.data;
 			Cookies.set("budgetbuddy.accessToken", accessToken);
 			Cookies.set("budgetbuddy.email", email);
+			Cookies.remove("budgetbuddy.provider");
 			const config = {
 				headers: {
 					Authorization: `Bearer ${accessToken}`,
